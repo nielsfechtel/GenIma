@@ -3,9 +3,10 @@ declare global {
     interface ProcessEnv {
       PORT: number
       DB_CONNECTION_URI: string
-      EMAIL: string
-      EMAIL_APP_PASSWORD: string
       JWT_KEY: string
+      PORT: number
+      RESEND_API_TOKEN: string
+      HELLO_EMAIL_ADDRESS: string
     }
   }
 }

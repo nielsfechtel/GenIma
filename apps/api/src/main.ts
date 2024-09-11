@@ -12,7 +12,7 @@ async function bootstrap() {
 
   // get port
   const configService = app.get<ConfigService>(ConfigService)
-  const port = configService.get<number>('port')
+  const port = configService.get<number>('PORT')
   if (!port) {
     throw new Error(`Environment variable port is missing`)
   }
