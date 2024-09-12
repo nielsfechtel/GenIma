@@ -57,6 +57,12 @@ export async function login(prevState: any, formData: FormData) {
   }
 }
 
+export async function loginWithGoogle() {
+  return signIn('google', {
+    redirectTo: '/dashboard',
+  })
+}
+
 export async function logout() {
   await signOut()
 }

@@ -7,6 +7,13 @@ import en from './messages/en.json'
 type Messages = typeof en
 
 declare global {
+  interface ProcessEnv {
+    NEXT_PUBLIC_NESTJS_SERVER: string
+    AUTH_SECRET: string
+    AUTH_GOOGLE_ID: string
+    AUTH_GOOGLE_SECRET: string
+  }
+
   // Use type safe message keys with `next-intl`
   interface IntlMessages extends Messages {}
 }

@@ -5,6 +5,9 @@ import { MailerModule } from '@nestjs-modules/mailer'
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { MongooseModule } from '@nestjs/mongoose'
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -12,6 +15,7 @@ import { ConfigModule } from '@nestjs/config'
       envFilePath: './config/.env.local',
       isGlobal: true,
     }),
+    MongooseModule.forRoot(process.env.DB_CONNECTION_URI),
     MailerModule.forRoot({
       transport: {
         host: process.env.RESEND_HOST,
@@ -32,6 +36,8 @@ import { ConfigModule } from '@nestjs/config'
       },
     }),
     TrpcModule,
+    AuthModule,
+    UsersModule,
   ],
   providers: [AppService],
   controllers: [AppController],

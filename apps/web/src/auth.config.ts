@@ -1,5 +1,7 @@
 import type { NextAuthConfig } from 'next-auth'
+import Google from 'next-auth/providers/google'
 
+// we have this here because it is used in two places - middleware.ts and auth.ts
 export const authConfig = {
   session: {
     strategy: 'jwt',
@@ -16,5 +18,5 @@ export const authConfig = {
       return isAuthenticated
     },
   },
-  providers: [],
+  providers: [Google],
 } satisfies NextAuthConfig

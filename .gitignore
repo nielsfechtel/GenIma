@@ -7,3 +7,6 @@ build
 .env.dev
 .env.production
 .env.prod
+
+# don't want the design-files
+design
