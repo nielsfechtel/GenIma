@@ -5,7 +5,11 @@ declare global {
       DB_CONNECTION_URI: string
       JWT_KEY: string
       PORT: number
-      RESEND_API_TOKEN: string
+      BASE_URL: string
+      RESEND_HOST: string
+      RESEND_PORT: number
+      RESEND_USERNAME: string
+      RESEND_PASSWORD: string
       HELLO_EMAIL_ADDRESS: string
     }
   }
