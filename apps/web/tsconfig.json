@@ -3,8 +3,8 @@
   "compilerOptions": {
     // The following options are not required as they've been moved to the root tsconfig
     // "paths": {
-    //   "@/*": ["./*"]
-    // }
+    //   "@/*": ["./apps/web/*"]
+    // },
     // "incremental": true,
     // "forceConsistentCasingInFileNames": true,
     // "skipLibCheck": true,
