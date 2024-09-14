@@ -20,12 +20,11 @@ async function bootstrap() {
 
   // Security practices
   app.enableCors()
+  app.use(helmet())
 
   // TRPC setup
   const trpc = app.get(TrpcRouter)
   trpc.applyMiddleware(app)
-
-  app.use(helmet())
 
   // get port
   const configService = app.get<ConfigService>(ConfigService)
