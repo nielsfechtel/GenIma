@@ -2,6 +2,7 @@ import { TrpcRouter } from '@api/trpc/trpc.router'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import helmet from 'helmet'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
@@ -23,6 +24,8 @@ async function bootstrap() {
   // TRPC setup
   const trpc = app.get(TrpcRouter)
   trpc.applyMiddleware(app)
+
+  app.use(helmet())
 
   // get port
   const configService = app.get<ConfigService>(ConfigService)

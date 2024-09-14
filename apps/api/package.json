@@ -34,6 +34,7 @@
     "@trpc/server": "^10.45.2",
     "bcryptjs": "^2.4.3",
     "mongoose": "^8.6.2",
+    "helmet": "^7.1.0",
     "reflect-metadata": "^0.2.0",
     "resend": "^4.0.0",
     "rxjs": "^7.8.1",
