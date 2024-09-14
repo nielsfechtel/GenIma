@@ -7,3 +7,4 @@ build
 .env.dev
 .env.production
 .env.prod
+design/
