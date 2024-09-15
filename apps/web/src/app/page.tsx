@@ -3,8 +3,8 @@ import TestLoginForm from '@web/src/components/testLoginForm'
 import { getTranslations } from 'next-intl/server'
 
 export default async function Home() {
-  const test = await trpc.auth.helloFromAuth.query()
-  const { greeting } = await trpc.hello.query({ name: `Tom` })
+  const test = await trpc.auth.signUp // mutate({})
+  const { greeting } = { greeting: 'hi' } // await trpc.hello.query({ name: `Tom` })
   const t = await getTranslations('HomePage')
 
   return (

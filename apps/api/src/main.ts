@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors()
   app.use(helmet())
 
-  // TRPC setup
+  // tRPC setup
   const trpc = app.get(TrpcRouter)
   trpc.applyMiddleware(app)
 

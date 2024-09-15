@@ -1,8 +1,8 @@
-import { AppController } from '@api/app.controller'
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { TrpcModule } from '@api/trpc/trpc.module'
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
+import { UserTrpcRouter } from '@api/users/user.trpc.router'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
@@ -41,7 +41,6 @@ import { UsersModule } from './users/users.module'
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController],
-  providers: [TrpcRouter, AuthTrpcRouter, TrpcService],
+  providers: [TrpcRouter, AuthTrpcRouter, TrpcService, UserTrpcRouter],
 })
 export class AppModule {}

@@ -1,10 +1,9 @@
 // modules/user/user.trpc.ts
 import { AuthService } from '@api/auth/auth.service'
-import { SignUpSchema } from '@api/auth/schemas/signup.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { UsersService } from '@api/users/users.service'
+import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { Injectable } from '@nestjs/common'
-import { z } from 'zod'
 
 @Injectable()
 export class AuthTrpcRouter {
@@ -17,7 +16,7 @@ export class AuthTrpcRouter {
   authRouter = this.trpc.router({
     helloFromAuth: this.trpc.publicProcedure.query(() => 'hello from auth'),
     signUp: this.trpc.publicProcedure
-      .input(z.object(SignUpSchema))
+      .input(SignUpSchema)
       .mutation(async ({ input }) => {
         const { firstName, lastName, password, email } = input
         this.authService.signUp({ firstName, lastName, password, email })

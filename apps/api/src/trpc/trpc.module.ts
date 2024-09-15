@@ -1,7 +1,9 @@
+import { AuthService } from '@api/auth/auth.service'
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { User, UserSchema } from '@api/users/schemas/user.schema'
+import { UserTrpcRouter } from '@api/users/user.trpc.router'
 import { UsersService } from '@api/users/users.service'
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
@@ -10,6 +12,13 @@ import { MongooseModule } from '@nestjs/mongoose'
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [TrpcService, TrpcRouter, AuthTrpcRouter, UsersService],
+  providers: [
+    TrpcService,
+    TrpcRouter,
+    AuthTrpcRouter,
+    UsersService,
+    UserTrpcRouter,
+    AuthService,
+  ],
 })
 export class TrpcModule {}

@@ -1,6 +1,5 @@
-import { updatePasswordDto } from '@api/auth/dto/update-password.dto'
-import { VerifyEmailDto } from '@api/auth/dto/verify-email.dto'
-import { SignUpSchema } from '@api/auth/schemas/signup.schema'
+import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { VerifyTokenType } from '@api/zod_schemas/verify-token.type'
 import { MailerService } from '@nestjs-modules/mailer'
 import {
   BadRequestException,
@@ -60,12 +59,13 @@ export class AuthService {
     // hash PW and overwrite the provided plain-text one
     const hashedPassword = bcrypt.hash(password, 10)
 
-    const user = await this.usersService.create({
-      firstName,
-      lastName: lastName || '',
-      email,
-      password: hashedPassword,
-    })
+    const user = await this.usersService.create()
+    // {
+    //       firstName,
+    //       lastName: lastName || '',
+    //       email,
+    //       password: hashedPassword,
+    //     }
 
     // send email with the token
     const token = await this.jwtService.signAsync({
@@ -90,8 +90,8 @@ export class AuthService {
     return user
   }
 
-  async verifyEmail(payload: VerifyEmailDto) {
-    const token = this.jwtService.verify(payload.token)
+  async verifyEmail() {
+    const token: VerifyTokenType = { action: 'VERIFY_EMAIL' } //this.jwtService.verify(payload.token)
 
     if (!token || token.action !== 'VERIFY_EMAIL') {
       return new BadRequestException('Invalid token!')
@@ -104,5 +104,5 @@ export class AuthService {
     // return user
   }
 
-  async updatePassword(payload: updatePasswordDto) {}
+  async updatePassword() {}
 }
