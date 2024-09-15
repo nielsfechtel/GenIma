@@ -1,10 +1,12 @@
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
+import { DiscoveryModule } from '@nestjs/core'
 
 @Module({
-  imports: [],
-  controllers: [],
+  imports: [DiscoveryModule],
+  exports: [TrpcService],
   providers: [TrpcService, TrpcRouter],
 })
+@Global()
 export class TrpcModule {}

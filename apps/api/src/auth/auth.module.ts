@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 
 import { AuthGuard } from '@api/auth/auth.guard'
+import { AuthTrpcRouter } from '@api/auth/auth.trpc'
 import { User, UserSchema } from '@api/users/schemas/user.schema'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
@@ -29,8 +30,9 @@ import { UsersModule } from '../users/users.module'
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    AuthTrpcRouter,
     AuthService,
   ],
-  exports: [AuthService],
+  exports: [AuthService, AuthTrpcRouter],
 })
 export class AuthModule {}

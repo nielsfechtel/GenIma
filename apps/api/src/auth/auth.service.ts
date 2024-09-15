@@ -1,4 +1,7 @@
+import { updatePasswordDto } from '@api/auth/dto/update-password.dto'
+import { VerifyEmailDto } from '@api/auth/dto/verify-email.dto'
 import { CreateUserDto } from '@api/users/dto/create-user.dto'
+import { MailerService } from '@nestjs-modules/mailer'
 import {
   BadRequestException,
   Injectable,
@@ -11,6 +14,7 @@ const bcrypt = require('bcryptjs')
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly mailService: MailerService,
     private usersService: UsersService,
     private jwtService: JwtService
   ) {}
@@ -47,7 +51,50 @@ export class AuthService {
   }
 
   async signUp(payload: CreateUserDto) {
-    const user = await this.usersService.create(payload)
+    // hash PW and overwrite the provided plain-text one
+    const hashedPassword = bcrypt.hash(payload.password, 10)
+
+    const user = await this.usersService.create({
+      ...payload,
+      password: hashedPassword,
+    })
+
+    // send email with the token
+    const token = await this.jwtService.signAsync({
+      id: user._id,
+      email: user.email,
+      action: 'VERIFY_EMAIL',
+    })
+
+    const port =
+      process.env.NODE_ENV === 'production' ? '' : `:${process.env.PORT}`
+    const linkWithToken = `${process.env.BASE_URL}${port}/auth/verify/${token}`
+
+    this.mailService.sendMail({
+      to: user.email,
+      subject: `Verify your email for Niels' Graduation Project`,
+      template: 'verifyEmail',
+      context: {
+        linkWithToken,
+      },
+    })
+
     return user
   }
+
+  async verifyEmail(payload: VerifyEmailDto) {
+    const token = this.jwtService.verify(payload.token)
+
+    if (!token || token.action !== 'VERIFY_EMAIL') {
+      return new BadRequestException('Invalid token!')
+    }
+
+    const user = this.usersService.update(token.id, {
+      isVerified: true,
+    })
+
+    return user
+  }
+
+  async updatePassword(payload: updatePasswordDto) {}
 }

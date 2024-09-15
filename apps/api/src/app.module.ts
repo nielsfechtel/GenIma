@@ -1,14 +1,11 @@
-import { AppController } from '@api/app.controller'
-import { AppService } from '@api/app.service'
 import { TrpcModule } from '@api/trpc/trpc.module'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-
+import { AuthModule } from './auth/auth.module'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
@@ -40,7 +37,5 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     UsersModule,
   ],
-  providers: [AppService],
-  controllers: [AppController],
 })
 export class AppModule {}

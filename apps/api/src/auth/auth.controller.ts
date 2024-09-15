@@ -1,3 +1,7 @@
+import { SignInDto } from '@api/auth/dto/signIn.dto'
+import { SignUpDto } from '@api/auth/dto/signUp.dto'
+import { updatePasswordDto } from '@api/auth/dto/update-password.dto'
+import { VerifyEmailDto } from '@api/auth/dto/verify-email.dto'
 import { BaseUser } from '@api/users/dto/base-user.dto'
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
@@ -22,8 +26,21 @@ export class AuthController {
     description: 'The record found',
     type: [BaseUser],
   })
-  signIn(@Body() signInDto: Record<string, any>) {
+  signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.email, signInDto.password)
+  }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('verify')
+  @ApiOperation({ summary: 'Verify User Email' })
+  @ApiResponse({
+    status: 200,
+    description: 'The record found',
+    type: [BaseUser],
+  })
+  verifyEmail(@Body() verifyEmailDto: VerifyEmailDto) {
+    return this.authService.verifyEmail(verifyEmailDto)
   }
 
   @Public()
@@ -35,12 +52,12 @@ export class AuthController {
     description: 'The record found',
     type: [BaseUser],
   })
-  signUp(@Body() signUpDto: Record<string, any>) {
+  signUp(@Body() signUpDto: SignUpDto) {
     const payload = {
-      username: signUpDto.username,
+      firstName: signUpDto.firstName,
+      lastName: signUpDto.lastName,
       email: signUpDto.email,
       password: signUpDto.password,
-      createdAt: new Date(),
     }
     return this.authService.signUp(payload)
   }
@@ -53,7 +70,7 @@ export class AuthController {
     description: 'The record found',
     type: [BaseUser],
   })
-  updatePassword(@Body() updatePasswordDto: Record<string, any>) {
+  updatePassword(@Body() updatePasswordDto: updatePasswordDto) {
     const payload = {
       oldPassword: updatePasswordDto.oldPassword,
       newPassword: updatePasswordDto.newPassword,
@@ -69,7 +86,7 @@ export class AuthController {
     description: 'The record found',
     type: [BaseUser],
   })
-  updateEmail(@Body() updateEmailDto: Record<string, any>) {
+  updateEmail(@Body() updateEmailDto) {
     const payload = {
       newEmail: updateEmailDto.newEmail,
     }
@@ -84,7 +101,7 @@ export class AuthController {
     description: 'The record found',
     type: [BaseUser],
   })
-  deleteUser(@Body() updateEmailDto: Record<string, any>) {
+  deleteUser(@Body() updateEmailDto) {
     const payload = {
       newEmail: updateEmailDto.newEmail,
     }

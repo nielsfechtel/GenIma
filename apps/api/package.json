@@ -33,6 +33,7 @@
     "@nestjs/swagger": "^7.4.0",
     "@trpc/server": "^10.45.2",
     "bcryptjs": "^2.4.3",
+    "class-validator": "^0.14.1",
     "helmet": "^7.1.0",
     "mongoose": "^8.6.2",
     "reflect-metadata": "^0.2.0",

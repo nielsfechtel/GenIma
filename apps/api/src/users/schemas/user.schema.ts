@@ -1,9 +1,16 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose'
-import { Schema, string } from 'zod'
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { IsEmail } from 'class-validator'
+import { HydratedDocument } from 'mongoose'
+
+// this I've also seen written as 'export type UserDocument =  User & Document'
+// it's a type that includes mongo-specific properties like _id, which we don't want to
+// specify in our schema below.
+export type UserDocument = HydratedDocument<User>
 
 @Schema()
 export class User {
   @Prop({ required: true })
+  @IsEmail()
   email: string
 
   @Prop({ required: true })
@@ -19,7 +26,7 @@ export class User {
   lastName: string
 
   @Prop({
-    type: string,
+    type: String,
     required: true,
     enum: ['user', 'admin'],
   })
@@ -32,7 +39,7 @@ export class User {
   // apiTokens: ApiToken
 
   @Prop({
-    type: string,
+    type: String,
     required: true,
     enum: ['FREE', 'PREMIUM', 'BUSINESS'],
   })
