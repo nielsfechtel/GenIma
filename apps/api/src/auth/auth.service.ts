@@ -1,6 +1,6 @@
 import { updatePasswordDto } from '@api/auth/dto/update-password.dto'
 import { VerifyEmailDto } from '@api/auth/dto/verify-email.dto'
-import { CreateUserDto } from '@api/users/dto/create-user.dto'
+import { SignUpSchema } from '@api/auth/schemas/signup.schema'
 import { MailerService } from '@nestjs-modules/mailer'
 import {
   BadRequestException,
@@ -8,6 +8,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import z from 'zod'
 import { UsersService } from '../users/users.service'
 const bcrypt = require('bcryptjs')
 
@@ -50,12 +51,19 @@ export class AuthService {
     }
   }
 
-  async signUp(payload: CreateUserDto) {
+  async signUp({
+    firstName,
+    lastName,
+    password,
+    email,
+  }: z.infer<typeof SignUpSchema>) {
     // hash PW and overwrite the provided plain-text one
-    const hashedPassword = bcrypt.hash(payload.password, 10)
+    const hashedPassword = bcrypt.hash(password, 10)
 
     const user = await this.usersService.create({
-      ...payload,
+      firstName,
+      lastName: lastName || '',
+      email,
       password: hashedPassword,
     })
 
@@ -89,11 +97,11 @@ export class AuthService {
       return new BadRequestException('Invalid token!')
     }
 
-    const user = this.usersService.update(token.id, {
-      isVerified: true,
-    })
+    // const user = this.usersService.update(token.id, {
+    //   isVerified: true,
+    // })
 
-    return user
+    // return user
   }
 
   async updatePassword(payload: updatePasswordDto) {}

@@ -1,3 +1,4 @@
+import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { INestApplication, Injectable } from '@nestjs/common'
 import * as trpcExpress from '@trpc/server/adapters/express'
@@ -5,10 +6,16 @@ import { z } from 'zod'
 
 @Injectable()
 export class TrpcRouter {
-  constructor(private readonly trpc: TrpcService) {}
+  constructor(
+    private readonly trpc: TrpcService,
+    private readonly authTrpcRouter: AuthTrpcRouter
+  ) {}
 
   appRouter = this.trpc.router({
-    hello: this.trpc.procedure
+    testNamespace: this.trpc.router({
+      hello: this.trpc.publicProcedure.query(() => 'namespaceHello'),
+    }),
+    hello: this.trpc.publicProcedure
       .input(
         z.object({
           name: z.string().optional(),
@@ -30,7 +37,7 @@ export class TrpcRouter {
     As you add more routers this could end up being quite long and messy, so you will likely want
     to make use of merging routers. (https://trpc.io/docs/server/merging-routers)
     */
-    getUsers: this.trpc.procedure
+    getUsers: this.trpc.publicProcedure
       .input(
         z.object({
           name: z.string(),
@@ -41,6 +48,8 @@ export class TrpcRouter {
         // random example showing you how you can now use dependency injection
         return [] // await this.userService.getUsers(name)
       }),
+    helloTest: this.trpc.publicProcedure.query(() => 'helloTest'),
+    auth: this.authTrpcRouter.authRouter,
   })
 
   async applyMiddleware(app: INestApplication) {
@@ -53,4 +62,7 @@ export class TrpcRouter {
   }
 }
 
+// this exports the TYPE of the AppRouter - meaning it includes all the
+// type-information we can then use on the client, for that sweet tRPC-
+// type-functionality.
 export type AppRouter = TrpcRouter[`appRouter`]

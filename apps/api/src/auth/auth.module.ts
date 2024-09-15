@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 
 import { AuthGuard } from '@api/auth/auth.guard'
-import { AuthTrpcRouter } from '@api/auth/auth.trpc'
+import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
+import { TrpcService } from '@api/trpc/trpc.service'
 import { User, UserSchema } from '@api/users/schemas/user.schema'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
@@ -20,7 +20,7 @@ import { UsersModule } from '../users/users.module'
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [AuthController],
+  // controllers: [AuthController],
   providers: [
     {
       // The great NestJS-Docs say:
@@ -32,6 +32,7 @@ import { UsersModule } from '../users/users.module'
     },
     AuthTrpcRouter,
     AuthService,
+    TrpcService,
   ],
   exports: [AuthService, AuthTrpcRouter],
 })

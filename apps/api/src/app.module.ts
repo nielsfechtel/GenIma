@@ -1,4 +1,8 @@
+import { AppController } from '@api/app.controller'
+import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { TrpcModule } from '@api/trpc/trpc.module'
+import { TrpcRouter } from '@api/trpc/trpc.router'
+import { TrpcService } from '@api/trpc/trpc.service'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
@@ -13,7 +17,7 @@ import { UsersModule } from './users/users.module'
       envFilePath: './config/.env.local',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB_CONNECTION_URI),
+    MongooseModule.forRoot(process.env.DB_CONNECTION_URL),
     MailerModule.forRoot({
       transport: {
         host: process.env.RESEND_HOST,
@@ -37,5 +41,7 @@ import { UsersModule } from './users/users.module'
     AuthModule,
     UsersModule,
   ],
+  controllers: [AppController],
+  providers: [TrpcRouter, AuthTrpcRouter, TrpcService],
 })
 export class AppModule {}
