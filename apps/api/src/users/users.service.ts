@@ -7,9 +7,13 @@ import { User, UserDocument } from './schemas/user.schema'
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async create(): Promise<UserDocument> {
-    // UPDATE
-    const createdUser = new this.userModel({})
+  async create(userData: Partial<UserDocument>): Promise<UserDocument> {
+    const createdUser = new this.userModel({
+      ...userData,
+      isVerified: false,
+      role: 'USER',
+      tier: 'FREE',
+    })
     return createdUser.save()
   }
 
@@ -36,5 +40,9 @@ export class UsersService {
 
   async remove(id: string) {
     return this.userModel.findByIdAndDelete({ _id: id }).exec()
+  }
+
+  async deleteMany(): Promise<void> {
+    await this.userModel.deleteMany()
   }
 }

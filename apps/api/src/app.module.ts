@@ -14,7 +14,12 @@ import { UsersModule } from './users/users.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: './config/.env.local',
+      envFilePath:
+        process.env.NODE_ENV === 'development'
+          ? './config/.env.local'
+          : process.env.NODE_ENV === 'test'
+            ? './config/.env.test'
+            : './config/.env.prod',
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_URL),

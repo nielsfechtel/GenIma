@@ -35,6 +35,9 @@ export class TrpcService {
   // or maybe without typeof as it's redundant ?
   trpc = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create()
 
+  // for testing - https://trpc.io/docs/server/server-side-calls
+  createCallerFactory = this.trpc.createCallerFactory
+
   // rename the normal procedure more clearly to show it is public
   publicProcedure = this.trpc.procedure
 

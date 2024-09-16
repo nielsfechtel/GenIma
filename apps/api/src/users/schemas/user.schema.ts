@@ -9,7 +9,7 @@ export type UserDocument = HydratedDocument<User>
 
 @Schema()
 export class User {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   @IsEmail()
   email: string
 
@@ -28,7 +28,7 @@ export class User {
   @Prop({
     type: String,
     required: true,
-    enum: ['user', 'admin'],
+    enum: ['USER', 'ADMIN'],
   })
   role: string
 
