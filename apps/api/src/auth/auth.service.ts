@@ -49,6 +49,8 @@ export class AuthService {
     // https://devforum.okta.com/t/why-is-the-sub-claim-in-the-access-token-and-id-token-different/3978/3
     // not sure if we need it here, though, since the email is also globally unique and more useful than the DB-_id
     const payload = { sub: user._id, email: user.email }
+    console.log('in signin here')
+
     return {
       accessToken: await this.jwtService.signAsync(payload, {
         secret: process.env.JWT_KEY,

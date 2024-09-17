@@ -35,7 +35,7 @@ export class User {
   // chats @prop({ type: mongoose.schema.types.objectid, ref: 'chat' })
   // chats: chat
 
-  // API TOKENS @prop({ type: mongoose.schema.types.objectid, ref: 'chat' })
+  // API TOKENS @prop({ type: mongoose.schema.types.objectid, ref: 'api_tokens' })
   // apiTokens: ApiToken
 
   @Prop({

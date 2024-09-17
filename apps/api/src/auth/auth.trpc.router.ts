@@ -27,9 +27,6 @@ export class AuthTrpcRouter {
         })
         return result
       }),
-    hello: this.trpc.publicProcedure.query(() => {
-      return 'hello from auth'
-    }),
 
     login: this.trpc.publicProcedure
       .input(LoginSchema)
