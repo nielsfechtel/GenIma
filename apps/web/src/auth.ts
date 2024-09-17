@@ -1,6 +1,7 @@
+import { trpc } from '@web/src/app/trpc'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import Error from 'next/error'
+import Google from 'next-auth/providers/google'
 import { authConfig } from './auth.config'
 
 async function getUser(email: string, password: string): Promise<any> {
@@ -23,24 +24,34 @@ export const {
     Credentials({
       name: 'credentials',
       credentials: {
-        email: { label: 'email', type: 'text' },
-        password: { label: 'password', type: 'password' },
+        email: {},
+        password: {},
+        // email: { label: 'email', type: 'text' },
+        // password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
-        try {
-          const user = await fetch('http://localhost:4000/auth/signin', {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-        } catch (error) {
-          throw new Error(error.message)
-        }
+        const user = await trpc.auth.login.query(credentials)
 
         return user ?? null
       },
     }),
+    Google,
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      // user is what we got back from the backend
+      // token is what we want to now set based on 'user'
+      if (user) {
+        token.user = user.data
+        token.accessToken = user.accessToken
+      }
+      return token
+    },
+    // setting the session's user to what we got from the token (see function above!)
+    session({ session, token }) {
+      session.user = token.user
+      session.accessToken = token.accessToken
+      return session
+    },
+  },
 })

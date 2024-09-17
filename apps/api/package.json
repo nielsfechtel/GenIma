@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "dev": "nest start --watch",
+    "dev": "cross-env NODE_ENV=development nest start --watch",
     "email": "email dev --dir ./src/emails",
     "email:build": "email build --dir ./src/emails --packageManager pnpm",
     "start:debug": "nest start --debug --watch",

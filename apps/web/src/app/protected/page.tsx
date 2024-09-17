@@ -5,8 +5,6 @@ import { logout } from '@web/src/lib/actions'
 const Protected = async () => {
   const session = await auth()
 
-  session?.user?.email
-
   return (
     <form
       action={logout}

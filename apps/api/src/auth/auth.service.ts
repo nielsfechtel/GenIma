@@ -1,7 +1,7 @@
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
-import { VerifyTokenType } from '@api/zod_schemas/verify-token.type'
+import { VerifyTokenSchema } from '@api/zod_schemas/verifyToken.schema'
 import { MailerService } from '@nestjs-modules/mailer'
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { TRPCError } from '@trpc/server'
 import z from 'zod'
@@ -50,9 +50,14 @@ export class AuthService {
     // not sure if we need it here, though, since the email is also globally unique and more useful than the DB-_id
     const payload = { sub: user._id, email: user.email }
     return {
-      access_token: await this.jwtService.signAsync(payload, {
+      accessToken: await this.jwtService.signAsync(payload, {
         secret: process.env.JWT_KEY,
       }),
+      data: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
     }
   }
 
@@ -109,18 +114,26 @@ export class AuthService {
     }
   }
 
-  async verifyEmail() {
-    const token: VerifyTokenType = { action: 'VERIFY_EMAIL' } //this.jwtService.verify(payload.token)
+  async verifyToken(token: string) {
+    const tokenValues: z.infer<typeof VerifyTokenSchema> =
+      this.jwtService.decode(token)
 
-    if (!token || token.action !== 'VERIFY_EMAIL') {
-      return new BadRequestException('Invalid token!')
+    switch (tokenValues.action) {
+      case 'DELETE_ACCOUNT': {
+        return this.usersService.deleteOneByEmail(tokenValues.email)
+      }
+      case 'RESET_PASSWORD': {
+        return
+      }
+      case 'VERIFY_EMAIL': {
+        return this.usersService.update(tokenValues.id, {
+          isVerified: true,
+        })
+      }
+      default: {
+        return new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
+      }
     }
-
-    // const user = this.usersService.update(token.id, {
-    //   isVerified: true,
-    // })
-
-    // return user
   }
 
   async updatePassword(

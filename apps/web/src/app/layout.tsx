@@ -1,17 +1,15 @@
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const locale = await getLocale();
+  const locale = await getLocale()
 
-  // "Providing all messages to the client side is the easiest way to get started"
-  // "Note that NextIntlClientProvider automatically inherits configuration from i18n/request.ts
-  // here, but messages need to be passed explicitly."
-  const messages = await getMessages();
+  // get the messages (from inside /messages/), then provide them
+  const messages = await getMessages()
 
   return (
     <html lang={locale}>
@@ -21,5 +19,5 @@ export default async function RootLayout({
         </NextIntlClientProvider>
       </body>
     </html>
-  );
+  )
 }

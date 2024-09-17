@@ -42,6 +42,12 @@ export class UsersService {
     return this.userModel.findByIdAndDelete({ _id: id }).exec()
   }
 
+  async deleteOneByEmail(email: string): Promise<void> {
+    await this.userModel.deleteOne({
+      email,
+    })
+  }
+
   async deleteMany(): Promise<void> {
     await this.userModel.deleteMany()
   }

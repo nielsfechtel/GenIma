@@ -182,13 +182,24 @@ describe('Auth Tests', () => {
       secret: process.env.JWT_KEY,
     })
     const output: inferRouterOutputs<AppRouter>['auth']['login'] = {
-      access_token: token,
+      accessToken: token,
+      data: {
+        email: input.email,
+        firstName: createdUser.firstName,
+        lastName: '',
+      },
     }
 
     const returnedToken = await unauthedCaller.auth.login(input)
     expect(returnedToken).toStrictEqual(output)
 
     // test false logins
+    const ehm = await unauthedCaller.auth.login({
+      email: 'a@gmail.com',
+      password: input.password,
+    })
+    console.log('ehm', ehm)
+
     await expect(
       unauthedCaller.auth.login({
         email: 'not_an_email',
