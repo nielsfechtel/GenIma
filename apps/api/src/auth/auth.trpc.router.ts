@@ -3,6 +3,7 @@ import { AuthService } from '@api/auth/auth.service'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { ChangePasswordSchema } from '@api/zod_schemas/change-password.schema'
 import { LoginSchema } from '@api/zod_schemas/login.schema'
+import { SignUpWithGoogleSchema } from '@api/zod_schemas/loginWithGoogle.schema'
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
@@ -18,13 +19,7 @@ export class AuthTrpcRouter {
     signUp: this.trpc.publicProcedure
       .input(SignUpSchema)
       .mutation(async ({ input }) => {
-        const { firstName, lastName, password, email } = input
-        const result = await this.authService.signUp({
-          firstName,
-          lastName,
-          password,
-          email,
-        })
+        const result = await this.authService.signUp(input)
         return result
       }),
 
@@ -33,6 +28,13 @@ export class AuthTrpcRouter {
       .query(async ({ input }) => {
         const { email, password } = input
         return this.authService.signIn(email, password)
+      }),
+
+    loginWithGoogle: this.trpc.publicProcedure
+      .input(SignUpWithGoogleSchema)
+      .mutation(async ({ input }) => {
+        const result = await this.authService.loginWithGoogle(input)
+        return result
       }),
 
     changePassword: this.trpc.protectedProcedure

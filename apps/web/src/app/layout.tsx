@@ -13,8 +13,9 @@ export default async function RootLayout({
       <body>
         <SessionProvider session={session}>
           <header>
-            This is a header, displaying the information gotten from useSession:{' '}
-            {JSON.stringify(session)}
+            <h1>
+              useSession returns <strong>{JSON.stringify(session)}</strong>
+            </h1>
           </header>
           <main> {children}</main>
         </SessionProvider>

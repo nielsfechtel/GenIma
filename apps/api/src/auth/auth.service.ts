@@ -1,9 +1,11 @@
+import { SignUpWithGoogleSchema } from '@api/zod_schemas/loginWithGoogle.schema'
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { VerifyTokenSchema } from '@api/zod_schemas/verifyToken.schema'
 import { MailerService } from '@nestjs-modules/mailer'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { TRPCError } from '@trpc/server'
+import { OAuth2Client } from 'google-auth-library'
 import z from 'zod'
 import { UsersService } from '../users/users.service'
 const bcrypt = require('bcryptjs')
@@ -50,6 +52,81 @@ export class AuthService {
     // not sure if we need it here, though, since the email is also globally unique and more useful than the DB-_id
     const payload = { sub: user._id, email: user.email }
     console.log('in signin here')
+
+    return {
+      accessToken: await this.jwtService.signAsync(payload, {
+        secret: process.env.JWT_KEY,
+      }),
+      data: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+    }
+  }
+
+  async loginWithGoogle({
+    firstName,
+    lastName,
+    password,
+    email,
+    isVerifiedEmail,
+    googleIDtoken,
+  }: z.infer<typeof SignUpWithGoogleSchema>) {
+    // check with google if this is a valid token
+    /*
+Do I have an ID token or access-token?
+Also these are JWTs, no? Then I should be able to use Google's public key to check it
+here without calling the server, as this is not intended
+
+// If the user grants at least one permission, the Google Authorization Server sends your application an access token (or an authorization code that your application can
+use to obtain an access token) and a list of scopes of access granted by that token.
+PUT THIS INTO OBSIDIAN
+I think I want to verify the ID_TOKEN (as seen below), not the Access_token. I should
+get an ID-token too.
+Check these links for more info then:
+https://developers.google.com/identity/sign-in/web/backend-auth#using-a-google-api-client-library
+https://stackoverflow.com/a/64398497/5272905
+https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
+    */
+    const client = new OAuth2Client()
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      })
+      const payload = ticket.getPayload()
+      const userid = payload['sub']
+      // If the request specified a Google Workspace domain:
+      // const domain = payload['hd'];
+    }
+    verify().catch(console.error)
+
+    // next, does this user exist in our DB?
+    const user = await this.usersService.findOneByEmail(email)
+
+    // For security reasons, we do not want to indicate if the problem is any of these:
+    // 1. User with that email doesn't exist
+    // 2. Password is incorrect
+    // Instead, we return here and down below where we check password, only this
+    if (!user) {
+      return new TRPCError({
+        code: 'UNAUTHORIZED',
+      })
+    }
+
+    if (!user.isVerified) {
+      return new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'Please verify your email',
+      })
+    }
+    // if not, sign them up
+
+    // then return ok
+    const payload = { sub: user._id, email: user.email }
 
     return {
       accessToken: await this.jwtService.signAsync(payload, {
