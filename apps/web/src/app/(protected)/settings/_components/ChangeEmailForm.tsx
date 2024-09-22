@@ -1,3 +1,5 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Label } from '@radix-ui/react-label'
 import { Button } from '@web/src/components/ui/button'
@@ -23,15 +25,15 @@ import * as z from 'zod'
 
 const emailSchema = z
   .object({
-    newEmail: z.string().email('Invalid email address.'),
-    confirmEmail: z.string().email('Invalid email address.'),
+    newEmail: z.string().email(),
+    confirmEmail: z.string().email(),
   })
   .refine((data) => data.newEmail === data.confirmEmail, {
     message: 'Emails do not match.',
     path: ['confirmEmail'],
   })
 
-export function EmailForm() {
+export default function ChangeEmailForm() {
   const form = useForm<z.infer<typeof emailSchema>>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
@@ -42,7 +44,7 @@ export function EmailForm() {
 
   const onSubmit = (data: z.infer<typeof emailSchema>) => {
     console.log('Email data:', data)
-    // Handle email update logic here
+    alert('UPDATE EMAIL HERE')
   }
 
   return (
@@ -71,6 +73,7 @@ export function EmailForm() {
                   <FormLabel>New Email</FormLabel>
                   <FormControl>
                     <Input
+                      disabled
                       type="email"
                       placeholder="Enter your new email"
                       {...field}
@@ -88,6 +91,7 @@ export function EmailForm() {
                   <FormLabel>Confirm New Email</FormLabel>
                   <FormControl>
                     <Input
+                      disabled
                       type="email"
                       placeholder="Confirm your new email"
                       {...field}

@@ -2,6 +2,7 @@
 
 import { LoginSchema } from '@api/zod_schemas/login.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { myOwnServerSideSignIn } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -18,16 +19,19 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { DEFAULT_LOGIN_REDIRECT } from '@web/src/routes'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 const formSchema = LoginSchema
 
-export default function SignupForm(props: {
-  searchParams: { callbackUrl: string }
-}) {
+export default function SignupForm() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,19 +41,35 @@ export default function SignupForm(props: {
   })
 
   async function handleCredentialSignin(values: z.infer<typeof formSchema>) {
-    const result = await signIn('credentials', {
-      email: values.email,
-      password: values.password,
-      redirectTo: props.searchParams?.callbackUrl ?? '',
-    })
-    console.log('result is', result)
+    try {
+      const result = await myOwnServerSideSignIn({
+        email: values.email,
+        password: values.password,
+        // redirect: false according to https://stackoverflow.com/a/76752733/5272905
+        // redirect: false,
+        redirectTo: searchParams.get('callbackUrl') ?? DEFAULT_LOGIN_REDIRECT,
+      })
+
+      return {
+        data: null,
+        message: 'User credentials are valid.',
+        success: true,
+      }
+    } catch (err) {
+      // So I have no idea why, but the error-message here is not the one I threw in auth.ts, but
+      // AuthJS adds a "Read more at https://errors.authjs.dev" onto it after the end.
+      // Since I'm done with this for now, I just split it by '.' and take the first argument,
+      // as my error-message ends with a '.'
+      const message = err.message.split('.')[0]
+
+      return router.push(`/auth/login?error=${message}.`)
+    }
   }
 
   async function handleGoogleSignup() {
-    const result = await signIn('google', {
-      redirectTo: props.searchParams?.callbackUrl ?? '',
+    await signIn('google', {
+      redirectTo: searchParams.get('callbackUrl') ?? DEFAULT_LOGIN_REDIRECT,
     })
-    console.log('result is', result)
   }
 
   return (
@@ -58,6 +78,9 @@ export default function SignupForm(props: {
         <CardTitle className="text-xl">Login</CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
+        {searchParams.has('error') && (
+          <h3 className="text-red-500 p-2">{searchParams.get('error')}</h3>
+        )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleCredentialSignin)}
@@ -70,7 +93,7 @@ export default function SignupForm(props: {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} />
+                    <Input autoFocus type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -3,7 +3,6 @@ import { AuthService } from '@api/auth/auth.service'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { ChangePasswordSchema } from '@api/zod_schemas/change-password.schema'
 import { LoginSchema } from '@api/zod_schemas/login.schema'
-import { SignUpWithGoogleSchema } from '@api/zod_schemas/loginWithGoogle.schema'
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
@@ -19,31 +18,29 @@ export class AuthTrpcRouter {
     signUp: this.trpc.publicProcedure
       .input(SignUpSchema)
       .mutation(async ({ input }) => {
-        const result = await this.authService.signUp(input)
-        return result
+        return await this.authService.signUp(input)
       }),
 
     login: this.trpc.publicProcedure
       .input(LoginSchema)
       .query(async ({ input }) => {
         const { email, password } = input
-        return this.authService.signIn(email, password)
+        return await this.authService.signIn(email, password)
       }),
 
     loginWithGoogle: this.trpc.publicProcedure
-      .input(SignUpWithGoogleSchema)
+      .input(z.object({ googleIDtoken: z.string() }))
       .mutation(async ({ input }) => {
-        const result = await this.authService.loginWithGoogle(input)
-        return result
+        return await this.authService.signinWithGoogle(input.googleIDtoken)
       }),
 
     changePassword: this.trpc.protectedProcedure
       .input(ChangePasswordSchema)
       .mutation(async ({ ctx, input }) => {
-        // when logged in and old password fits, we can just change it
+        // a google-signed-up user does not yet have a password
         return this.authService.updatePassword(
           ctx.user.email,
-          input.oldPassword,
+          input.oldPassword || '',
           input.newPassword
         )
       }),
@@ -55,10 +52,22 @@ export class AuthTrpcRouter {
 
     // Depending on token.action, this will verify the user,
     // change the password or delete the user
-    verifyToken: this.trpc.publicProcedure
+    executeToken: this.trpc.publicProcedure
       .input(z.object({ token: z.string() }))
-      .mutation(({ input }) => {
-        return this.authService.verifyToken(input.token)
+      .mutation(async ({ input }) => {
+        return await this.authService.executeToken(input.token)
       }),
+
+    deleteAccount: this.trpc.protectedProcedure.query(async (req) => {
+      return await this.authService.sendDeleteAccountEmail(req.ctx.user.email)
+    }),
+
+    hasPassword: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return this.authService.hasPassword(ctx.user.email)
+    }),
+
+    isAdmin: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return this.authService.isAdmin(ctx.user.email)
+    }),
   })
 }

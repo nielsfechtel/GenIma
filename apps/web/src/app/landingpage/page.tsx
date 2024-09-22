@@ -1,24 +1,24 @@
+import { auth } from '@web/src/auth'
 import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
 import { Image as ImageIcon, Sparkles, Users, Zap } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
-export default function LandingPage() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const slides = [
-    '/placeholder.svg?height=400&width=600',
-    '/placeholder.svg?height=400&width=600',
-    '/placeholder.svg?height=400&width=600',
-  ]
+export default async function LandingPage() {
+  // const [currentSlide, setCurrentSlide] = useState(0)
+  // const slides = [
+  //   '/placeholder.svg?height=400&width=600',
+  //   '/placeholder.svg?height=400&width=600',
+  //   '/placeholder.svg?height=400&width=600',
+  // ]
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length)
+  //   }, 5000)
+  //   return () => clearInterval(timer)
+  // }, [])
+  const session = await auth()
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -28,8 +28,23 @@ export default function LandingPage() {
           <span className="font-bold text-xl">AI ImageCraft</span>
         </Link>
         <div className="space-x-2">
-          <Button variant="outline">Login</Button>
-          <Button>Sign Up</Button>
+          {!session ? (
+            <>
+              <Link href="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link href="/signup">
+                <Button>Sign Up</Button>
+              </Link>
+            </>
+          ) : (
+            <div>
+              Hello {session.user.firstName}! Go to{' '}
+              <Link className="underline" href="/dashboard">
+                <Button>Dashboard</Button>
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
@@ -88,7 +103,7 @@ export default function LandingPage() {
               See It in Action
             </h2>
             <div className="relative h-[400px] w-full max-w-[600px] mx-auto overflow-hidden rounded-lg shadow-lg">
-              {slides.map((slide, index) => (
+              {/* {slides.map((slide, index) => (
                 <Image
                   key={index}
                   src={slide}
@@ -97,7 +112,7 @@ export default function LandingPage() {
                     index === currentSlide ? 'opacity-100' : 'opacity-0'
                   }`}
                 />
-              ))}
+              ))} */}
             </div>
           </div>
         </section>

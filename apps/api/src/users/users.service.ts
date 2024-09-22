@@ -1,18 +1,34 @@
-import { Injectable } from '@nestjs/common'
+import { Tier } from '@api/tier/schemas/tier.schema'
+import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { User, UserDocument } from './schemas/user.schema'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Tier.name) private tierModel: Model<Tier>
+  ) {}
 
   async create(userData: Partial<UserDocument>): Promise<UserDocument> {
+    // always add the tier with the lowest tokenLimit (which should be FREE)
+    const tiers = await this.tierModel
+      .findOne()
+      .sort({ tokenLimit: 'asc' })
+      .exec()
+    console.log('tiers is', tiers)
+
+    if (!tiers) {
+      throw new InternalServerErrorException('No tiers defined')
+    }
+    // console.log('tiers[0] is', tiers[0])
+
     const createdUser = new this.userModel({
       ...userData,
       isVerified: false,
       role: 'USER',
-      tier: 'FREE',
+      // tier: tiers.get._id,
     })
     return createdUser.save()
   }
@@ -26,7 +42,7 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ email: email }).exec()
+    return this.userModel.findOne({ email: email }).populate('tier').exec()
   }
 
   async update(

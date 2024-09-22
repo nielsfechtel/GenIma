@@ -11,11 +11,6 @@ import { UsersModule } from '../users/users.module'
 @Module({
   imports: [
     UsersModule,
-    JwtModule.register({
-      global: true,
-      secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '60s' },
-    }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   providers: [AuthTrpcRouter, AuthService, TrpcService],

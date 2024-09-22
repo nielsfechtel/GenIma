@@ -1,3 +1,5 @@
+'use client'
+
 import { executeToken } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
@@ -6,36 +8,61 @@ import {
   CardHeader,
   CardTitle,
 } from '@web/src/components/ui/card'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { toast } from 'sonner'
 
-export default async function Verify(props: {
-  searchParams: { token: string }
-}) {
+export default function Verify() {
   let message
   let gotoLocation = 'dashboard'
+  const searchParams = useSearchParams()
+  const token = searchParams.get('token')
 
-  const token = props.searchParams?.token
   if (token) {
-    const result = await executeToken(props.searchParams.token)
-
-    message = result.message
-    switch (result.actionType) {
-      case 'DELETE_ACCOUNT': {
-        gotoLocation = 'landingpage'
-        break
-      }
-      case 'RESET_PASSWORD': {
-        gotoLocation = 'dashboard'
-        break
-      }
-      case 'VERIFY_EMAIL': {
-        gotoLocation = 'login'
-        break
-      }
-      default: {
-        gotoLocation = 'landingpage'
-      }
-    }
+    signOut({
+      callbackUrl: '/',
+      redirect: true,
+    }).then(() => {
+      executeToken(token)
+        .then((result) => {
+          console.log(`result is `, result)
+          message = result.message
+          switch (result.actionType) {
+            case 'DELETE_ACCOUNT': {
+              // this does not currently work - I think because it reloads the page.
+              // might be best to just directly have the verify-links be a server-api-route - and then
+              // redirect to a proper page, maybe with a ?message='..Email verified!' set that shows
+              // a toast on the page it opens
+              setTimeout(() => {
+                toast.success('Account deleted!')
+              }, 500)
+              gotoLocation = 'landingpage'
+              break
+            }
+            case 'RESET_PASSWORD': {
+              setTimeout(() => {
+                toast.success('Password reset!')
+              }, 500)
+              gotoLocation = 'dashboard'
+              break
+            }
+            case 'VERIFY_EMAIL': {
+              setTimeout(() => {
+                toast.success('Email verified!')
+              }, 500)
+              gotoLocation = 'login'
+              break
+            }
+            default: {
+              gotoLocation = 'landingpage'
+            }
+          }
+        })
+        .catch((result) => {
+          console.error("Something wen't wrong, please try again", result)
+        })
+    })
   } else {
     message = 'No token supplied!'
   }

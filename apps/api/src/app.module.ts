@@ -7,9 +7,12 @@ import { MailerModule } from '@nestjs-modules/mailer'
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
+import { TierModule } from './tier/tier.module';
+import { TierModule } from './tier/tier.module';
 
 @Module({
   imports: [
@@ -21,6 +24,11 @@ import { UsersModule } from './users/users.module'
             ? './config/.env.test'
             : './config/.env.prod',
       isGlobal: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_KEY,
+      signOptions: { expiresIn: '60s' },
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_URL),
     MailerModule.forRoot({
@@ -45,6 +53,7 @@ import { UsersModule } from './users/users.module'
     TrpcModule,
     AuthModule,
     UsersModule,
+    TierModule,
   ],
   providers: [TrpcRouter, AuthTrpcRouter, TrpcService, UserTrpcRouter],
 })

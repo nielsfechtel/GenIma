@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { initTRPC, TRPCError } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
+import { OAuth2Client } from 'google-auth-library'
 import { createContext } from 'vm'
 
 @Injectable()
@@ -14,11 +15,44 @@ export class TrpcService {
   }: trpcExpress.CreateExpressContextOptions) => {
     // This creates a context; it will be available as `ctx` in all resolvers
     let user = null
+    console.log(
+      'CREATE_CONTEXT here before question:',
+      req.headers.authorization
+    )
+
     if (req.headers.authorization) {
       // split token; if it's in the Bearer-token-format, the second entry is the token
-      user = this.jwtService.verify(req.headers.authorization.split(' ')[1], {
-        secret: process.env.JWT_KEY,
+      const token = req.headers.authorization.split(' ')[1]
+
+      // try decoding with our JWT-key first - if it fails, it's a google-token (most likely)
+      try {
+        user = await this.jwtService.verifyAsync(token, {
+          secret: process.env.JWT_KEY,
+        })
+      } catch (error) {
+        // this is a JsonWebTokenError: invalid algorithm-error
+        // there probably is a better way than letting this fail
+      }
+      if (user) {
+        return {
+          user,
+        }
+      }
+
+      // next try decoding with Google, in case it's a Google-ID-token
+      const client = new OAuth2Client()
+
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.AUTH_GOOGLE_ID,
       })
+      user = ticket.getPayload()
+
+      if (user) {
+        return {
+          user,
+        }
+      }
     }
 
     return {

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const VerifyTokenSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   email: z.string().email(),
   action: z.union([
     z.literal('VERIFY_EMAIL'),

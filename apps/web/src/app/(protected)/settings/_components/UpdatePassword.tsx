@@ -1,4 +1,8 @@
+'use client'
+
+import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { updatePassword } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -20,32 +24,28 @@ import { Input } from '@web/src/components/ui/input'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-const passwordSchema = z
-  .object({
-    currentPassword: z.string().min(1, 'Current password is required.'),
-    newPassword: z.string().min(8, 'Password must be at least 8 characters.'),
-    confirmPassword: z
-      .string()
-      .min(8, 'Password must be at least 8 characters.'),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'Passwords do not match.',
+// pick the password from our schema (for min- and max-length, etc), then add the new fields and custom validation
+const passwordSchema = SignUpSchema.pick({ password: true })
+  .extend({ oldPassword: z.string(), confirmPassword: z.string() })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
     path: ['confirmPassword'],
   })
 
-export function PasswordForm() {
+export function UpdatePassword(props: { hasPassword: boolean }) {
   const form = useForm<z.infer<typeof passwordSchema>>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
-      currentPassword: '',
-      newPassword: '',
+      oldPassword: '',
+      password: '',
       confirmPassword: '',
     },
   })
 
-  const onSubmit = (data: z.infer<typeof passwordSchema>) => {
-    console.log('Password data:', data)
-    // Handle password update logic here
+  const onSubmit = async (data: z.infer<typeof passwordSchema>) => {
+    const result = await updatePassword(data.oldPassword || '', data.password)
+    console.log('result is', result)
+    form.reset()
   }
 
   return (
@@ -57,22 +57,26 @@ export function PasswordForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="space-y-4">
+            {props.hasPassword ? (
+              <FormField
+                control={form.control}
+                name="oldPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Current Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : (
+              <h3>You signed up via Google - set a new password:</h3>
+            )}
             <FormField
               control={form.control}
-              name="currentPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Current Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="newPassword"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>New Password</FormLabel>
@@ -98,9 +102,7 @@ export function PasswordForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button disabled type="submit">
-              Update Password
-            </Button>
+            <Button type="submit">Update Password</Button>
           </CardFooter>
         </form>
       </Form>

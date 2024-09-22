@@ -4,9 +4,10 @@ declare global {
       NODE_ENV: 'development' | 'test' | 'production'
       PORT: number
       DB_CONNECTION_URL: string
+      AUTH_GOOGLE_ID: string
       JWT_KEY: string
       PORT: number
-      BASE_URL: string
+      WEB_BASE_URL: string
       RESEND_HOST: string
       RESEND_PORT: number
       RESEND_USERNAME: string

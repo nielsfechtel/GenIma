@@ -1,44 +1,68 @@
 'use server'
 
-import { signIn } from 'next-auth/react'
+import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { signIn } from '@web/src/auth'
+import { trpc } from '@web/src/trpc'
+import * as z from 'zod'
 
-export const handlecredentialsignin = async (formdata) => {
+export const handleSignup = async (formData: z.infer<typeof SignUpSchema>) => {
   try {
-    const res = await signIn('credentials', formdata, {
-      redirectto: '/',
-    })
-
-    console.log('in the res thing here, returning success true! res is', res)
+    await trpc.auth.signUp.mutate(formData)
     return {
       success: true,
     }
   } catch (error: unknown) {
-    console.error(
-      '(credentials) in error of handlecredentialsignin, the error-meesage is',
-      error.message
-    )
-    console.error('the error-type is', error.type)
-    console.error('the full error is', error)
-
-    // if (error instanceof autherror) {
-    //   switch (error.type) {
-    //     case 'credentialssignin':
-    //       return 'invalid credentials.'
-    //     default:
-    //       return 'something went wrong.'
-    //   }
-    // }
-
-    // if (error.cause === trpcclienterror) {
-    //   console.error(
-    //     'heyo return redirect(`${signin_error_url}?error=${error.type}`)'
-    //   )
-    // }
-    // console.log('error-message is', error.message)
-
+    console.log('error in handleSignup', error)
     return {
       success: false,
       message: error.message,
     }
   }
+}
+
+export const sendDeleteAccountEmail = async () => {
+  try {
+    return trpc.auth.deleteAccount.query()
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}
+
+export const executeToken = async (token: string) => {
+  try {
+    return trpc.auth.executeToken.mutate({ token })
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}
+
+// this appears to be necessary, as the signIn that is recommended to be used in client-components,
+// imported from next-auth/react, somehow deletes the error-codes. So I need to provide my own, which
+// just throws them forward, as you'd expect
+export const myOwnServerSideSignIn = async (options) => {
+  return signIn('credentials', options)
+}
+
+export const updatePassword = async (
+  oldPassword: string | '',
+  newPassword: string
+) => {
+  try {
+    return trpc.auth.changePassword.mutate({ oldPassword, newPassword })
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}
+
+export const hasPassword = async () => {
+  return await trpc.auth.hasPassword.query()
 }

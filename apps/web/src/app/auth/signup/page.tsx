@@ -3,7 +3,6 @@
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { handleSignup } from '@web/actions/auth.actions'
-import { signIn } from '@web/src/auth'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -21,6 +20,7 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'

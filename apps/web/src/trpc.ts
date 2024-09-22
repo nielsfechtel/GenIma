@@ -21,8 +21,11 @@ export const trpc = createTRPCProxyClient<AppRouter>({
       url: 'http://localhost:4000/trpc',
       async headers() {
         const session = await auth()
+
         if (session?.accessToken) {
-          return { Authorization: `Bearer ${session?.accessToken}` }
+          return {
+            Authorization: `Bearer ${session?.accessToken}`,
+          }
         }
         return {}
       },

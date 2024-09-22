@@ -1,11 +1,13 @@
-import { SignUpWithGoogleSchema } from '@api/zod_schemas/loginWithGoogle.schema'
+import { TierSchema } from '@api/tier/schemas/tier.schema'
 import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { UserReturnSchema } from '@api/zod_schemas/user-return.schema'
 import { VerifyTokenSchema } from '@api/zod_schemas/verifyToken.schema'
 import { MailerService } from '@nestjs-modules/mailer'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { TRPCError } from '@trpc/server'
 import { OAuth2Client } from 'google-auth-library'
+import { InferSchemaType } from 'mongoose'
 import z from 'zod'
 import { UsersService } from '../users/users.service'
 const bcrypt = require('bcryptjs')
@@ -27,22 +29,29 @@ export class AuthService {
     // 2. Password is incorrect
     // Instead, we return here and down below where we check password, only this
     if (!user) {
-      return new TRPCError({
+      throw new TRPCError({
         code: 'UNAUTHORIZED',
       })
     }
 
     if (!user.isVerified) {
-      return new TRPCError({
+      throw new TRPCError({
         code: 'BAD_REQUEST',
         message: 'Please verify your email',
+      })
+    }
+
+    if (!user.password) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'No password set, sign in with Google',
       })
     }
 
     // check if passwords match - bcrypt the sent one and compare
     const passwordsMatch = await bcrypt.compare(password, user.password)
     if (!passwordsMatch) {
-      return new TRPCError({
+      throw new TRPCError({
         code: 'UNAUTHORIZED',
       })
     }
@@ -51,92 +60,64 @@ export class AuthService {
     // https://devforum.okta.com/t/why-is-the-sub-claim-in-the-access-token-and-id-token-different/3978/3
     // not sure if we need it here, though, since the email is also globally unique and more useful than the DB-_id
     const payload = { sub: user._id, email: user.email }
-    console.log('in signin here')
+
+    // So this comment https://stackoverflow.com/a/78017052/5272905 and others
+    // said that apparently TypeScript doesn't properly understand that the 'tier'-field is no longer an
+    // ObjectId, but populated now (as done in usersService.findOneByEmail).
+    // That's why we force the type here
+    const tier = user.tier as unknown as InferSchemaType<typeof TierSchema>
+
+    const data: UserReturnSchema = {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      profileImage: user.profileImage,
+      role: user.role,
+      tier: tier,
+    }
 
     return {
-      accessToken: await this.jwtService.signAsync(payload, {
-        secret: process.env.JWT_KEY,
-      }),
-      data: {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      },
+      accessToken: await this.jwtService.signAsync(payload),
+      data,
     }
   }
 
-  async loginWithGoogle({
-    firstName,
-    lastName,
-    password,
-    email,
-    isVerifiedEmail,
-    googleIDtoken,
-  }: z.infer<typeof SignUpWithGoogleSchema>) {
-    // check with google if this is a valid token
-    /*
-Do I have an ID token or access-token?
-Also these are JWTs, no? Then I should be able to use Google's public key to check it
-here without calling the server, as this is not intended
-
-// If the user grants at least one permission, the Google Authorization Server sends your application an access token (or an authorization code that your application can
-use to obtain an access token) and a list of scopes of access granted by that token.
-PUT THIS INTO OBSIDIAN
-I think I want to verify the ID_TOKEN (as seen below), not the Access_token. I should
-get an ID-token too.
-Check these links for more info then:
-https://developers.google.com/identity/sign-in/web/backend-auth#using-a-google-api-client-library
-https://stackoverflow.com/a/64398497/5272905
-https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
-    */
+  async signinWithGoogle(googleIDtoken: string) {
     const client = new OAuth2Client()
-    async function verify() {
-      const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
-        // Or, if multiple clients access the backend:
-        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-      })
-      const payload = ticket.getPayload()
-      const userid = payload['sub']
-      // If the request specified a Google Workspace domain:
-      // const domain = payload['hd'];
+    const ticket = await client.verifyIdToken({
+      idToken: googleIDtoken,
+      audience: process.env.AUTH_GOOGLE_ID,
+    })
+    const IDpayload = ticket.getPayload()
+
+    const userValues = {
+      email: IDpayload!.email!,
+      firstName: IDpayload!.given_name,
+      lastName: IDpayload!.family_name,
     }
-    verify().catch(console.error)
+    let userFound = await this.usersService.findOneByEmail(userValues.email)
 
-    // next, does this user exist in our DB?
-    const user = await this.usersService.findOneByEmail(email)
-
-    // For security reasons, we do not want to indicate if the problem is any of these:
-    // 1. User with that email doesn't exist
-    // 2. Password is incorrect
-    // Instead, we return here and down below where we check password, only this
-    if (!user) {
-      return new TRPCError({
-        code: 'UNAUTHORIZED',
+    if (!userFound) {
+      // since Google already vetted this user, we can create it and also set it as verified
+      userFound = await this.usersService.create(userValues)
+      await this.usersService.update(userFound._id.toString(), {
+        isVerified: true,
       })
     }
-
-    if (!user.isVerified) {
-      return new TRPCError({
-        code: 'BAD_REQUEST',
-        message: 'Please verify your email',
-      })
-    }
-    // if not, sign them up
 
     // then return ok
-    const payload = { sub: user._id, email: user.email }
+    const payload = { sub: userFound._id, email: userFound.email }
+    const data: UserReturnSchema = {
+      email: userFound.email,
+      firstName: userFound.firstName,
+      lastName: userFound.lastName,
+      profileImage: userFound.profileImage,
+      role: userFound.role,
+    }
 
     return {
-      accessToken: await this.jwtService.signAsync(payload, {
-        secret: process.env.JWT_KEY,
-      }),
-      data: {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      },
+      accessToken: await this.jwtService.signAsync(payload),
+      data,
     }
   }
 
@@ -146,6 +127,15 @@ https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
     password,
     email,
   }: z.infer<typeof SignUpSchema>) {
+    const doesUserExist = await this.usersService.findOneByEmail(email)
+
+    if (doesUserExist) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'A user with this email already exists',
+      })
+    }
+
     // hash PW and overwrite the provided plain-text one
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -164,18 +154,13 @@ https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
     doing it when registering the module in AuthModule
     */
     // send email with the token
-    const token = await this.jwtService.signAsync(
-      {
-        id: user._id,
-        email: user.email,
-        action: 'VERIFY_EMAIL',
-      },
-      { secret: process.env.JWT_KEY }
-    )
+    const payload: z.infer<typeof VerifyTokenSchema> = {
+      email: user.email,
+      action: 'VERIFY_EMAIL',
+    }
+    const token = await this.jwtService.signAsync(payload)
 
-    const port =
-      process.env.NODE_ENV === 'production' ? '' : `:${process.env.PORT}`
-    const linkWithToken = `${process.env.BASE_URL}${port}/auth/verify/${token}`
+    const linkWithToken = `${process.env.WEB_BASE_URL}/auth/verify?token=${token}`
 
     this.mailService.sendMail({
       to: user.email,
@@ -193,24 +178,44 @@ https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
     }
   }
 
-  async verifyToken(token: string) {
+  async executeToken(token: string) {
     const tokenValues: z.infer<typeof VerifyTokenSchema> =
-      this.jwtService.decode(token)
+      await this.jwtService.decode(token)
+    console.log('tokenValures are', tokenValues)
+    if (!tokenValues)
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
 
     switch (tokenValues.action) {
       case 'DELETE_ACCOUNT': {
-        return this.usersService.deleteOneByEmail(tokenValues.email)
+        await this.usersService.deleteOneByEmail(tokenValues.email)
+        return {
+          success: true,
+          message: 'User successfully deleted',
+          actionType: 'DELETE_ACCOUNT',
+        }
       }
       case 'RESET_PASSWORD': {
-        return
+        // call
+        return {
+          success: false,
+          message: 'NOT YET IMPLEMENTED',
+          actionType: 'RESET_PASSWORD',
+        }
       }
       case 'VERIFY_EMAIL': {
-        return this.usersService.update(tokenValues.id, {
+        const user = await this.usersService.findOneByEmail(tokenValues.email)
+        if (!user) throw new TRPCError({ code: 'BAD_REQUEST' })
+        await this.usersService.update(user._id.toString(), {
           isVerified: true,
         })
+        return {
+          success: true,
+          message: 'Email successfully verified!',
+          actionType: 'VERIFY_EMAIL',
+        }
       }
       default: {
-        return new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
       }
     }
   }
@@ -222,19 +227,72 @@ https://cloud.google.com/nodejs/docs/reference/google-auth-library/latest
   ) {
     const user = await this.usersService.findOneByEmail(email)
     if (!user) {
-      return new TRPCError({
+      throw new TRPCError({
         code: 'BAD_REQUEST',
       })
     }
 
-    const passwordsMatch = await bcrypt.compare(oldPassword, user.password)
-    if (!passwordsMatch) {
-      return new TRPCError({
-        code: 'UNAUTHORIZED',
-      })
+    // this is in case the user signed up normally (has a password), yet sends no old password
+    if (!oldPassword && user.password)
+      throw new TRPCError({ code: 'BAD_REQUEST' })
+
+    // only need to check this if the user HAS a password (i.e. didn't sign up via Google)
+    if (user.password) {
+      const passwordsMatch = await bcrypt.compare(oldPassword, user.password)
+      if (!passwordsMatch) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+        })
+      }
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10)
+
+    if (hashedPassword === user.password)
+      throw new TRPCError({ code: 'BAD_REQUEST' })
+
+    console.log(
+      'IN updatePassword, setting to',
+      hashedPassword,
+      'was',
+      oldPassword
+    )
+
     this.usersService.update(user._id.toString(), { password: hashedPassword })
+  }
+
+  async sendDeleteAccountEmail(email: string) {
+    const payload: z.infer<typeof VerifyTokenSchema> = {
+      email,
+      action: 'DELETE_ACCOUNT',
+    }
+    const token = await this.jwtService.signAsync(payload, {
+      secret: process.env.JWT_KEY,
+    })
+
+    const linkWithToken = `${process.env.WEB_BASE_URL}/auth/verify?token=${token}`
+
+    try {
+      this.mailService.sendMail({
+        to: email,
+        subject: `Delete Account of Niels' Graduation Project`,
+        template: 'confirmDeleteAccount',
+        context: {
+          linkWithToken,
+        },
+      })
+    } catch (error) {
+      throw new TRPCError({ code: 'BAD_REQUEST' })
+    }
+  }
+
+  async hasPassword(email: string) {
+    const user = await this.usersService.findOneByEmail(email)
+    return !!user?.password
+  }
+
+  async isAdmin(email: string) {
+    const user = await this.usersService.findOneByEmail(email)
+    return user?.role === 'ADMIN'
   }
 }

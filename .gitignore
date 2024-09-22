@@ -4,5 +4,7 @@ build
 .env
 .env.*
 
-# don't want the design-files
+# miscellaneous files we don't want
 design
+basic_tiers.json
+test no longer.txt

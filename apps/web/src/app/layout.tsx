@@ -1,9 +1,6 @@
 import { auth } from '@web/src/auth'
-import { Button } from '@web/src/components/ui/button'
-import LogoutButton from '@web/src/components/ui/LogoutButton'
 import { Metadata } from 'next'
 import { SessionProvider } from 'next-auth/react'
-import Link from 'next/link'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -31,24 +28,18 @@ export default async function RootLayout({
     <html suppressHydrationWarning>
       <body suppressHydrationWarning>
         <SessionProvider session={session}>
-          <header className="p-8">
-            {session ? (
-              <LogoutButton />
-            ) : (
-              <Button>
-                <Link href="/login">Login</Link>
-              </Button>
-            )}
-            <h1>
-              {session && (
-                <>
-                  useSession returns <strong>{JSON.stringify(session)}</strong>
-                </>
-              )}
-            </h1>
-          </header>
           <main> {children}</main>
-          <Toaster />
+          <Toaster
+            toastOptions={{
+              unstyled: true,
+              classNames: {
+                error: 'bg-red-400',
+                success: 'text-green-400',
+                warning: 'text-yellow-400',
+                info: 'bg-blue-400',
+              },
+            }}
+          />
         </SessionProvider>
       </body>
     </html>
