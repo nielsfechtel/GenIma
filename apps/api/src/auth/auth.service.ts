@@ -77,6 +77,7 @@ export class AuthService {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
       },
+      api_keys: user.api_keys,
     }
 
     return {
@@ -86,15 +87,12 @@ export class AuthService {
   }
 
   async signinWithGoogle(googleIDtoken: string) {
-    console.log('1')
-
     const client = new OAuth2Client()
     const ticket = await client.verifyIdToken({
       idToken: googleIDtoken,
       audience: process.env.AUTH_GOOGLE_ID,
     })
 
-    console.log('2')
     const IDpayload = ticket.getPayload()
 
     const userValues = {
@@ -102,21 +100,16 @@ export class AuthService {
       firstName: IDpayload!.given_name,
       lastName: IDpayload!.family_name,
     }
-    console.log('3')
     let userFound = await this.usersService.findOneByEmail(userValues.email)
 
     if (!userFound) {
       // since Google already vetted this user, we can create it and also set it as verified
 
-      console.log('4')
       userFound = await this.usersService.create(userValues)
 
-      console.log('5')
       await this.usersService.update(userFound._id.toString(), {
         isVerified: true,
       })
-
-      console.log('6')
     }
 
     // then return ok
@@ -134,6 +127,7 @@ export class AuthService {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
       },
+      api_keys: userFound.api_keys,
     }
 
     return {
@@ -202,7 +196,6 @@ export class AuthService {
   async executeToken(token: string) {
     const tokenValues: z.infer<typeof VerifyTokenSchema> =
       await this.jwtService.decode(token)
-    console.log('tokenValures are', tokenValues)
     if (!tokenValues)
       throw new TRPCError({ code: 'BAD_REQUEST', message: 'Invalid token' })
 
@@ -271,13 +264,6 @@ export class AuthService {
 
     if (hashedPassword === user.password)
       throw new TRPCError({ code: 'BAD_REQUEST' })
-
-    console.log(
-      'IN updatePassword, setting to',
-      hashedPassword,
-      'was',
-      oldPassword
-    )
 
     this.usersService.update(user._id.toString(), { password: hashedPassword })
   }

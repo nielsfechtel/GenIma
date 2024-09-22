@@ -19,9 +19,6 @@ export class UsersService {
     if (!lowestTier) {
       throw new InternalServerErrorException('No tiers defined')
     }
-    console.log('tiers is', tiers)
-
-    console.log('lowestTier is', lowestTier)
 
     const createdUser = new this.userModel({
       ...userData,

@@ -1,3 +1,4 @@
+import { API_Key } from '@api/api_key/schemas/api_key.schema'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { IsEmail } from 'class-validator'
@@ -38,7 +39,7 @@ export class User {
       },
     ],
   })
-  api_tokens: API_Token
+  api_keys: API_Key
 
   @Prop({
     required: true,

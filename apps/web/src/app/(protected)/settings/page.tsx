@@ -13,7 +13,6 @@ import {
 
 export default async function SettingsPage() {
   const isPassworded = await hasPassword()
-  console.log('isPassworded:', isPassworded)
 
   return (
     <Tabs defaultValue="profile" className="w-full max-w-4xl mx-auto">
