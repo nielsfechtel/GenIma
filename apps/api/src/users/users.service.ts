@@ -13,22 +13,21 @@ export class UsersService {
 
   async create(userData: Partial<UserDocument>): Promise<UserDocument> {
     // always add the tier with the lowest tokenLimit (which should be FREE)
-    const tiers = await this.tierModel
-      .findOne()
-      .sort({ tokenLimit: 'asc' })
-      .exec()
-    console.log('tiers is', tiers)
+    const tiers = await this.tierModel.find().sort({ tokenLimit: 'asc' })
 
-    if (!tiers) {
+    const lowestTier = tiers[0]
+    if (!lowestTier) {
       throw new InternalServerErrorException('No tiers defined')
     }
-    // console.log('tiers[0] is', tiers[0])
+    console.log('tiers is', tiers)
+
+    console.log('lowestTier is', lowestTier)
 
     const createdUser = new this.userModel({
       ...userData,
       isVerified: false,
       role: 'USER',
-      // tier: tiers.get._id,
+      tier: lowestTier,
     })
     return createdUser.save()
   }

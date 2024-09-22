@@ -11,8 +11,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
-import { TierModule } from './tier/tier.module';
-import { TierModule } from './tier/tier.module';
+import { ApiKeyModule } from './api_key/api_key.module';
 
 @Module({
   imports: [
@@ -53,7 +52,7 @@ import { TierModule } from './tier/tier.module';
     TrpcModule,
     AuthModule,
     UsersModule,
-    TierModule,
+    ApiKeyModule,
   ],
   providers: [TrpcRouter, AuthTrpcRouter, TrpcService, UserTrpcRouter],
 })

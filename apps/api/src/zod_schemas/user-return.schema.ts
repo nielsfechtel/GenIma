@@ -1,11 +1,7 @@
-import { TierSchema } from '@api/tier/schemas/tier.schema'
+import { UserSchema } from '@api/users/schemas/user.schema'
 import { InferSchemaType } from 'mongoose'
 
-export type UserReturnSchema = {
-  email: string
-  firstName: string
-  lastName: string
-  profileImage: string
-  role: string
-  tier: Pick<InferSchemaType<typeof TierSchema>, 'name' | 'tokenLimit'>
-}
+export type UserReturnSchema = Pick<
+  InferSchemaType<typeof UserSchema>,
+  'email' | 'firstName' | 'lastName' | 'profileImage' | 'role' | 'tier' | 'api_keys'
+>
