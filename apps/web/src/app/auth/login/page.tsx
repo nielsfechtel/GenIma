@@ -1,46 +1,114 @@
 'use client'
 
-import { providerMap, signIn } from '@web/src/auth'
+import { LoginSchema } from '@api/zod_schemas/login.schema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@web/src/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@web/src/components/ui/card'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@web/src/components/ui/form'
+import { Input } from '@web/src/components/ui/input'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
 
-export default function SignInPage(props: {
-  searchParams: { callbackUrl: string | undefined }
+const formSchema = LoginSchema
+
+export default function SignupForm(props: {
+  searchParams: { callbackUrl: string }
 }) {
-  const loginCredentials = async (formData) => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
+  async function handleCredentialSignin(values: z.infer<typeof formSchema>) {
     const result = await signIn('credentials', {
-      formData,
+      email: values.email,
+      password: values.password,
       redirectTo: props.searchParams?.callbackUrl ?? '',
     })
-    alert('hey')
+    console.log('result is', result)
+  }
+
+  async function handleGoogleSignup() {
+    const result = await signIn('google', {
+      redirectTo: props.searchParams?.callbackUrl ?? '',
+    })
     console.log('result is', result)
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <form action={loginCredentials}>
-        <label htmlFor="email">
-          Email
-          <input name="email" id="email" />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input name="password" id="password" />
-        </label>
-        <input type="submit" value="Sign In" />
-      </form>
-      {Object.values(providerMap).map((provider, key) => (
-        <form
-          key={key}
-          action={() => {
-            signIn(provider.name, {
-              redirectTo: props.searchParams?.callbackUrl ?? '',
-            })
-          }}
+    <Card className="mx-auto max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-xl">Login</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-8">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleCredentialSignin)}
+            className="space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </Form>
+        <Button
+          onClick={handleGoogleSignup}
+          variant="outline"
+          className="w-full"
         >
-          <button type="submit">
-            <span>Sign in with {provider.name}</span>
-          </button>
-        </form>
-      ))}
-    </div>
+          Login with Google
+        </Button>
+        <div className="text-center text-sm">
+          {`Don't have an account yet? `}
+          <Link href="/auth/signup" className="underline">
+            Sign up
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
