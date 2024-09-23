@@ -1,3 +1,4 @@
+import { Tier } from '@api/tier/schemas/tier.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { IsEmail } from 'class-validator'
 import mongoose, { HydratedDocument } from 'mongoose'
@@ -29,8 +30,22 @@ export class User {
   @Prop()
   profileImage: string
 
-  @Prop({ required: true })
-  tier: mongoose.Schema.Types.ObjectId
+  @Prop({
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'API_Token',
+      },
+    ],
+  })
+  api_tokens: API_Token
+
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tier',
+  })
+  tier: Tier
 
   @Prop({
     type: String,

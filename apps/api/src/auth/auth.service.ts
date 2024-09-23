@@ -73,7 +73,10 @@ export class AuthService {
       lastName: user.lastName,
       profileImage: user.profileImage,
       role: user.role,
-      tier: tier,
+      tier: {
+        name: tier.name,
+        tokenLimit: tier.tokenLimit,
+      },
     }
 
     return {
@@ -83,11 +86,15 @@ export class AuthService {
   }
 
   async signinWithGoogle(googleIDtoken: string) {
+    console.log('1')
+
     const client = new OAuth2Client()
     const ticket = await client.verifyIdToken({
       idToken: googleIDtoken,
       audience: process.env.AUTH_GOOGLE_ID,
     })
+
+    console.log('2')
     const IDpayload = ticket.getPayload()
 
     const userValues = {
@@ -95,24 +102,38 @@ export class AuthService {
       firstName: IDpayload!.given_name,
       lastName: IDpayload!.family_name,
     }
+    console.log('3')
     let userFound = await this.usersService.findOneByEmail(userValues.email)
 
     if (!userFound) {
       // since Google already vetted this user, we can create it and also set it as verified
+
+      console.log('4')
       userFound = await this.usersService.create(userValues)
+
+      console.log('5')
       await this.usersService.update(userFound._id.toString(), {
         isVerified: true,
       })
+
+      console.log('6')
     }
 
     // then return ok
     const payload = { sub: userFound._id, email: userFound.email }
+
+    const tier = userFound.tier as unknown as InferSchemaType<typeof TierSchema>
+
     const data: UserReturnSchema = {
       email: userFound.email,
       firstName: userFound.firstName,
       lastName: userFound.lastName,
       profileImage: userFound.profileImage,
       role: userFound.role,
+      tier: {
+        name: tier.name,
+        tokenLimit: tier.tokenLimit,
+      },
     }
 
     return {

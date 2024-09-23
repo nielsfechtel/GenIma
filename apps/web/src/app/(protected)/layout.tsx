@@ -16,15 +16,17 @@ export default async function RootLayout({
     <>
       <header className="p-4 flex flex-row justify-between border-b">
         {session && (
-          <ul className="flex flex-row gap-10 items-center">
-            <li>
-              accessToken (truncated): {session.accessToken.substring(0, 15)}
-            </li>
+          <ul className="flex flex-row gap-2 items-center text-xs">
+            <li>accessToken: {session.accessToken.substring(0, 10)}...</li>
             <li>
               You are {user?.firstName} {user?.lastName}
             </li>
             <li>Email: {user?.email}</li>
             <li>Role: {user?.role}</li>
+            <li>
+              Tier: {user?.tier.name} {user?.tier.tokenLimit}
+            </li>
+            <li>API-T.: {user?.api_tokens}</li>
           </ul>
         )}
         <div>

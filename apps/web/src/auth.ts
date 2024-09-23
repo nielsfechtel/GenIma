@@ -82,13 +82,14 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         if (account?.provider === 'credentials') {
           accessToken = user.accessToken
           const data: UserReturnSchema = user.data
-          const { email, firstName, lastName, profileImage, role } = data
+          const { email, firstName, lastName, profileImage, role, tier } = data
           newUser = {
             email,
             firstName,
             lastName,
             profileImage,
             role,
+            tier,
           } satisfies UserReturnSchema
         } else if (account?.provider === 'google') {
           accessToken = account.id_token
@@ -104,6 +105,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             lastName: returnedUser.lastName,
             profileImage: returnedUser.profileImage,
             role: returnedUser.role,
+            tier: returnedUser.tier,
           } satisfies UserReturnSchema
         }
 

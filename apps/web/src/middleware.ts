@@ -11,7 +11,6 @@ import { trpc } from '@web/src/trpc'
 
 export default auth(async (req) => {
   const isAuthed = !!req.auth
-  const isAdmin = await trpc.auth.isAdmin.query()
   const { nextUrl } = req
 
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
@@ -39,8 +38,12 @@ export default auth(async (req) => {
     )
   }
 
-  if (isAdminRoute && !isAdmin)
-    return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+  if (isAdminRoute) {
+    // can only request this if authed
+    const isAdmin = isAuthed && (await trpc.auth.isAdmin.query())
+    if (!isAdmin)
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+  }
 
   return null
 })
