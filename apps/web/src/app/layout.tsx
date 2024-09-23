@@ -44,7 +44,7 @@ export default async function RootLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <Navbar />
-              {children}
+              <main className="bg-background">{children}</main>
               <Toaster
                 toastOptions={{
                   unstyled: true,
