@@ -21,6 +21,7 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -48,11 +49,13 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
     form.reset()
   }
 
+  const t = useTranslations('UpdatePassword')
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Change Password</CardTitle>
-        <CardDescription>Update your password here.</CardDescription>
+        <CardTitle>{t('change-password')}</CardTitle>
+        <CardDescription>{t('update-your-password-here')}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -63,7 +66,7 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
                 name="oldPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Password</FormLabel>
+                    <FormLabel>{t('current-password')}</FormLabel>
                     <FormControl>
                       <Input type="password" {...field} />
                     </FormControl>
@@ -72,14 +75,14 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
                 )}
               />
             ) : (
-              <h3>You signed up via Google - set a new password:</h3>
+              <h3>{t('you-signed-up-via-google-set-a-new-password')}</h3>
             )}
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New Password</FormLabel>
+                  <FormLabel>{t('new-password')}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -92,7 +95,7 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm New Password</FormLabel>
+                  <FormLabel>{t('confirm-new-password')}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -102,7 +105,7 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit">Update Password</Button>
+            <Button type="submit">{t('update-password')}</Button>
           </CardFooter>
         </form>
       </Form>

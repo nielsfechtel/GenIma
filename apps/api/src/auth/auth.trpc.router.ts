@@ -62,12 +62,5 @@ export class AuthTrpcRouter {
       return await this.authService.sendDeleteAccountEmail(req.ctx.user.email)
     }),
 
-    hasPassword: this.trpc.protectedProcedure.query(async ({ ctx }) => {
-      return this.authService.hasPassword(ctx.user.email)
-    }),
-
-    isAdmin: this.trpc.protectedProcedure.query(async ({ ctx }) => {
-      return this.authService.isAdmin(ctx.user.email)
-    }),
   })
 }

@@ -15,13 +15,16 @@ import {
   AlertDialogHeader,
 } from '@web/src/components/ui/alert-dialog'
 import { Button } from '@web/src/components/ui/button'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 
 export default function DeleteAccountAlert() {
+  const t = useTranslations('DeleteAccountAlert')
+
   const handleDeleteAccountMail = async () => {
     try {
       await sendDeleteAccountEmail()
-      toast.success('Sent a verification-email!')
+      toast.success(t('sent-a-verification-email'))
     } catch (error) {
       toast.error(error.message)
     }
@@ -30,14 +33,15 @@ export default function DeleteAccountAlert() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete Account</Button>
+        <Button variant="destructive">{t('delete-account')}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t('are-you-absolutely-sure')}</AlertDialogTitle>
           <AlertDialogDescription>
-            You will receive an email with a link to verify your account&apos;
-            deletion.
+            {t(
+              'you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion'
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -46,7 +50,7 @@ export default function DeleteAccountAlert() {
             onClick={handleDeleteAccountMail}
             className="bg-destructive text-destructive-foreground"
           >
-            Send verification email
+            {t('send-verification-email')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

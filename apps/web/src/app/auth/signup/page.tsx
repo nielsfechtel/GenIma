@@ -50,8 +50,6 @@ export default function SignupForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log('onSubmit values are', values)
-
     const result = await handleSignup(values)
     if (result.success) {
       toast.success('Success! Please verify your email!')

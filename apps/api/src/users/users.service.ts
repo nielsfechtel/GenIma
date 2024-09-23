@@ -19,9 +19,6 @@ export class UsersService {
     if (!lowestTier) {
       throw new InternalServerErrorException('No tiers defined')
     }
-    console.log('tiers is', tiers)
-
-    console.log('lowestTier is', lowestTier)
 
     const createdUser = new this.userModel({
       ...userData,
@@ -65,5 +62,15 @@ export class UsersService {
 
   async deleteMany(): Promise<void> {
     await this.userModel.deleteMany()
+  }
+
+  async hasPassword(email: string) {
+    const user = await this.userModel.findOne({ email: email })
+    return !!user?.password
+  }
+
+  async isAdmin(email: string) {
+    const user = await this.userModel.findOne({ email: email })
+    return user?.role === 'ADMIN'
   }
 }

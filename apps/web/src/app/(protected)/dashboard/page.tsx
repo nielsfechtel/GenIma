@@ -9,6 +9,7 @@ import {
 import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
 import { ImageIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -53,6 +54,7 @@ export default function Component() {
   ]
 
   const displayedImages = showAllImages ? allImages : userImages
+  const t = useTranslations('Dashboard')
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -68,18 +70,20 @@ export default function Component() {
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-2xl font-bold">Welcome, Jane Doe</h1>
-            <p className="text-muted-foreground">Your AI Image Dashboard</p>
+            <h1 className="text-2xl font-bold">{t('welcome')}</h1>
+            <p className="text-muted-foreground">
+              {t('your-ai-image-dashboard')}
+            </p>
           </div>
         </div>
         <div className="flex items-center">
-          <span className="mr-2 text-sm font-medium">My Images</span>
+          <span className="mr-2 text-sm font-medium">{t('my-images')}</span>
           <Switch
             checked={showAllImages}
             onCheckedChange={setShowAllImages}
             className="mr-2"
           />
-          <span className="text-sm font-medium">All Images</span>
+          <span className="text-sm font-medium">{t('all-images')}</span>
         </div>
       </header>
       <main>
@@ -102,13 +106,11 @@ export default function Component() {
           <div className="text-center py-12">
             <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-semibold text-gray-900">
-              No images
+              {t('no-images')}
             </h3>
-            <p className="mt-1 text-sm text-gray-500">
-              Get started by generating some images.
-            </p>
+            <p className="mt-1 text-sm text-gray-500">{t('get-started')}</p>
             <div className="mt-6">
-              <Button>Generate New Image</Button>
+              <Button>{t('generate-new-image')}</Button>
             </div>
           </div>
         )}

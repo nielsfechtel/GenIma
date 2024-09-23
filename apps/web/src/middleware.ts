@@ -40,7 +40,7 @@ export default auth(async (req) => {
 
   if (isAdminRoute) {
     // can only request this if authed
-    const isAdmin = isAuthed && (await trpc.auth.isAdmin.query())
+    const isAdmin = isAuthed && (await trpc.user.isAdmin.query())
     if (!isAdmin)
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
   }

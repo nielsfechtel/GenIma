@@ -23,13 +23,9 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-
-const profileSchema = z.object({
-  firstName: z.string().min(2, 'First name must be at least 2 characters.'),
-  lastName: z.string().min(2, 'Last name must be at least 2 characters.'),
-})
 
 type ProfileFormProps = {
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -37,6 +33,13 @@ type ProfileFormProps = {
 }
 
 export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
+  const t = useTranslations('ProfileForm')
+
+  const profileSchema = z.object({
+    firstName: z.string().min(2, t('first-name-must-be-at-least-2-characters')),
+    lastName: z.string().min(2, t('last-name-must-be-at-least-2-characters')),
+  })
+
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -53,8 +56,10 @@ export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Profile Information</CardTitle>
-        <CardDescription>Update your profile details here.</CardDescription>
+        <CardTitle>{t('profile-information')}</CardTitle>
+        <CardDescription>
+          {t('update-your-profile-details-here')}
+        </CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -68,7 +73,7 @@ export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
                 htmlFor="picture"
                 className="cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md"
               >
-                Upload Picture
+                {t('upload-picture')}
               </Label>
               <Input
                 id="picture"
@@ -84,9 +89,12 @@ export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First name</FormLabel>
+                    <FormLabel>{t('first-name')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your first name" {...field} />
+                      <Input
+                        placeholder={t('enter-your-first-name')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -97,9 +105,12 @@ export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last name</FormLabel>
+                    <FormLabel>{t('last-name')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your last name" {...field} />
+                      <Input
+                        placeholder={t('enter-your-last-name')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,7 +119,7 @@ export function ProfileForm({ onImageUpload, profileImage }: ProfileFormProps) {
             </div>
           </CardContent>
           <CardFooter>
-            <Button type="submit">Save Changes</Button>
+            <Button type="submit">{t('save-changes')}</Button>
           </CardFooter>
         </form>
       </Form>

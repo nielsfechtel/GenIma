@@ -10,10 +10,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@web/src/components/ui/card'
+import { getTranslations } from 'next-intl/server'
 
 export default async function SettingsPage() {
   const isPassworded = await hasPassword()
-  console.log('isPassworded:', isPassworded)
+  const t = await getTranslations('Settings')
 
   return (
     <Tabs defaultValue="profile" className="w-full max-w-4xl mx-auto">
@@ -27,9 +28,9 @@ export default async function SettingsPage() {
           <UpdatePassword hasPassword={isPassworded} />
           <Card>
             <CardHeader>
-              <CardTitle>Delete Account</CardTitle>
+              <CardTitle>{t('delete-account')}</CardTitle>
               <CardDescription>
-                Permanently delete your account and all associated data.
+                {t('permanently-delete-your-account-and-all-associated-data')}
               </CardDescription>
             </CardHeader>
             <CardFooter>
@@ -42,9 +43,9 @@ export default async function SettingsPage() {
         <div className="space-y-8">
           <Card>
             <CardHeader>
-              <CardTitle>API keys</CardTitle>
+              <CardTitle>{t('api-keys')}</CardTitle>
               <CardDescription>
-                Generate API keys to query the backend.
+                {t('generate-api-keys-to-query-the-backend')}
               </CardDescription>
             </CardHeader>
             <CardFooter>a list of API keys</CardFooter>

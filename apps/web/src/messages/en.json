@@ -1,0 +1,103 @@
+{
+  "AdminPanel": {
+    "super-secret-admin-panel": "Super secret Admin Panel"
+  },
+  "ChangeEmailForm": {
+    "change-your-account-email-address": "Change your account email address.",
+    "confirm-new-email": "Confirm New Email",
+    "confirm-your-new-email": "Confirm your new email",
+    "current-email": "Current Email",
+    "emails-do-not-match": "Emails do not match.",
+    "enter-your-new-email": "Enter your new email",
+    "new-email": "New Email",
+    "update-email": "Update Email"
+  },
+  "Common": {
+    "project_name": "GenIma"
+  },
+  "Dashboard": {
+    "all-images": "All Images",
+    "generate-new-image": "Generate new Image",
+    "get-started": "Get Started by generating some images",
+    "my-images": "My Images",
+    "no-images": "No Images",
+    "welcome": "Welcome",
+    "your-ai-image-dashboard": "Your AI Image Dashboard"
+  },
+  "DeleteAccountAlert": {
+    "are-you-absolutely-sure": "Are you absolutely sure?",
+    "delete-account": "Delete Account",
+    "send-verification-email": "Send verification email",
+    "sent-a-verification-email": "Sent a verification-email!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify your account&apos; deletion."
+  },
+  "LandingPage": {
+    "all-rights-reserved": "All rights reserved.",
+    "create-amazing-images-with-ai": "Create Amazing Images with AI",
+    "describe-your-idea-and-watch-ai-bring-it-to-life": "Describe your idea, and watch AI bring it to life.",
+    "easy-image-generation": "Easy Image Generation",
+    "features": "Features",
+    "for-everyone": "For Everyone",
+    "get-started": "Get Started",
+    "get-your-images-in-seconds-not-hours": "Get your images in seconds, not hours.",
+    "go-to": "Go to",
+    "hello": "Hello",
+    "lightning-fast": "Lightning Fast",
+    "no-technical-knowledge-required-just-describe-and-we-and-apos-ll-generate": "No technical knowledge required. Just describe, and we&apos;ll generate.",
+    "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
+    "see-it-in-action": "See It in Action"
+  },
+  "LanguageSwitch": {
+    "de": "German",
+    "en": "English",
+    "system": "System",
+    "toggle-language": "Toggle language"
+  },
+  "LogoutButton": {
+    "logout": "Logout"
+  },
+  "ProfileForm": {
+    "enter-your-first-name": "Enter your first name",
+    "enter-your-last-name": "Enter your last name",
+    "first-name": "First name",
+    "first-name-must-be-at-least-2-characters": "First name must be at least 2 characters.",
+    "last-name": "Last name",
+    "last-name-must-be-at-least-2-characters": "Last name must be at least 2 characters.",
+    "profile-information": "Profile Information",
+    "save-changes": "Save Changes",
+    "update-your-profile-details-here": "Update your profile details here.",
+    "upload-picture": "Upload Picture"
+  },
+  "RootLayout": {
+    "accessToken": "accessToken",
+    "api-t": "API-T.",
+    "email": "Email",
+    "login": "Login",
+    "logout": "Logout",
+    "role": "Role",
+    "settings": "Settings",
+    "tier": "Tier",
+    "youAre": "You are"
+  },
+  "Settings": {
+    "api-keys": "API keys",
+    "delete-account": "Delete Account",
+    "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
+    "permanently-delete-your-account-and-all-associated-data": "Permanently delete your account and all associated data."
+  },
+  "ThemeSwitcher": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "UpdatePassword": {
+    "change-password": "Change Password",
+    "confirm-new-password": "Confirm New Password",
+    "current-password": "Current Password",
+    "new-password": "New Password",
+    "update-password": "Update Password",
+    "update-your-password-here": "Update your password here.",
+    "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
+  },
+  "tier": "Tier"
+}

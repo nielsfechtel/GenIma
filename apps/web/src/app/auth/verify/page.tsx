@@ -26,7 +26,6 @@ export default function Verify() {
     }).then(() => {
       executeToken(token)
         .then((result) => {
-          console.log(`result is `, result)
           message = result.message
           switch (result.actionType) {
             case 'DELETE_ACCOUNT': {

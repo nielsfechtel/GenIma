@@ -20,20 +20,23 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
-const emailSchema = z
-  .object({
-    newEmail: z.string().email(),
-    confirmEmail: z.string().email(),
-  })
-  .refine((data) => data.newEmail === data.confirmEmail, {
-    message: 'Emails do not match.',
-    path: ['confirmEmail'],
-  })
-
 export default function ChangeEmailForm() {
+  const t = useTranslations('ChangeEmailForm')
+
+  const emailSchema = z
+    .object({
+      newEmail: z.string().email(),
+      confirmEmail: z.string().email(),
+    })
+    .refine((data) => data.newEmail === data.confirmEmail, {
+      message: t('emails-do-not-match'),
+      path: ['confirmEmail'],
+    })
+
   const form = useForm<z.infer<typeof emailSchema>>({
     resolver: zodResolver(emailSchema),
     defaultValues: {
@@ -50,14 +53,16 @@ export default function ChangeEmailForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Update Email</CardTitle>
-        <CardDescription>Change your account email address.</CardDescription>
+        <CardTitle>{t('update-email')}</CardTitle>
+        <CardDescription>
+          {t('change-your-account-email-address')}
+        </CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="currentEmail">Current Email</Label>
+              <Label htmlFor="currentEmail">{t('current-email')}</Label>
               <Input
                 id="currentEmail"
                 type="email"
@@ -70,12 +75,12 @@ export default function ChangeEmailForm() {
               name="newEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New Email</FormLabel>
+                  <FormLabel>{t('new-email')}</FormLabel>
                   <FormControl>
                     <Input
                       disabled
                       type="email"
-                      placeholder="Enter your new email"
+                      placeholder={t('enter-your-new-email')}
                       {...field}
                     />
                   </FormControl>
@@ -88,12 +93,12 @@ export default function ChangeEmailForm() {
               name="confirmEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm New Email</FormLabel>
+                  <FormLabel>{t('confirm-new-email')}</FormLabel>
                   <FormControl>
                     <Input
                       disabled
                       type="email"
-                      placeholder="Confirm your new email"
+                      placeholder={t('confirm-your-new-email')}
                       {...field}
                     />
                   </FormControl>
@@ -104,7 +109,7 @@ export default function ChangeEmailForm() {
           </CardContent>
           <CardFooter>
             <Button disabled type="submit">
-              Update Email
+              {t('update-email')}
             </Button>
           </CardFooter>
         </form>

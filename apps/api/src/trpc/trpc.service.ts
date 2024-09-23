@@ -15,10 +15,6 @@ export class TrpcService {
   }: trpcExpress.CreateExpressContextOptions) => {
     // This creates a context; it will be available as `ctx` in all resolvers
     let user = null
-    console.log(
-      'CREATE_CONTEXT here before question:',
-      req.headers.authorization
-    )
 
     if (req.headers.authorization) {
       // split token; if it's in the Bearer-token-format, the second entry is the token
@@ -55,9 +51,7 @@ export class TrpcService {
       }
     }
 
-    return {
-      user,
-    }
+    return {}
   }
 
   // This doesn't work in classes - I think - but you should still be able to get this type by
@@ -70,32 +64,32 @@ export class TrpcService {
   createCallerFactory = this.trpc.createCallerFactory
 
   // define a logger-middleware used by public- and protectedProcedure
-  private loggedProcedure = this.trpc.procedure.use(async (opts) => {
-    const start = Date.now()
+  // private loggedProcedure = this.trpc.procedure.use(async (opts) => {
+  //   const start = Date.now()
 
-    // run the actual request
-    const result = await opts.next()
+  //   // run the actual request
+  //   const result = await opts.next()
 
-    // now we can calculate the time it took to run it
-    const durationMs = Date.now() - start
-    const meta = {
-      path: opts.path,
-      type: opts.type,
-      durationMs,
-    }
+  //   // now we can calculate the time it took to run it
+  //   const durationMs = Date.now() - start
+  //   const meta = {
+  //     path: opts.path,
+  //     type: opts.type,
+  //     durationMs,
+  //   }
 
-    result.ok
-      ? console.log('OK: request timing:', meta)
-      : console.error('ERROR: request timing', meta)
+  //   result.ok
+  //     ? console.log('OK: request timing:', meta)
+  //     : console.error('ERROR: request timing', meta)
 
-    return result
-  })
+  //   return result
+  // })
 
   // rename the normal procedure more clearly to show it is public
-  publicProcedure = this.loggedProcedure
+  publicProcedure = this.trpc.procedure
 
   // protectedProcedure requiring a valid Bearer-token to be present
-  protectedProcedure = this.loggedProcedure.use(async function isAuthed(opts) {
+  protectedProcedure = this.trpc.procedure.use(async function isAuthed(opts) {
     const { ctx } = opts
 
     // user is nullable

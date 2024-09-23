@@ -1,6 +1,10 @@
+import Navbar from '@web/src/app/_components/Navbar'
 import { auth } from '@web/src/auth'
 import { Metadata } from 'next'
 import { SessionProvider } from 'next-auth/react'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
+import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -14,6 +18,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Receive messages provided in `i18n/request.ts`
+  const messages = await getMessages()
+  const locale = await getLocale()
+
   const session = await auth()
 
   return (
@@ -25,21 +33,31 @@ export default async function RootLayout({
       updates that element. This property only applies one level deep, so it won't block hydration warnings on
       other elements.
     */
-    <html suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <SessionProvider session={session}>
-          <main> {children}</main>
-          <Toaster
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                error: 'bg-red-400',
-                success: 'text-green-400',
-                warning: 'text-yellow-400',
-                info: 'bg-blue-400',
-              },
-            }}
-          />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              <Navbar />
+              <main className="bg-background">{children}</main>
+              <Toaster
+                toastOptions={{
+                  unstyled: true,
+                  classNames: {
+                    error: 'bg-red-400',
+                    success: 'text-green-400',
+                    warning: 'text-yellow-400',
+                    info: 'bg-blue-400',
+                  },
+                }}
+              />
+            </NextIntlClientProvider>
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
