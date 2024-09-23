@@ -19,14 +19,24 @@ export class UserTrpcRouter {
       .query(async ({ input }) => {
         return this.userService.findOneByEmail(input.email)
       }),
+
     getOne: this.trpc.protectedProcedure
       .input(ObjectIdSchema)
       .query(async ({ input }) => {
         const id = input.id.toString()
         return this.userService.findOne(id)
       }),
+
     getAll: this.trpc.protectedProcedure.query(
       async () => await this.userService.findAll()
     ),
+
+    hasPassword: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return this.userService.hasPassword(ctx.user.email)
+    }),
+
+    isAdmin: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return this.userService.isAdmin(ctx.user.email)
+    }),
   })
 }

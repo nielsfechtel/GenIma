@@ -63,4 +63,14 @@ export class UsersService {
   async deleteMany(): Promise<void> {
     await this.userModel.deleteMany()
   }
+
+  async hasPassword(email: string) {
+    const user = await this.userModel.findOne({ email: email })
+    return !!user?.password
+  }
+
+  async isAdmin(email: string) {
+    const user = await this.userModel.findOne({ email: email })
+    return user?.role === 'ADMIN'
+  }
 }

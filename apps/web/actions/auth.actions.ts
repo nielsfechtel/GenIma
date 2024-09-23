@@ -64,5 +64,5 @@ export const updatePassword = async (
 }
 
 export const hasPassword = async () => {
-  return await trpc.auth.hasPassword.query()
+  return await trpc.user.hasPassword.query()
 }

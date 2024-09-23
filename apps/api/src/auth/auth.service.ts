@@ -292,14 +292,4 @@ export class AuthService {
       throw new TRPCError({ code: 'BAD_REQUEST' })
     }
   }
-
-  async hasPassword(email: string) {
-    const user = await this.usersService.findOneByEmail(email)
-    return !!user?.password
-  }
-
-  async isAdmin(email: string) {
-    const user = await this.usersService.findOneByEmail(email)
-    return user?.role === 'ADMIN'
-  }
 }
