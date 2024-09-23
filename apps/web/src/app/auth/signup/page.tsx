@@ -1,6 +1,6 @@
 'use client'
 
-import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { SignUpSchema } from '@api/schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { handleSignup } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'

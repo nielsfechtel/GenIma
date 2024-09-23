@@ -1,3 +1,5 @@
+import { ApiKeyService } from '@api/api_key/api_key.service'
+import { API_Key, API_KeySchema } from '@api/api_key/schemas/api_key.schema'
 import { AuthService } from '@api/auth/auth.service'
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { Tier, TierSchema } from '@api/tier/schemas/tier.schema'
@@ -15,12 +17,14 @@ import { MongooseModule } from '@nestjs/mongoose'
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       { name: Tier.name, schema: TierSchema },
+      { name: API_Key.name, schema: API_KeySchema },
     ]),
   ],
   providers: [
     TrpcService,
     TrpcRouter,
     AuthTrpcRouter,
+    ApiKeyService,
     UsersService,
     UserTrpcRouter,
     AuthService,

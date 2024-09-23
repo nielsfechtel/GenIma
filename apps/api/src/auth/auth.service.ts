@@ -1,7 +1,7 @@
+import { SignUpSchema } from '@api/schemas/signup.schema'
+import { UserReturnSchema } from '@api/schemas/user-return.schema'
+import { VerifyTokenSchema } from '@api/schemas/verifyToken.schema'
 import { TierSchema } from '@api/tier/schemas/tier.schema'
-import { SignUpSchema } from '@api/zod_schemas/signup.schema'
-import { UserReturnSchema } from '@api/zod_schemas/user-return.schema'
-import { VerifyTokenSchema } from '@api/zod_schemas/verifyToken.schema'
 import { MailerService } from '@nestjs-modules/mailer'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
@@ -21,13 +21,8 @@ export class AuthService {
   ) {}
 
   async signIn(email: string, password: string) {
-    // check if we have a user with this email
     const user = await this.usersService.findOneByEmail(email)
 
-    // For security reasons, we do not want to indicate if the problem is any of these:
-    // 1. User with that email doesn't exist
-    // 2. Password is incorrect
-    // Instead, we return here and down below where we check password, only this
     if (!user) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',

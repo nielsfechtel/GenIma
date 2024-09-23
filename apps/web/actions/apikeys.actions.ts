@@ -1,0 +1,17 @@
+'use server'
+
+import { trpc } from '@web/src/trpc'
+import { revalidatePath } from 'next/cache'
+
+export const createAPIKey = async (name: string, expiry_date: Date) => {
+  try {
+    const result = await trpc.user.addAPIKey.mutate({ name, expiry_date })
+    revalidatePath('/settings')
+    return result
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}

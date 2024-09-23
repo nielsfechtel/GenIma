@@ -5,6 +5,7 @@ declare global {
       PORT: number
       DB_CONNECTION_URL: string
       AUTH_GOOGLE_ID: string
+      OPENAI_API_KEY: string
       JWT_KEY: string
       PORT: number
       WEB_BASE_URL: string

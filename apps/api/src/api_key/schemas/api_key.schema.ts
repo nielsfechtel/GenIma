@@ -5,6 +5,9 @@ export type API_KeyDocument = HydratedDocument<API_Key>
 
 @Schema()
 export class API_Key {
+  @Prop({ required: true })
+  name: string
+
   @Prop({ required: true, unique: true })
   value: string
 

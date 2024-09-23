@@ -10,33 +10,11 @@ import Link from 'next/link'
 export default async function Navbar() {
   const session = await auth()
   const user = session?.user
-  const t = await getTranslations('RootLayout')
+  const t = await getTranslations('Navbar')
 
   return (
     <header className="p-4 flex flex-row justify-between border-b">
-      {session && (
-        <ul className="flex flex-row gap-2 items-center text-xs">
-          <li>
-            {t('accessToken')}: {session.accessToken.substring(0, 10)}
-            ...
-          </li>
-          <li>
-            {t('youAre')} {user?.firstName} {user?.lastName}
-          </li>
-          <li>
-            {t('email')}: {user?.email}
-          </li>
-          <li>
-            {t('role')}: {user?.role}
-          </li>
-          <li>
-            {t('tier')}: {user?.tier.name} {user?.tier.tokenLimit}
-          </li>
-          <li>
-            {t('api-t')}: {user?.api_tokens}
-          </li>
-        </ul>
-      )}
+      {session && <span>{`${t('hello')} ${user?.firstName}!`}</span>}
       <div>
         {session ? (
           <LogoutButton />

@@ -1,7 +1,8 @@
 // modules/user/user.trpc.ts
+import { CreateAPIKeySchema } from '@api/schemas/create-apikey.schema'
+import { ObjectIdSchema } from '@api/schemas/object-id.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { UsersService } from '@api/users/users.service'
-import { ObjectIdSchema } from '@api/zod_schemas/object-id.schema'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -13,8 +14,7 @@ export class UserTrpcRouter {
   ) {}
 
   userRouter = this.trpc.router({
-    // TODO security risk? This way anyone can check if an email exists, right?
-    getOneByEmail: this.trpc.publicProcedure
+    getOneByEmail: this.trpc.protectedProcedure
       .input(z.object({ email: z.string().email() }))
       .query(async ({ input }) => {
         return this.userService.findOneByEmail(input.email)
@@ -38,5 +38,17 @@ export class UserTrpcRouter {
     isAdmin: this.trpc.protectedProcedure.query(async ({ ctx }) => {
       return this.userService.isAdmin(ctx.user.email)
     }),
+
+    addAPIKey: this.trpc.protectedProcedure
+      .input(CreateAPIKeySchema)
+      .mutation(async ({ ctx, input }) => {
+        return await this.userService.createAPIKey(ctx.user.email, input.name, input.expiry_date)
+      }),
+
+    deleteAPIKey: this.trpc.protectedProcedure
+      .input(CreateAPIKeySchema)
+      .mutation(async ({ ctx, input }) => {
+        return await this.userService.deleteAPIKey(ctx.user.email, input.name)
+      }),
   })
 }

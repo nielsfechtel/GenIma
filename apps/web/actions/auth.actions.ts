@@ -1,8 +1,9 @@
 'use server'
 
-import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { SignUpSchema } from '@api/schemas/signup.schema'
 import { signIn } from '@web/src/auth'
 import { trpc } from '@web/src/trpc'
+import { revalidatePath } from 'next/cache'
 import * as z from 'zod'
 
 export const handleSignup = async (formData: z.infer<typeof SignUpSchema>) => {
@@ -54,7 +55,12 @@ export const updatePassword = async (
   newPassword: string
 ) => {
   try {
-    return trpc.auth.changePassword.mutate({ oldPassword, newPassword })
+    const result = await trpc.auth.changePassword.mutate({
+      oldPassword,
+      newPassword,
+    })
+    revalidatePath('/settings')
+    return result
   } catch (error) {
     return {
       success: false,

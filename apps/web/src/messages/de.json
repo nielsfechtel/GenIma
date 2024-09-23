@@ -1,4 +1,12 @@
 {
+  "API_KeysForm": {
+    "api-keys": "API-Schlüssel",
+    "create-api-key": "API-Schlüssel erstellen",
+    "enter-name": "Geben Sie den Namen Ihres API-Schlüssels ein",
+    "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
+    "name": "Name",
+    "no-api-keys-created-yet": "Es wurden noch keine API-Schlüssel erstellt."
+  },
   "AdminPanel": {
     "super-secret-admin-panel": "Super geheimes Admin Panel"
   },
@@ -27,6 +35,7 @@
   "DeleteAccountAlert": {
     "are-you-absolutely-sure": "Sind Sie absolut sicher?",
     "delete-account": "Konto löschen",
+    "permanently-delete-your-account-and-all-associated-data": "Löschen Sie Ihr Konto und alle damit verbundenen Daten endgültig.",
     "send-verification-email": "Verifizierungs-E-Mail senden",
     "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Verifizierung Ihres Kontos"
@@ -68,22 +77,11 @@
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails.",
     "upload-picture": "Bild hochladen"
   },
-  "RootLayout": {
-    "accessToken": "accessToken",
-    "api-t": "API-T.",
-    "email": "E-Mail",
+  "Navbar": {
     "login": "Einloggen",
-    "logout": "Abmelden",
-    "role": "Rolle",
+    "logout": "Ausloggen",
     "settings": "Einstellungen",
-    "tier": "Tier",
-    "youAre": "Du bist"
-  },
-  "Settings": {
-    "api-keys": "API-Schlüssel",
-    "delete-account": "Konto löschen",
-    "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
-    "permanently-delete-your-account-and-all-associated-data": "Löschen Sie Ihr Konto und alle damit verbundenen Daten endgültig."
+    "hello": "Hi"
   },
   "ThemeSwitcher": {
     "dark": "Dunkel",

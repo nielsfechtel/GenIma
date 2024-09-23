@@ -1,6 +1,6 @@
 'use client'
 
-import { LoginSchema } from '@api/zod_schemas/login.schema'
+import { LoginSchema } from '@api/schemas/login.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { myOwnServerSideSignIn } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'

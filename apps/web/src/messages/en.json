@@ -25,6 +25,7 @@
     "your-ai-image-dashboard": "Your AI Image Dashboard"
   },
   "DeleteAccountAlert": {
+    "permanently-delete-your-account-and-all-associated-data": "Permanently delete your account and all associated data.",
     "are-you-absolutely-sure": "Are you absolutely sure?",
     "delete-account": "Delete Account",
     "send-verification-email": "Send verification email",
@@ -68,22 +69,19 @@
     "update-your-profile-details-here": "Update your profile details here.",
     "upload-picture": "Upload Picture"
   },
-  "RootLayout": {
-    "accessToken": "accessToken",
-    "api-t": "API-T.",
-    "email": "Email",
+  "Navbar": {
     "login": "Login",
     "logout": "Logout",
-    "role": "Role",
     "settings": "Settings",
-    "tier": "Tier",
-    "youAre": "You are"
+    "hello": "Hi"
   },
-  "Settings": {
-    "api-keys": "API keys",
-    "delete-account": "Delete Account",
+  "API_KeysForm": {
     "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
-    "permanently-delete-your-account-and-all-associated-data": "Permanently delete your account and all associated data."
+    "name": "Name",
+    "enter-name": "Enter your API Keys' name",
+    "api-keys": "API keys",
+    "create-api-key": "Create API Key",
+    "no-api-keys-created-yet": "No API keys created yet."
   },
   "ThemeSwitcher": {
     "dark": "Dark",

@@ -35,11 +35,11 @@ export class User {
     type: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'API_Token',
+        ref: 'API_Key',
       },
     ],
   })
-  api_keys: API_Key
+  api_keys: API_Key[]
 
   @Prop({
     required: true,

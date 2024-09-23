@@ -1,6 +1,6 @@
 'use client'
 
-import { SignUpSchema } from '@api/zod_schemas/signup.schema'
+import { SignUpSchema } from '@api/schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { updatePassword } from '@web/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
@@ -44,8 +44,7 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
   })
 
   const onSubmit = async (data: z.infer<typeof passwordSchema>) => {
-    const result = await updatePassword(data.oldPassword || '', data.password)
-    console.log('result is', result)
+    await updatePassword(data.oldPassword || '', data.password)
     form.reset()
   }
 

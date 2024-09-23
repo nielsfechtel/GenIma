@@ -1,3 +1,4 @@
+import { UserReturnSchema } from '@api/schemas/user-return.schema'
 import { trpc } from '@web/src/trpc'
 import NextAuth, { CredentialsSignin } from 'next-auth'
 import { Provider } from 'next-auth/providers'
@@ -13,8 +14,6 @@ declare module 'next-auth' {
     error?: 'RefreshTokenError'
   }
 }
-
-import { UserReturnSchema } from '@api/zod_schemas/user-return.schema'
 
 const providers: Provider[] = [
   Credentials({
@@ -77,7 +76,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       let newUser
       let accessToken
       const date = new Date()
-      let expires_at = date.setMonth(date.getMonth() - 3)
+      let expires_at = date.setMonth(date.getMonth() + 3)
       let refreshToken
 
       if (trigger === 'signIn') {
@@ -89,7 +88,15 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         if (account?.provider === 'credentials') {
           accessToken = user.accessToken
           const data: UserReturnSchema = user.data
-          const { email, firstName, lastName, profileImage, role, tier } = data
+          const {
+            email,
+            firstName,
+            lastName,
+            profileImage,
+            role,
+            tier,
+            api_keys,
+          } = data
           newUser = {
             email,
             firstName,
@@ -97,6 +104,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             profileImage,
             role,
             tier,
+            api_keys,
           } satisfies UserReturnSchema
         } else if (account?.provider === 'google') {
           accessToken = account.id_token

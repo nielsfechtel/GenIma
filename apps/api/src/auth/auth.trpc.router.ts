@@ -1,9 +1,9 @@
 // modules/user/user.trpc.ts
 import { AuthService } from '@api/auth/auth.service'
+import { ChangePasswordSchema } from '@api/schemas/change-password.schema'
+import { LoginSchema } from '@api/schemas/login.schema'
+import { SignUpSchema } from '@api/schemas/signup.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
-import { ChangePasswordSchema } from '@api/zod_schemas/change-password.schema'
-import { LoginSchema } from '@api/zod_schemas/login.schema'
-import { SignUpSchema } from '@api/zod_schemas/signup.schema'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -61,6 +61,5 @@ export class AuthTrpcRouter {
     deleteAccount: this.trpc.protectedProcedure.query(async (req) => {
       return await this.authService.sendDeleteAccountEmail(req.ctx.user.email)
     }),
-
   })
 }

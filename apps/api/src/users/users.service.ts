@@ -1,6 +1,8 @@
+import { ApiKeyService } from '@api/api_key/api_key.service'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
+import { TRPCError } from '@trpc/server'
 import { Model } from 'mongoose'
 import { User, UserDocument } from './schemas/user.schema'
 
@@ -8,7 +10,8 @@ import { User, UserDocument } from './schemas/user.schema'
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    @InjectModel(Tier.name) private tierModel: Model<Tier>
+    @InjectModel(Tier.name) private tierModel: Model<Tier>,
+    private apikeyService: ApiKeyService
   ) {}
 
   async create(userData: Partial<UserDocument>): Promise<UserDocument> {
@@ -38,7 +41,11 @@ export class UsersService {
   }
 
   async findOneByEmail(email: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ email: email }).populate('tier').exec()
+    return this.userModel
+      .findOne({ email: email })
+      .populate('tier')
+      .populate('api_keys')
+      .exec()
   }
 
   async update(
@@ -60,10 +67,6 @@ export class UsersService {
     })
   }
 
-  async deleteMany(): Promise<void> {
-    await this.userModel.deleteMany()
-  }
-
   async hasPassword(email: string) {
     const user = await this.userModel.findOne({ email: email })
     return !!user?.password
@@ -73,4 +76,24 @@ export class UsersService {
     const user = await this.userModel.findOne({ email: email })
     return user?.role === 'ADMIN'
   }
+
+  async createAPIKey(email: string, name: string, expiry_date: Date) {
+    const user = await this.userModel.findOne({ email })
+    if (!user)
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
+
+    if (user.api_keys.length <= 3)
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'Key-limit of 3 reached',
+      })
+
+    const newKey = await this.apikeyService.create(name, expiry_date)
+    console.log('newKey', newKey)
+
+    user.api_keys.push(newKey)
+    await user.save()
+  }
+
+  async deleteAPIKey(email: string, name: string) {}
 }
