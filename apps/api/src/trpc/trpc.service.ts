@@ -15,10 +15,6 @@ export class TrpcService {
   }: trpcExpress.CreateExpressContextOptions) => {
     // This creates a context; it will be available as `ctx` in all resolvers
     let user = null
-    console.log(
-      'CREATE_CONTEXT here before question:',
-      req.headers.authorization
-    )
 
     if (req.headers.authorization) {
       // split token; if it's in the Bearer-token-format, the second entry is the token
