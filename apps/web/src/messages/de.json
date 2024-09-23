@@ -1,0 +1,103 @@
+{
+  "AdminPanel": {
+    "super-secret-admin-panel": "Super geheimes Admin Panel"
+  },
+  "ChangeEmailForm": {
+    "change-your-account-email-address": "Ändern Sie die E-Mail-Adresse Ihres Kontos.",
+    "confirm-new-email": "Neue E-Mail bestätigen",
+    "confirm-your-new-email": "Bestätigen Sie Ihre neue E-Mail",
+    "current-email": "Aktuelle E-Mail",
+    "emails-do-not-match": "E-Mails stimmen nicht überein.",
+    "enter-your-new-email": "Geben Sie Ihre neue E-Mail-Adresse ein",
+    "new-email": "Neue E-Mail",
+    "update-email": "E-Mail aktualisieren"
+  },
+  "Common": {
+    "project_name": "GenIma"
+  },
+  "Dashboard": {
+    "all-images": "Alle Bilder",
+    "generate-new-image": "Neues Bild generieren",
+    "get-started": "Beginnen Sie mit der Erstellung einiger Bilder",
+    "my-images": "Meine Bilder",
+    "no-images": "Keine Bilder",
+    "welcome": "Willkommen",
+    "your-ai-image-dashboard": "Ihr AI-Image-Dashboard"
+  },
+  "DeleteAccountAlert": {
+    "are-you-absolutely-sure": "Sind Sie absolut sicher?",
+    "delete-account": "Konto löschen",
+    "send-verification-email": "Verifizierungs-E-Mail senden",
+    "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Verifizierung Ihres Kontos"
+  },
+  "LandingPage": {
+    "all-rights-reserved": "Alle Rechte vorbehalten.",
+    "create-amazing-images-with-ai": "Erstellen Sie erstaunliche Bilder mit AI",
+    "describe-your-idea-and-watch-ai-bring-it-to-life": "Beschreiben Sie Ihre Idee und sehen Sie zu, wie AI sie zum Leben erweckt.",
+    "easy-image-generation": "Einfache Bildgenerierung",
+    "features": "Merkmale",
+    "for-everyone": "Für jedermann",
+    "get-started": "Legen Sie los",
+    "get-your-images-in-seconds-not-hours": "Erhalten Sie Ihre Bilder in Sekunden, nicht in Stunden.",
+    "go-to": "Gehe zu",
+    "hello": "Hallo",
+    "lightning-fast": "Blitzschnell",
+    "no-technical-knowledge-required-just-describe-and-we-and-apos-ll-generate": "Keine technischen Kenntnisse erforderlich. Einfach beschreiben, und wir generieren.",
+    "no-technical-skills-needed-perfect-for-all-creators": "Keine technischen Kenntnisse erforderlich. Perfekt für alle Kreativen.",
+    "see-it-in-action": "Sehen Sie es in Aktion"
+  },
+  "LanguageSwitch": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "system": "System",
+    "toggle-language": "Sprache umschalten"
+  },
+  "LogoutButton": {
+    "logout": "Ausloggen"
+  },
+  "ProfileForm": {
+    "enter-your-first-name": "Geben Sie Ihren Vornamen ein",
+    "enter-your-last-name": "Geben Sie Ihren Nachnamen ein",
+    "first-name": "Vorname",
+    "first-name-must-be-at-least-2-characters": "Der Vorname muss mindestens 2 Zeichen lang sein.",
+    "last-name": "Nachname",
+    "last-name-must-be-at-least-2-characters": "Der Nachname muss mindestens 2 Zeichen lang sein.",
+    "profile-information": "Profildetails",
+    "save-changes": "Änderungen speichern",
+    "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails.",
+    "upload-picture": "Bild hochladen"
+  },
+  "RootLayout": {
+    "accessToken": "accessToken",
+    "api-t": "API-T.",
+    "email": "E-Mail",
+    "login": "Einloggen",
+    "logout": "Abmelden",
+    "role": "Rolle",
+    "settings": "Einstellungen",
+    "tier": "Tier",
+    "youAre": "Du bist"
+  },
+  "Settings": {
+    "api-keys": "API-Schlüssel",
+    "delete-account": "Konto löschen",
+    "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
+    "permanently-delete-your-account-and-all-associated-data": "Löschen Sie Ihr Konto und alle damit verbundenen Daten endgültig."
+  },
+  "ThemeSwitcher": {
+    "dark": "Dunkel",
+    "light": "Hell",
+    "system": "System"
+  },
+  "UpdatePassword": {
+    "change-password": "Kennwort ändern",
+    "confirm-new-password": "Bestätigen Sie das neue Passwort",
+    "current-password": "Aktuelles Passwort",
+    "new-password": "Neues Passwort",
+    "update-password": "Passwort aktualisieren",
+    "update-your-password-here": "Aktualisieren Sie hier Ihr Passwort.",
+    "you-signed-up-via-google-set-a-new-password": "Sie haben sich über Google angemeldet – legen Sie ein neues Passwort fest:"
+  },
+  "tier": "Tier"
+}

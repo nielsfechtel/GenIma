@@ -1,10 +1,10 @@
-import en from './messages/en.json'
+import en from './src/messages/en.json'
 
 /*
     Next-Intl TypeScript setup (for autocompletion)
     Docs-link https://next-intl-docs.vercel.app/docs/workflows/typescript
 */
-type Messages = typeof en
+export type Messages = typeof en
 
 declare global {
   interface ProcessEnv {

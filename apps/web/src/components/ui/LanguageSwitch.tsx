@@ -7,41 +7,57 @@ import {
   DropdownMenuTrigger,
 } from '@radix-ui/react-dropdown-menu'
 import { Button } from '@web/src/components/ui/button'
-import { Globe, LanguagesIcon, LucideLanguages } from 'lucide-react'
+import { SUPPORTED_LOCALES } from '@web/src/intl.config'
+import { deleteCookie, setCookie } from 'cookies-next'
+import { Globe } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
-const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'es', name: 'Español' },
-  { code: 'fr', name: 'Français' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'ja', name: '日本語' },
-]
+const languageOptions = SUPPORTED_LOCALES.concat('system')
 
 export default function LanguageSwitch() {
   const [language, setLanguage] = React.useState('en')
+  const router = useRouter()
+
+  const t = useTranslations('LanguageSwitch')
+
+  function changeLanguage(code: string) {
+    if (code === 'system') {
+      deleteCookie('locale')
+    } else {
+      setCookie('locale', code)
+      setLanguage(code)
+      router.refresh()
+    }
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <Globe className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
-          <LanguagesIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
-          <LucideLanguages className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
-          <span className="sr-only">Toggle language</span>
+          <span className="sr-only">{t('toggle-language')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {languages.map((lang) => (
-          <DropdownMenuItem
-            key={lang.code}
-            onClick={() => setLanguage(lang.code)}
-          >
-            <span className={language === lang.code ? 'font-bold' : ''}>
-              {lang.name}
-            </span>
-          </DropdownMenuItem>
-        ))}
+        {languageOptions.map((lang) => {
+          return (
+            <DropdownMenuItem key={lang} onClick={() => changeLanguage(lang)}>
+              <span className={language === lang ? 'font-bold' : ''}>
+                {
+                  // need to write it like this because TypeScript only accepted literal values 'de' or 'en' for the t-function;
+                  // using t(lang) gave an error
+                  lang === 'en'
+                    ? t('en')
+                    : lang === 'de'
+                      ? t('de')
+                      : t('system')
+                }
+              </span>
+            </DropdownMenuItem>
+          )
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   )

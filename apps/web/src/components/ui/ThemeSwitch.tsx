@@ -8,10 +8,12 @@ import {
 } from '@radix-ui/react-dropdown-menu'
 import { Button } from '@web/src/components/ui/button'
 import { Moon, Sun } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 export default function ThemeSwitch() {
   const { setTheme } = useTheme()
+  const t = useTranslations('ThemeSwitcher')
 
   return (
     <DropdownMenu>
@@ -24,13 +26,13 @@ export default function ThemeSwitch() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
+          {t('light')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
+          {t('dark')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
+          {t('system')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

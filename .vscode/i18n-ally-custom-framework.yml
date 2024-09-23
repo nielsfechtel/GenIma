@@ -1,0 +1,13 @@
+# fix from https://github.com/lokalise/i18n-ally/issues/1170#issuecomment-2292235889
+languageIds:
+  - javascript
+  - typescript
+  - javascriptreact
+  - typescriptreact
+
+usageMatchRegex:
+  - "[^\\w\\d]t\\(['\"`]({key})['\"`]"
+
+scopeRangeRegex: "(?:useTranslations\\(|getTranslations\\(|namespace:)\\s*['\"`](.*?)['\"`]"
+
+monopoly: true

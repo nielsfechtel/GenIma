@@ -1,15 +1,12 @@
+import Navbar from '@web/src/app/_components/Navbar'
 import { auth } from '@web/src/auth'
-import { ThemeProvider } from '@web/src/components/ThemeProvider'
-import { Button } from '@web/src/components/ui/button'
-import LogoutButton from '@web/src/components/ui/LogoutButton'
-import ThemeSwitch from '@web/src/components/ui/ThemeSwitch'
-import { Link } from 'lucide-react'
 import { Metadata } from 'next'
 import { SessionProvider } from 'next-auth/react'
-import Image from 'next/image'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
+import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 import './globals.css'
-import LanguageSwitcher from '@web/src/components/ui/LanguageSwitcher'
 
 export const metadata: Metadata = {
   title: 'Niels Grad Project',
@@ -21,8 +18,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Receive messages provided in `i18n/request.ts`
+  const messages = await getMessages()
+  const locale = await getLocale()
+
   const session = await auth()
-  const user = session?.user
 
   return (
     // This serves to stop the "Warning: Extra attributes from the server: class" you get in the console.
@@ -33,7 +33,7 @@ export default async function RootLayout({
       updates that element. This property only applies one level deep, so it won't block hydration warnings on
       other elements.
     */
-    <html suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <SessionProvider session={session}>
           <ThemeProvider
@@ -42,60 +42,22 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <header className="p-4 flex flex-row justify-between border-b">
-              {session && (
-                <ul className="flex flex-row gap-2 items-center text-xs">
-                  <li>
-                    accessToken: {session.accessToken.substring(0, 10)}...
-                  </li>
-                  <li>
-                    You are {user?.firstName} {user?.lastName}
-                  </li>
-                  <li>Email: {user?.email}</li>
-                  <li>Role: {user?.role}</li>
-                  <li>
-                    Tier: {user?.tier.name} {user?.tier.tokenLimit}
-                  </li>
-                  <li>API-T.: {user?.api_tokens}</li>
-                </ul>
-              )}
-              <div>
-                {session ? (
-                  <LogoutButton />
-                ) : (
-                  <Button>
-                    <Link href="/login">Login</Link>
-                  </Button>
-                )}
-              </div>
-              {user?.profileImage ? (
-                <Image
-                  alt="Profile image of user"
-                  src={user?.profileImage}
-                  width={100}
-                  height={100}
-                ></Image>
-              ) : (
-                <Link className="underline" href="/settings">
-                  <Button>Settings</Button>
-                </Link>
-              )}
-              <ThemeSwitch />
-              <LanguageSwitcher />
-            </header>
-            <main>{children}</main>
+            <NextIntlClientProvider messages={messages}>
+              <Navbar />
+              {children}
+              <Toaster
+                toastOptions={{
+                  unstyled: true,
+                  classNames: {
+                    error: 'bg-red-400',
+                    success: 'text-green-400',
+                    warning: 'text-yellow-400',
+                    info: 'bg-blue-400',
+                  },
+                }}
+              />
+            </NextIntlClientProvider>
           </ThemeProvider>
-          <Toaster
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                error: 'bg-red-400',
-                success: 'text-green-400',
-                warning: 'text-yellow-400',
-                info: 'bg-blue-400',
-              },
-            }}
-          />
         </SessionProvider>
       </body>
     </html>
