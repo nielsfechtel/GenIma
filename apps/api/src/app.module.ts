@@ -12,6 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
 import { ApiKeyModule } from './api_key/api_key.module';
+import { GeneratedImageModule } from './generated_image/generated_image.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { ApiKeyModule } from './api_key/api_key.module';
     AuthModule,
     UsersModule,
     ApiKeyModule,
+    GeneratedImageModule,
   ],
   providers: [TrpcRouter, AuthTrpcRouter, TrpcService, UserTrpcRouter],
 })

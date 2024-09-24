@@ -7,5 +7,7 @@ export const VerifyTokenSchema = z.object({
     z.literal('VERIFY_EMAIL'),
     z.literal('DELETE_ACCOUNT'),
     z.literal('RESET_PASSWORD'),
+    z.literal('CHANGE_EMAIL'),
   ]),
+  oldEmail: z.string().email().optional(),
 })

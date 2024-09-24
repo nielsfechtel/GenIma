@@ -204,7 +204,6 @@ export class AuthService {
         }
       }
       case 'RESET_PASSWORD': {
-        // call
         return {
           success: false,
           message: 'NOT YET IMPLEMENTED',
@@ -221,6 +220,23 @@ export class AuthService {
           success: true,
           message: 'Email successfully verified!',
           actionType: 'VERIFY_EMAIL',
+        }
+      }
+      case 'CHANGE_EMAIL': {
+        if (!tokenValues.oldEmail) throw new TRPCError({ code: 'BAD_REQUEST' })
+
+        const user = await this.usersService.findOneByEmail(
+          tokenValues.oldEmail
+        )
+        if (!user) throw new TRPCError({ code: 'BAD_REQUEST' })
+
+        user.email = tokenValues.email
+        await user.save()
+
+        return {
+          success: true,
+          message: 'Email successfully changed!',
+          actionType: 'CHANGE_EMAIL',
         }
       }
       default: {
@@ -279,6 +295,32 @@ export class AuthService {
         to: email,
         subject: `Delete Account of Niels' Graduation Project`,
         template: 'confirmDeleteAccount',
+        context: {
+          linkWithToken,
+        },
+      })
+    } catch (error) {
+      throw new TRPCError({ code: 'BAD_REQUEST' })
+    }
+  }
+
+  async sendChangeEmailEmail(newEmail: string, oldEmail: string) {
+    const payload: z.infer<typeof VerifyTokenSchema> = {
+      email: newEmail,
+      action: 'CHANGE_EMAIL',
+      oldEmail,
+    }
+    const token = await this.jwtService.signAsync(payload, {
+      secret: process.env.JWT_KEY,
+    })
+
+    const linkWithToken = `${process.env.WEB_BASE_URL}/auth/verify?token=${token}`
+
+    try {
+      this.mailService.sendMail({
+        to: newEmail,
+        subject: `Change email of your account at Niels' Graduation Project`,
+        template: 'changeEmail',
         context: {
           linkWithToken,
         },

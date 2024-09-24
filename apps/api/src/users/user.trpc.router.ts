@@ -1,6 +1,7 @@
 // modules/user/user.trpc.ts
 import { CreateAPIKeySchema } from '@api/schemas/create-apikey.schema'
 import { ObjectIdSchema } from '@api/schemas/object-id.schema'
+import { UpdateNamesSchema } from '@api/schemas/update-names.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { UsersService } from '@api/users/users.service'
 import { Injectable } from '@nestjs/common'
@@ -42,7 +43,11 @@ export class UserTrpcRouter {
     addAPIKey: this.trpc.protectedProcedure
       .input(CreateAPIKeySchema)
       .mutation(async ({ ctx, input }) => {
-        return await this.userService.createAPIKey(ctx.user.email, input.name, input.expiry_date)
+        return await this.userService.createAPIKey(
+          ctx.user.email,
+          input.name,
+          input.expiry_date
+        )
       }),
 
     deleteAPIKey: this.trpc.protectedProcedure
@@ -50,5 +55,16 @@ export class UserTrpcRouter {
       .mutation(async ({ ctx, input }) => {
         return await this.userService.deleteAPIKey(ctx.user.email, input.name)
       }),
+
+    updateNames: this.trpc.protectedProcedure
+      .input(UpdateNamesSchema)
+      .mutation(async ({ input, ctx }) => {
+        return await this.userService.updateNames(
+          ctx.user.email,
+          input.firstName,
+          input.lastName
+        )
+      }),
+
   })
 }

@@ -96,4 +96,16 @@ export class UsersService {
   }
 
   async deleteAPIKey(email: string, name: string) {}
+
+  async updateNames(email: string, firstName: string, lastName?: string) {
+    const user = await this.userModel.findOne({ email })
+    if (!user)
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
+
+    user.firstName = firstName
+    user.lastName = lastName || ''
+    await user.save()
+
+    return user
+  }
 }

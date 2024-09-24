@@ -58,8 +58,17 @@ export class AuthTrpcRouter {
         return await this.authService.executeToken(input.token)
       }),
 
-    deleteAccount: this.trpc.protectedProcedure.query(async (req) => {
-      return await this.authService.sendDeleteAccountEmail(req.ctx.user.email)
+    deleteAccount: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return await this.authService.sendDeleteAccountEmail(ctx.user.email)
     }),
+
+    changeEmail: this.trpc.protectedProcedure
+      .input(z.object({ newEmail: z.string().email() }))
+      .query(async ({ ctx, input }) => {
+        return await this.authService.sendChangeEmailEmail(
+          input.newEmail,
+          ctx.user.email
+        )
+      }),
   })
 }

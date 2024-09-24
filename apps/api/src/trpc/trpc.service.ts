@@ -38,6 +38,9 @@ export class TrpcService {
       // next try decoding with Google, in case it's a Google-ID-token
       const client = new OAuth2Client()
 
+      // No pem found for envelope here sometimes so throw
+      // https://stackoverflow.com/questions/61203872/no-pem-found-for-envelope-algrs256-kid5a66482db3800c83c63-typjwt
+
       const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.AUTH_GOOGLE_ID,
@@ -62,28 +65,6 @@ export class TrpcService {
 
   // for testing - https://trpc.io/docs/server/server-side-calls
   createCallerFactory = this.trpc.createCallerFactory
-
-  // define a logger-middleware used by public- and protectedProcedure
-  // private loggedProcedure = this.trpc.procedure.use(async (opts) => {
-  //   const start = Date.now()
-
-  //   // run the actual request
-  //   const result = await opts.next()
-
-  //   // now we can calculate the time it took to run it
-  //   const durationMs = Date.now() - start
-  //   const meta = {
-  //     path: opts.path,
-  //     type: opts.type,
-  //     durationMs,
-  //   }
-
-  //   result.ok
-  //     ? console.log('OK: request timing:', meta)
-  //     : console.error('ERROR: request timing', meta)
-
-  //   return result
-  // })
 
   // rename the normal procedure more clearly to show it is public
   publicProcedure = this.trpc.procedure
