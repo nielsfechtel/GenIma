@@ -38,7 +38,7 @@
     "permanently-delete-your-account-and-all-associated-data": "Löschen Sie Ihr Konto und alle damit verbundenen Daten endgültig.",
     "send-verification-email": "Verifizierungs-E-Mail senden",
     "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Verifizierung Ihres Kontos"
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Bestätitungs-Link."
   },
   "LandingPage": {
     "all-rights-reserved": "Alle Rechte vorbehalten.",
@@ -65,6 +65,12 @@
   "LogoutButton": {
     "logout": "Ausloggen"
   },
+  "Navbar": {
+    "hello": "Hi",
+    "login": "Einloggen",
+    "logout": "Ausloggen",
+    "settings": "Einstellungen"
+  },
   "ProfileForm": {
     "enter-your-first-name": "Geben Sie Ihren Vornamen ein",
     "enter-your-last-name": "Geben Sie Ihren Nachnamen ein",
@@ -77,11 +83,11 @@
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails.",
     "upload-picture": "Bild hochladen"
   },
-  "Navbar": {
-    "login": "Einloggen",
-    "logout": "Ausloggen",
-    "settings": "Einstellungen",
-    "hello": "Hi"
+  "Settings": {
+    "api-keys": "API-Schlüssel",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "profile": "Profil"
   },
   "ThemeSwitcher": {
     "dark": "Dunkel",

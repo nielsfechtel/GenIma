@@ -1,4 +1,12 @@
 {
+  "API_KeysForm": {
+    "api-keys": "API keys",
+    "create-api-key": "Create API Key",
+    "enter-name": "Enter your API Keys' name",
+    "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
+    "name": "Name",
+    "no-api-keys-created-yet": "No API keys created yet."
+  },
   "AdminPanel": {
     "super-secret-admin-panel": "Super secret Admin Panel"
   },
@@ -25,12 +33,12 @@
     "your-ai-image-dashboard": "Your AI Image Dashboard"
   },
   "DeleteAccountAlert": {
-    "permanently-delete-your-account-and-all-associated-data": "Permanently delete your account and all associated data.",
     "are-you-absolutely-sure": "Are you absolutely sure?",
     "delete-account": "Delete Account",
+    "permanently-delete-your-account-and-all-associated-data": "Permanently delete your account and all associated data.",
     "send-verification-email": "Send verification email",
     "sent-a-verification-email": "Sent a verification-email!",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify your account&apos; deletion."
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify your accounts' deletion."
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",
@@ -57,6 +65,12 @@
   "LogoutButton": {
     "logout": "Logout"
   },
+  "Navbar": {
+    "hello": "Hi",
+    "login": "Login",
+    "logout": "Logout",
+    "settings": "Settings"
+  },
   "ProfileForm": {
     "enter-your-first-name": "Enter your first name",
     "enter-your-last-name": "Enter your last name",
@@ -69,19 +83,11 @@
     "update-your-profile-details-here": "Update your profile details here.",
     "upload-picture": "Upload Picture"
   },
-  "Navbar": {
-    "login": "Login",
-    "logout": "Logout",
-    "settings": "Settings",
-    "hello": "Hi"
-  },
-  "API_KeysForm": {
-    "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
-    "name": "Name",
-    "enter-name": "Enter your API Keys' name",
-    "api-keys": "API keys",
-    "create-api-key": "Create API Key",
-    "no-api-keys-created-yet": "No API keys created yet."
+  "Settings": {
+    "api-keys": "API Keys",
+    "email": "Email",
+    "password": "Password",
+    "profile": "Profile"
   },
   "ThemeSwitcher": {
     "dark": "Dark",
