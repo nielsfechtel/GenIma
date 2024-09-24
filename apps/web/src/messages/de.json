@@ -21,7 +21,6 @@
     "update-email": "E-Mail aktualisieren"
   },
   "Common": {
-    "project_name": "GenIma"
   },
   "Dashboard": {
     "all-images": "Alle Bilder",
@@ -35,10 +34,8 @@
   "DeleteAccountAlert": {
     "are-you-absolutely-sure": "Sind Sie absolut sicher?",
     "delete-account": "Konto löschen",
-    "permanently-delete-your-account-and-all-associated-data": "Löschen Sie Ihr Konto und alle damit verbundenen Daten endgültig.",
     "send-verification-email": "Verifizierungs-E-Mail senden",
-    "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Bestätitungs-Link."
+    "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!"
   },
   "LandingPage": {
     "all-rights-reserved": "Alle Rechte vorbehalten.",
@@ -46,13 +43,9 @@
     "describe-your-idea-and-watch-ai-bring-it-to-life": "Beschreiben Sie Ihre Idee und sehen Sie zu, wie AI sie zum Leben erweckt.",
     "easy-image-generation": "Einfache Bildgenerierung",
     "features": "Merkmale",
-    "for-everyone": "Für jedermann",
     "get-started": "Legen Sie los",
     "get-your-images-in-seconds-not-hours": "Erhalten Sie Ihre Bilder in Sekunden, nicht in Stunden.",
-    "go-to": "Gehe zu",
-    "hello": "Hallo",
     "lightning-fast": "Blitzschnell",
-    "no-technical-knowledge-required-just-describe-and-we-and-apos-ll-generate": "Keine technischen Kenntnisse erforderlich. Einfach beschreiben, und wir generieren.",
     "no-technical-skills-needed-perfect-for-all-creators": "Keine technischen Kenntnisse erforderlich. Perfekt für alle Kreativen.",
     "see-it-in-action": "Sehen Sie es in Aktion"
   },
@@ -67,28 +60,23 @@
     "logout": "Ausloggen"
   },
   "Navbar": {
+    "dashboard": "Dashboard",
     "hello": "Hi",
     "login": "Einloggen",
-    "logout": "Ausloggen",
     "settings": "Einstellungen"
   },
   "ProfileForm": {
-    "enter-your-first-name": "Geben Sie Ihren Vornamen ein",
-    "enter-your-last-name": "Geben Sie Ihren Nachnamen ein",
     "first-name": "Vorname",
     "first-name-must-be-at-least-2-characters": "Der Vorname muss mindestens 2 Zeichen lang sein.",
     "last-name": "Nachname",
-    "last-name-must-be-at-least-2-characters": "Der Nachname muss mindestens 2 Zeichen lang sein.",
     "profile-information": "Profildetails",
     "save-changes": "Änderungen speichern",
-    "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails.",
-    "upload-picture": "Bild hochladen"
+    "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
+  },
+  "RootLayout": {
   },
   "Settings": {
-    "api-keys": "API-Schlüssel",
-    "email": "E-Mail",
-    "password": "Passwort",
-    "profile": "Profil"
+    "api-keys": "API-Schlüssel"
   },
   "ThemeSwitcher": {
     "dark": "Dunkel",
@@ -103,6 +91,5 @@
     "update-password": "Passwort aktualisieren",
     "update-your-password-here": "Aktualisieren Sie hier Ihr Passwort.",
     "you-signed-up-via-google-set-a-new-password": "Sie haben sich über Google angemeldet – legen Sie ein neues Passwort fest:"
-  },
-  "tier": "Tier"
+  }
 }

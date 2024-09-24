@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <header className="gap-2 md:gap-8 p-4 flex flex-row flex-wrap items-center justify-between border-b">
       <Link href="/dashboard">
-        <Button>Dashboard</Button>
+        <Button>{t('dashboard')}</Button>
       </Link>
 
       {session && (

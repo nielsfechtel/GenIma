@@ -1,4 +1,12 @@
 {
+  "API_KeysForm": {
+    "api-keys": "Ключи API",
+    "create-api-key": "Создать ключ API",
+    "enter-name": "Введите имя ваших ключей API",
+    "generate-api-keys-to-query-the-backend": "Сгенерируйте ключи API для запроса серверной части.",
+    "name": "Имя",
+    "no-api-keys-created-yet": "Ключи API еще не созданы."
+  },
   "AdminPanel": {
     "super-secret-admin-panel": "Суперсекретная панель администратора"
   },
@@ -13,7 +21,6 @@
     "update-email": "Обновить электронную почту"
   },
   "Common": {
-    "project_name": "ГенИма"
   },
   "Dashboard": {
     "all-images": "Все изображения",
@@ -28,8 +35,7 @@
     "are-you-absolutely-sure": "Вы абсолютно уверены?",
     "delete-account": "Удалить аккаунт",
     "send-verification-email": "Отправить письмо с подтверждением",
-    "sent-a-verification-email": "Отправил письмо с подтверждением!",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения вашей учетной записи."
+    "sent-a-verification-email": "Отправил письмо с подтверждением!"
   },
   "LandingPage": {
     "all-rights-reserved": "Все права защищены.",
@@ -37,54 +43,40 @@
     "describe-your-idea-and-watch-ai-bring-it-to-life": "Опишите свою идею и наблюдайте, как ИИ воплощает ее в жизнь.",
     "easy-image-generation": "Простое создание изображений",
     "features": "Функции",
-    "for-everyone": "Для всех",
     "get-started": "Начать",
     "get-your-images-in-seconds-not-hours": "Получите изображения за секунды, а не часы.",
-    "go-to": "Перейти к",
-    "hello": "Привет",
     "lightning-fast": "Молниеносно",
-    "no-technical-knowledge-required-just-describe-and-we-and-apos-ll-generate": "Никаких технических знаний не требуется. \nПросто опишите, и мы",
     "no-technical-skills-needed-perfect-for-all-creators": "Никаких технических навыков не требуется. \nИдеально подходит для всех создателей.",
     "see-it-in-action": "Посмотрите это в действии"
   },
   "LanguageSwitch": {
-    "de": "немецкий",
-    "en": "Английский",
-    "ru": "Русский",
-    "system": "Система",
-    "toggle-language": "Переключить язык"
+    "de": "German",
+    "en": "English",
+    "ru": "Russian",
+    "system": "System",
+    "toggle-language": "Change language"
   },
   "LogoutButton": {
     "logout": "Выход из системы"
   },
+  "Navbar": {
+    "dashboard": "Панель управления",
+    "hello": "Привет",
+    "login": "Авторизоваться",
+    "settings": "Настройки"
+  },
   "ProfileForm": {
-    "enter-your-first-name": "Введите свое имя",
-    "enter-your-last-name": "Введите свою фамилию",
     "first-name": "Имя",
     "first-name-must-be-at-least-2-characters": "Имя должно состоять как минимум из 2 символов.",
     "last-name": "Фамилия",
-    "last-name-must-be-at-least-2-characters": "Фамилия должна состоять минимум из 2 символов.",
     "profile-information": "Информация профиля",
     "save-changes": "Сохранить изменения",
-    "update-your-profile-details-here": "Обновите данные своего профиля здесь.",
-    "upload-picture": "Загрузить изображение"
+    "update-your-profile-details-here": "Обновите данные своего профиля здесь."
   },
   "RootLayout": {
-    "accessToken": "токен доступа",
-    "api-t": "API-Т.",
-    "email": "Электронная почта",
-    "login": "Авторизоваться",
-    "logout": "Выход из системы",
-    "role": "Роль",
-    "settings": "Настройки",
-    "tier": "Уровень",
-    "youAre": "Ты"
   },
   "Settings": {
-    "api-keys": "Ключи API",
-    "delete-account": "Удалить аккаунт",
-    "generate-api-keys-to-query-the-backend": "Сгенерируйте ключи API для запроса серверной части.",
-    "permanently-delete-your-account-and-all-associated-data": "Удалите навсегда свою учетную запись и все связанные с ней данные."
+    "api-keys": "Ключи API"
   },
   "ThemeSwitcher": {
     "dark": "Темный",
@@ -99,6 +91,5 @@
     "update-password": "Обновить пароль",
     "update-your-password-here": "Обновите свой пароль здесь.",
     "you-signed-up-via-google-set-a-new-password": "Вы зарегистрировались через Google – установите новый пароль:"
-  },
-  "tier": "Уровень"
+  }
 }
