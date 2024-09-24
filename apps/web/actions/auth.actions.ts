@@ -23,7 +23,10 @@ export const handleSignup = async (formData: z.infer<typeof SignUpSchema>) => {
 
 export const sendDeleteAccountEmail = async () => {
   try {
-    return trpc.auth.deleteAccount.query()
+    const result = trpc.auth.deleteAccount.query()
+    return {
+      success: true
+    }
   } catch (error) {
     return {
       success: false,
@@ -60,7 +63,9 @@ export const updatePassword = async (
       newPassword,
     })
     revalidatePath('/settings')
-    return result
+    return {
+      success: true,
+    }
   } catch (error) {
     return {
       success: false,
