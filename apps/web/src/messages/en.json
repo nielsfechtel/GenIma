@@ -47,6 +47,7 @@
     "get-your-images-in-seconds-not-hours": "Get your images in seconds, not hours.",
     "lightning-fast": "Lightning Fast",
     "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
+    "no-technical-knowledge-required": "No technical knowledge required - just describe and we generate.",
     "see-it-in-action": "See It in Action"
   },
   "LanguageSwitch": {
@@ -62,6 +63,7 @@
   "Navbar": {
     "dashboard": "Dashboard",
     "hello": "Hi",
+    "landingpage": "Landingpage",
     "login": "Login",
     "settings": "Settings"
   },
@@ -74,10 +76,10 @@
     "update-your-profile-details-here": "Update your profile details here."
   },
   "Settings": {
-    "profile": "Profile",
+    "api-keys": "API Keys",
     "email": "Email",
     "password": "Password",
-    "api-keys": "API Keys"
+    "profile": "Profile"
   },
   "ThemeSwitcher": {
     "dark": "Dark",

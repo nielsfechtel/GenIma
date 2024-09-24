@@ -13,14 +13,8 @@ import {
   CardTitle,
 } from '@web/src/components/ui/card'
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  Form
 } from '@web/src/components/ui/form'
-import { Input } from '@web/src/components/ui/input'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -71,7 +65,8 @@ export function ProfileForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
+              {'session is' + JSON.stringify(session)}
+              {/* <div className="grid gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -104,7 +99,7 @@ export function ProfileForm() {
                     </FormItem>
                   )}
                 />
-              </div>
+              </div> */}
             </CardContent>
             <CardFooter>
               <Button type="submit">{t('save-changes')}</Button>

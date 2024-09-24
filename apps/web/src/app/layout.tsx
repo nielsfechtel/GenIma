@@ -47,7 +47,7 @@ export default async function RootLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <Navbar />
-              <main className="p-4 h-full flex items-center flex-col">{children}</main>
+              <main className="p-4  flex items-center flex-col">{children}</main>
               <Toaster
                 toastOptions={{
                   unstyled: true,

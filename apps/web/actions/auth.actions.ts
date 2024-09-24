@@ -13,7 +13,6 @@ export const handleSignup = async (formData: z.infer<typeof SignUpSchema>) => {
       success: true,
     }
   } catch (error: unknown) {
-    console.log('error in handleSignup', error)
     return {
       success: false,
       message: error.message,
@@ -50,7 +49,18 @@ export const executeToken = async (token: string) => {
 // imported from next-auth/react, somehow deletes the error-codes. So I need to provide my own, which
 // just throws them forward, as you'd expect
 export const myOwnServerSideSignIn = async (options) => {
-  return signIn('credentials', options)
+  try {
+    const result = await signIn('credentials', options)
+return {
+  success:true
+}
+  } catch (error: unknown) {
+
+return {
+  success: false,
+  message: error.message
+}
+  }
 }
 
 export const updatePassword = async (

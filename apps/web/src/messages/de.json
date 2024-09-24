@@ -46,6 +46,7 @@
     "get-started": "Legen Sie los",
     "get-your-images-in-seconds-not-hours": "Erhalten Sie Ihre Bilder in Sekunden, nicht in Stunden.",
     "lightning-fast": "Blitzschnell",
+    "no-technical-knowledge-required": "Keine technischen Kenntnisse erforderlich – einfach beschreiben und wir generieren.",
     "no-technical-skills-needed-perfect-for-all-creators": "Keine technischen Kenntnisse erforderlich. Perfekt für alle Kreativen.",
     "see-it-in-action": "Sehen Sie es in Aktion"
   },
@@ -62,6 +63,7 @@
   "Navbar": {
     "dashboard": "Dashboard",
     "hello": "Hi",
+    "landingpage": "Home\n",
     "login": "Einloggen",
     "settings": "Einstellungen"
   },

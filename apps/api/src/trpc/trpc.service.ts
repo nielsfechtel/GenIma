@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { initTRPC, TRPCError } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
-import { OAuth2Client } from 'google-auth-library'
 import { createContext } from 'vm'
 
 @Injectable()
@@ -29,24 +28,6 @@ export class TrpcService {
         // this is a JsonWebTokenError: invalid algorithm-error
         // there probably is a better way than letting this fail
       }
-      if (user) {
-        return {
-          user,
-        }
-      }
-
-      // next try decoding with Google, in case it's a Google-ID-token
-      const client = new OAuth2Client()
-
-      // No pem found for envelope here sometimes so throw
-      // https://stackoverflow.com/questions/61203872/no-pem-found-for-envelope-algrs256-kid5a66482db3800c83c63-typjwt
-
-      const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: process.env.AUTH_GOOGLE_ID,
-      })
-      user = ticket.getPayload()
-
       if (user) {
         return {
           user,

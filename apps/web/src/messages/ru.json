@@ -46,6 +46,7 @@
     "get-started": "Начать",
     "get-your-images-in-seconds-not-hours": "Получите изображения за секунды, а не часы.",
     "lightning-fast": "Молниеносно",
+    "no-technical-knowledge-required": "Никаких технических знаний не требуется – просто опишите, и мы сгенерируем.",
     "no-technical-skills-needed-perfect-for-all-creators": "Никаких технических навыков не требуется. \nИдеально подходит для всех создателей.",
     "see-it-in-action": "Посмотрите это в действии"
   },
@@ -62,6 +63,7 @@
   "Navbar": {
     "dashboard": "Панель управления",
     "hello": "Привет",
+    "landingpage": "Целевая страница",
     "login": "Авторизоваться",
     "settings": "Настройки"
   },
