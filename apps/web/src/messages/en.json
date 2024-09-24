@@ -59,6 +59,7 @@
   "LanguageSwitch": {
     "de": "German",
     "en": "English",
+    "ru": "Russian",
     "system": "System",
     "toggle-language": "Toggle language"
   },

@@ -41,13 +41,15 @@ export default function LanguageSwitch() {
             <DropdownMenuItem key={lang} onClick={() => changeLanguage(lang)}>
               <span className={language === lang ? 'font-bold' : ''}>
                 {
-                  // need to write it like this because TypeScript only accepted literal values 'de' or 'en' for the t-function;
-                  // using t(lang) gave an error
+                  // need to hardcode it like this because TypeScript only accepts literal values 'de' or 'en' for the t-function;
+                  // using t(lang) gives an error
                   lang === 'en'
                     ? t('en')
                     : lang === 'de'
                       ? t('de')
-                      : t('system')
+                      : lang === 'ru'
+                        ? t('ru')
+                        : t('system')
                 }
               </span>
             </DropdownMenuItem>
