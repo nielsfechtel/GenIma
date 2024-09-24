@@ -76,7 +76,10 @@
   "RootLayout": {
   },
   "Settings": {
-    "api-keys": "API-Schlüssel"
+    "api-keys": "API-Schlüssel",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "profile": "Profil"
   },
   "ThemeSwitcher": {
     "dark": "Dunkel",

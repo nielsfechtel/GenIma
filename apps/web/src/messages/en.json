@@ -74,6 +74,9 @@
     "update-your-profile-details-here": "Update your profile details here."
   },
   "Settings": {
+    "profile": "Profile",
+    "email": "Email",
+    "password": "Password",
     "api-keys": "API Keys"
   },
   "ThemeSwitcher": {

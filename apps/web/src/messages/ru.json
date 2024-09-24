@@ -76,7 +76,10 @@
   "RootLayout": {
   },
   "Settings": {
-    "api-keys": "Ключи API"
+    "api-keys": "Ключи API",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "profile": "Профиль"
   },
   "ThemeSwitcher": {
     "dark": "Темный",

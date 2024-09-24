@@ -5,14 +5,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { SUPPORTED_LOCALES } from '@web/src/intl.config'
 import { deleteCookie, setCookie } from 'cookies-next'
 import { Globe } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 const languageOptions = SUPPORTED_LOCALES.concat('system')
 
 export default function LanguageSwitch() {
-  const [language, setLanguage] = React.useState('en')
+  const currentLocale = useLocale()
+  const [language, setLanguage] = React.useState(currentLocale)
   const router = useRouter()
 
   const t = useTranslations('LanguageSwitch')
