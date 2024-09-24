@@ -11,7 +11,6 @@ import {
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { toast } from 'sonner'
 
 export default function Verify() {
   let message
@@ -29,27 +28,18 @@ export default function Verify() {
           message = result.message
           switch (result.actionType) {
             case 'DELETE_ACCOUNT': {
-              // this does not currently work - I think because it reloads the page.
-              // might be best to just directly have the verify-links be a server-api-route - and then
-              // redirect to a proper page, maybe with a ?message='..Email verified!' set that shows
-              // a toast on the page it opens
-              setTimeout(() => {
-                toast.success('Account deleted!')
-              }, 500)
               gotoLocation = 'landingpage'
               break
             }
             case 'RESET_PASSWORD': {
-              setTimeout(() => {
-                toast.success('Password reset!')
-              }, 500)
               gotoLocation = 'dashboard'
               break
             }
+            case 'CHANGE_EMAIL': {
+              gotoLocation = 'login'
+              break
+            }
             case 'VERIFY_EMAIL': {
-              setTimeout(() => {
-                toast.success('Email verified!')
-              }, 500)
               gotoLocation = 'login'
               break
             }

@@ -23,6 +23,7 @@ import {
 import { Input } from '@web/src/components/ui/input'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
 // pick the password from our schema (for min- and max-length, etc), then add the new fields and custom validation
@@ -44,8 +45,15 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
   })
 
   const onSubmit = async (data: z.infer<typeof passwordSchema>) => {
-    await updatePassword(data.oldPassword || '', data.password)
-    form.reset()
+    const result = await updatePassword(data.oldPassword || '', data.password)
+    if (result.success) {
+      toast.success('Password updated!')
+      form.reset()
+    } else {
+      toast.error(
+        "Something wen't wrong - make sure the old password is correct"
+      )
+    }
   }
 
   const t = useTranslations('UpdatePassword')

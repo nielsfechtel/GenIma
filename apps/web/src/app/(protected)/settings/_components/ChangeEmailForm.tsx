@@ -1,7 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Label } from '@radix-ui/react-label'
+import { Label } from '@web/src/components/ui/label'
+import { updateEmail } from '@web/actions/user.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -20,12 +21,15 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
 export default function ChangeEmailForm() {
   const t = useTranslations('ChangeEmailForm')
+  const { data: session } = useSession()
 
   const emailSchema = z
     .object({
@@ -45,9 +49,15 @@ export default function ChangeEmailForm() {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof emailSchema>) => {
-    console.log('Email data:', data)
-    alert('UPDATE EMAIL HERE')
+  const onSubmit = async (data: z.infer<typeof emailSchema>) => {
+    const { newEmail } = data
+    const result = await updateEmail(newEmail)
+    if (result.success) {
+      toast.success('Email sent - check your inbox!')
+      form.reset()
+    } else {
+      toast.error(`Something wen't wrong - try again`)
+    }
   }
 
   return (
@@ -67,7 +77,7 @@ export default function ChangeEmailForm() {
                 id="currentEmail"
                 type="email"
                 disabled
-                value="current@example.com"
+                value={session?.user.email}
               />
             </div>
             <FormField
@@ -78,7 +88,6 @@ export default function ChangeEmailForm() {
                   <FormLabel>{t('new-email')}</FormLabel>
                   <FormControl>
                     <Input
-                      disabled
                       type="email"
                       placeholder={t('enter-your-new-email')}
                       {...field}
@@ -96,7 +105,6 @@ export default function ChangeEmailForm() {
                   <FormLabel>{t('confirm-new-email')}</FormLabel>
                   <FormControl>
                     <Input
-                      disabled
                       type="email"
                       placeholder={t('confirm-your-new-email')}
                       {...field}
@@ -108,9 +116,7 @@ export default function ChangeEmailForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button disabled type="submit">
-              {t('update-email')}
-            </Button>
+            <Button type="submit">{t('update-email')}</Button>
           </CardFooter>
         </form>
       </Form>

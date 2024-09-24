@@ -1,21 +1,36 @@
-import { auth } from '@web/src/auth'
+'use client'
+
 import { Button } from '@web/src/components/ui/button'
 import LanguageSwitch from '@web/src/components/ui/LanguageSwitch'
 import LogoutButton from '@web/src/components/ui/LogoutButton'
 import ThemeSwitch from '@web/src/components/ui/ThemeSwitch'
-import { getTranslations } from 'next-intl/server'
-import Image from 'next/image'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
-export default async function Navbar() {
-  const session = await auth()
+export default function Navbar() {
+  const { data: session } = useSession()
   const user = session?.user
-  const t = await getTranslations('Navbar')
+  const t = useTranslations('Navbar')
 
   return (
-    <header className="p-4 flex flex-row justify-between border-b">
-      {session && <span>{`${t('hello')} ${user?.firstName}!`}</span>}
-      <div>
+    <header className="gap-2 md:gap-8 p-4 flex flex-row flex-wrap items-center justify-between border-b">
+      <Link href="/dashboard">
+        <Button>Dashboard</Button>
+      </Link>
+
+      {session && (
+        <Link href="/dashboard">
+          {t('hello')}{' '}
+          <span className="underline underline-offset-[3px] font-semibold decoration-foreground/30 offset">{`${user?.firstName}${user.lastName ? ' ' + user.lastName : ''}!`}</span>
+        </Link>
+      )}
+
+      <div className="md:ml-auto flex flex-row gap-2">
+        <Link className="underline" href="/settings">
+          <Button>{t('settings')}</Button>
+        </Link>
+
         {session ? (
           <LogoutButton />
         ) : (
@@ -23,21 +38,7 @@ export default async function Navbar() {
             <Link href="/login">{t('login')}</Link>
           </Button>
         )}
-      </div>
-      {session &&
-        (user?.profileImage ? (
-          <Image
-            alt="Profile image of user"
-            src={user?.profileImage}
-            width={100}
-            height={100}
-          ></Image>
-        ) : (
-          <Link className="underline" href="/settings">
-            <Button>{t('settings')}</Button>
-          </Link>
-        ))}
-      <div className="space-x-2 ml-auto">
+
         <ThemeSwitch />
         <LanguageSwitch />
       </div>

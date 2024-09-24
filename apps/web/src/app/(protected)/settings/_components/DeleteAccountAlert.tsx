@@ -1,18 +1,15 @@
 'use client'
-
+import { sendDeleteAccountEmail } from '@web/actions/auth.actions'
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@radix-ui/react-alert-dialog'
-import { sendDeleteAccountEmail } from '@web/actions/auth.actions'
-import {
   AlertDialogFooter,
   AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from '@web/src/components/ui/alert-dialog'
 import { Button } from '@web/src/components/ui/button'
 import {
@@ -29,11 +26,11 @@ export default function DeleteAccountAlert() {
   const t = useTranslations('DeleteAccountAlert')
 
   const handleDeleteAccountMail = async () => {
-    try {
-      await sendDeleteAccountEmail()
+    const result = await sendDeleteAccountEmail()
+    if (result.success) {
       toast.success(t('sent-a-verification-email'))
-    } catch (error) {
-      toast.error(error.message)
+    } else {
+      toast.error(result.message)
     }
   }
 

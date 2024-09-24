@@ -1,7 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Label } from '@radix-ui/react-label'
+import { updateNames } from '@web/actions/user.actions'
+import DeleteAccountAlert from '@web/src/app/(protected)/settings/_components/DeleteAccountAlert'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -20,19 +21,19 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import * as z from 'zod'
 
 export function ProfileForm() {
+  const { data: session, update: updateSession } = useSession()
   const t = useTranslations('ProfileForm')
 
   const profileSchema = z.object({
     firstName: z.string().min(2, t('first-name-must-be-at-least-2-characters')),
-    lastName: z
-      .string()
-      .min(2, t('last-name-must-be-at-least-2-characters'))
-      .optional(),
+    lastName: z.string().optional(),
   })
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -43,81 +44,77 @@ export function ProfileForm() {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof profileSchema>) => {
-    console.log('Profile data:', data)
-    // Handle profile update logic here
+  const onSubmit = async (data: z.infer<typeof profileSchema>) => {
+    const { firstName, lastName } = data
+    const result = await updateNames(firstName, lastName || '')
+    if (result.success) {
+      toast.success('Names updated!')
+      form.reset()
+      updateSession({
+        firstName,
+        lastName,
+      })
+    } else {
+      toast.error(`Something wen't wrong - try again`)
+    }
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('profile-information')}</CardTitle>
-        <CardDescription>
-          {t('update-your-profile-details-here')}
-        </CardDescription>
-      </CardHeader>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="space-y-4">
-            <div className="flex flex-col items-center space-y-4">
-              {/* <Avatar className="w-32 h-32">
-                <AvatarImage src={profileImage} alt="Profile" />
-                <AvatarFallback>UN</AvatarFallback>
-              </Avatar> */}
-              <Label
-                htmlFor="picture"
-                className="cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md"
-              >
-                {t('upload-picture')}
-              </Label>
-              {/* <Input
-                id="picture"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={onImageUpload}
-              /> */}
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('first-name')}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t('enter-your-first-name')}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('last-name')}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t('enter-your-last-name')}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button type="submit">{t('save-changes')}</Button>
-          </CardFooter>
-        </form>
-      </Form>
-    </Card>
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>{t('profile-information')}</CardTitle>
+          <CardDescription>
+            {t('update-your-profile-details-here')}
+          </CardDescription>
+        </CardHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('first-name')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={session.user.firstName}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('last-name')}</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={session.user.lastName ?? 'no last name'}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button type="submit">{t('save-changes')}</Button>
+            </CardFooter>
+          </form>
+        </Form>
+      </Card>
+      <Card>
+        <DeleteAccountAlert />
+      </Card>
+    </div>
   )
 }

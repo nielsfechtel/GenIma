@@ -1,12 +1,7 @@
 'use client'
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu'
 import { Button } from '@web/src/components/ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@web/src/components/ui/dropdown-menu'
 import { SUPPORTED_LOCALES } from '@web/src/intl.config'
 import { deleteCookie, setCookie } from 'cookies-next'
 import { Globe } from 'lucide-react'

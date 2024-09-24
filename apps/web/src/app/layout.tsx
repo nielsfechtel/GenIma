@@ -33,8 +33,11 @@ export default async function RootLayout({
       updates that element. This property only applies one level deep, so it won't block hydration warnings on
       other elements.
     */
-    <html lang={locale} suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className="h-full">
+      <body
+        suppressHydrationWarning
+        className="h-full bg-background text-foreground"
+      >
         <SessionProvider session={session}>
           <ThemeProvider
             attribute="class"
@@ -44,15 +47,15 @@ export default async function RootLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <Navbar />
-              <main className="bg-background">{children}</main>
+              <main className="p-4 h-full flex items-center flex-col">{children}</main>
               <Toaster
                 toastOptions={{
                   unstyled: true,
                   classNames: {
-                    error: 'bg-red-400',
-                    success: 'text-green-400',
-                    warning: 'text-yellow-400',
-                    info: 'bg-blue-400',
+                    error: 'space-y-2 shadow p-4 rounded bg-red-400',
+                    success: 'space-y-2 shadow p-4 rounded text-green-400',
+                    warning: 'space-y-2 shadow p-4 rounded text-yellow-400',
+                    info: 'space-y-2 shadow p-4 rounded bg-blue-400',
                   },
                 }}
               />
