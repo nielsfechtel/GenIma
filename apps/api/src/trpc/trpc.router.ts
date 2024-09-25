@@ -1,4 +1,5 @@
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
+import { GeneratedImageTrpcRouter } from '@api/generated_image/generated_image.trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { UserTrpcRouter } from '@api/users/user.trpc.router'
 import { INestApplication, Injectable } from '@nestjs/common'
@@ -9,12 +10,14 @@ export class TrpcRouter {
   constructor(
     private readonly trpc: TrpcService,
     private readonly authTrpcRouter: AuthTrpcRouter,
-    private readonly userTrpcRouter: UserTrpcRouter
+    private readonly userTrpcRouter: UserTrpcRouter,
+    private readonly generatedImageTrpcRouter: GeneratedImageTrpcRouter
   ) {}
 
   appRouter = this.trpc.router({
     user: this.userTrpcRouter.userRouter,
     auth: this.authTrpcRouter.authRouter,
+    generatedImage: this.generatedImageTrpcRouter.generatedImageRouter,
   })
 
   // this essentially 'ignores' NestJS-controllers and adds the trpc via express,
