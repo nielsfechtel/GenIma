@@ -35,10 +35,7 @@ const providers: Provider[] = [
       }
     },
   }),
-  Google({
-    // Google requires "offline" access_type to provide a `refresh_token`
-    authorization: { params: { access_type: 'offline', prompt: 'consent' } },
-  }),
+  Google,
 ]
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
