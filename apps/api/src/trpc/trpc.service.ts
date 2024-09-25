@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { initTRPC, TRPCError } from '@trpc/server'
+import { createCallerFactory, initTRPC, TRPCError } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import { createContext } from 'vm'
 
@@ -21,12 +21,9 @@ export class TrpcService {
 
       // try decoding with our JWT-key first - if it fails, it's a google-token (most likely)
       try {
-        user = await this.jwtService.verifyAsync(token, {
-          secret: process.env.JWT_KEY,
-        })
+        user = await this.jwtService.verifyAsync(token)
       } catch (error) {
-        // this is a JsonWebTokenError: invalid algorithm-error
-        // there probably is a better way than letting this fail
+        return {}
       }
       if (user) {
         return {
@@ -38,10 +35,6 @@ export class TrpcService {
     return {}
   }
 
-  // This doesn't work in classes - I think - but you should still be able to get this type by
-  // doing typeof <the-rest>, right?
-  // type Context = Awaited<ReturnType<typeof this.createContext>>
-  // or maybe without typeof as it's redundant ?
   trpc = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create()
 
   // for testing - https://trpc.io/docs/server/server-side-calls

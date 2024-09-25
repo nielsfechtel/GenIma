@@ -67,11 +67,10 @@ export class UsersService {
     const user = await this.userModel.findOne({ email })
     if (!user) throw new Error('User not found')
 
-    for (const api_key_id in user.api_keys) {
-      console.log(`deleting key ${api_key_id} for user ${user.email}`)
+    const result = await this.apiKeyModel.deleteMany({
+      _id: { $in: user.api_keys },
+    })
 
-      this.apiKeyModel.findOneAndDelete({ _id: api_key_id })
-    }
     // TODO also implement deletion of further linked docs, right now we only have api-keys
 
     await this.userModel.deleteOne({
@@ -89,19 +88,18 @@ export class UsersService {
     return user?.role === 'ADMIN'
   }
 
-  async createAPIKey(email: string, name: string, expiry_date: Date) {
+  async createAPIKey(email: string, name: string, expiry_date: string) {
     const user = await this.userModel.findOne({ email })
     if (!user)
       throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
 
-    if (user.api_keys.length <= 3)
+    if (user.api_keys.length >= 3)
       throw new TRPCError({
         code: 'BAD_REQUEST',
         message: 'Key-limit of 3 reached',
       })
 
     const newKey = await this.apikeyService.create(name, expiry_date)
-    console.log('newKey', newKey)
 
     user.api_keys.push(newKey)
     await user.save()

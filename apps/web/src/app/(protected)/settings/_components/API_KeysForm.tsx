@@ -23,13 +23,12 @@ import { Input } from '@web/src/components/ui/input'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 export default function API_KeysForm() {
   const t = useTranslations('API_KeysForm')
   const session = useSession()
-
-  const api_keys = session?.data?.user.api_keys
 
   // this should be taken from the DB-schema..
   const apikeyFormSchema = z.object({
@@ -57,13 +56,16 @@ export default function API_KeysForm() {
     },
   })
 
-  const onSubmit = (data: z.infer<typeof apikeyFormSchema>) => {
-    console.log('Form data:', data)
+  const onSubmit = async (data: z.infer<typeof apikeyFormSchema>) => {
     const date = new Date()
     date.setMonth(date.getMonth() + 3)
-    createAPIKey(data.name, date)
-      .then((result) => console.log(result))
-      .catch((error) => console.log(error))
+    const result = await createAPIKey(data.name, date.toISOString())
+    if (result.success) {
+      toast.success('Created!')
+      form.reset()
+    } else {
+      toast.error(`Error - ${result.message}`)
+    }
   }
 
   return (
@@ -75,14 +77,24 @@ export default function API_KeysForm() {
             {t('generate-api-keys-to-query-the-backend')}
           </CardDescription>
         </CardHeader>
-        <CardFooter>
-          {!api_keys ? (
-            <span>{t('no-api-keys-created-yet')}</span>
-          ) : (
-            api_keys.map((api_key, key) => {
-              return <span key={key}>{api_key.name}</span>
-            })
-          )}
+        <CardFooter className="flex flex-col gap-8">
+          <h3 className="text-red-400/70">
+            {session?.data?.user.api_keys.length === 3 &&
+              '( Key-limit of 3 reached )'}
+          </h3>
+          <ul>
+            {!session.data.user.api_keys ? (
+              <span>{t('no-api-keys-created-yet')}</span>
+            ) : (
+              session.data.user.api_keys.map((api_key, key) => {
+                return (
+                  <li key={key}>
+                    <span>{api_key.name}</span> : <span>{api_key.value}</span>
+                  </li>
+                )
+              })
+            )}
+          </ul>
         </CardFooter>
       </Card>
       <Card>

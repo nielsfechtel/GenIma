@@ -10,18 +10,17 @@ const { v4: uuidv4 } = require('uuid')
 export class ApiKeyService {
   constructor(@InjectModel(API_Key.name) private apikeyModel: Model<API_Key>) {}
 
-  async create(name: string, expiry_date: Date) {
+  async create(name: string, expiry_date: string) {
     let value = uuidv4()
     let isUnique = !(await this.apikeyModel.findOne({ value }))
     while (!isUnique) {
       isUnique = !(await this.apikeyModel.findOne({ value }))
       value = uuidv4()
-      console.log('are we stuck here?')
     }
 
     const newKey = this.apikeyModel.create({
       name,
-      expiry_date,
+      expiry_date: new Date(expiry_date),
       usesLeft: 3,
       value,
     })

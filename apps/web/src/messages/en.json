@@ -20,8 +20,7 @@
     "new-email": "New Email",
     "update-email": "Update Email"
   },
-  "Common": {
-  },
+  "Common": {},
   "Dashboard": {
     "all-images": "All Images",
     "generate-new-image": "Generate new Image",
@@ -35,6 +34,7 @@
     "are-you-absolutely-sure": "Are you absolutely sure?",
     "delete-account": "Delete Account",
     "send-verification-email": "Send verification email",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion",
     "sent-a-verification-email": "Sent a verification-email!"
   },
   "LandingPage": {

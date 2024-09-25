@@ -7,28 +7,24 @@ import ThemeSwitch from '@web/src/components/ui/ThemeSwitch'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 export default function Navbar() {
   const { data: session } = useSession()
   const user = session?.user
   const t = useTranslations('Navbar')
 
-  useEffect(() =>{
-    console.log('rendering navbar');
-
-  })
-
   return (
     <header className="gap-2 md:gap-8 p-4 flex flex-row flex-wrap items-center justify-between border-b">
       {'Session is: ' + JSON.stringify(session)}
-      {session ?
-      <Link href="/dashboard">
-        <Button>{t('dashboard')}</Button>
-      </Link> :<Link href="/landingpage">
-        <Button>{t('landingpage')}</Button>
-      </Link>
-}
+      {session ? (
+        <Link href="/dashboard">
+          <Button>{t('dashboard')}</Button>
+        </Link>
+      ) : (
+        <Link href="/landingpage">
+          <Button>{t('landingpage')}</Button>
+        </Link>
+      )}
 
       {session && (
         <Link href="/dashboard">

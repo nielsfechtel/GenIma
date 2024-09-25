@@ -70,9 +70,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     async jwt({ token, user, account, profile, trigger, session }) {
       let newUser
       let accessToken
-      const date = new Date()
-      let expires_at = date.setMonth(date.getMonth() + 3)
-      let refreshToken
 
       // session here is a session-update-object, sent over by updateSession
       // See https://next-auth.js.org/getting-started/client#updating-the-session
@@ -103,7 +100,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           } satisfies UserReturnSchema
         } else if (account?.provider === 'google') {
           if (!account.id_token) {
-            console.log('YO no id token');
             throw new Error('no google id_token')
           }
 
@@ -120,11 +116,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             profileImage: returnedUser.profileImage,
             role: returnedUser.role,
             tier: returnedUser.tier,
-            api_keys: returnedUser.api_keys
+            api_keys: returnedUser.api_keys,
           } satisfies UserReturnSchema
+
         }
 
-        console.log('in jwt1 we return', token);
 
         return {
           ...token,
@@ -133,18 +129,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         }
       }
 
-      console.log('in jwt2 we return', token);
 
       return token
     },
     // setting the session's user to what we got from the token (see function above!)
     async session({ session, token }) {
-      console.log('in session we return', {
-        ...session,
-        user:token.user,
-        accessToken:token.accessToken
-      });
-
       return {
         ...session,
         user: token.user,

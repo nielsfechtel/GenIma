@@ -9,10 +9,10 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
+import { ApiKeyModule } from './api_key/api_key.module'
 import { AuthModule } from './auth/auth.module'
+import { GeneratedImageModule } from './generated_image/generated_image.module'
 import { UsersModule } from './users/users.module'
-import { ApiKeyModule } from './api_key/api_key.module';
-import { GeneratedImageModule } from './generated_image/generated_image.module';
 
 @Module({
   imports: [
@@ -28,7 +28,6 @@ import { GeneratedImageModule } from './generated_image/generated_image.module';
     JwtModule.register({
       global: true,
       secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '60s' },
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_URL),
     MailerModule.forRoot({

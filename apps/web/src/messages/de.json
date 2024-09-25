@@ -35,7 +35,8 @@
     "are-you-absolutely-sure": "Sind Sie absolut sicher?",
     "delete-account": "Konto löschen",
     "send-verification-email": "Verifizierungs-E-Mail senden",
-    "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!"
+    "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Bestätigung der Kontolöschung"
   },
   "LandingPage": {
     "all-rights-reserved": "Alle Rechte vorbehalten.",

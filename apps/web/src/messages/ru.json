@@ -35,7 +35,8 @@
     "are-you-absolutely-sure": "Вы абсолютно уверены?",
     "delete-account": "Удалить аккаунт",
     "send-verification-email": "Отправить письмо с подтверждением",
-    "sent-a-verification-email": "Отправил письмо с подтверждением!"
+    "sent-a-verification-email": "Отправил письмо с подтверждением!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения удаления учетной записи."
   },
   "LandingPage": {
     "all-rights-reserved": "Все права защищены.",
