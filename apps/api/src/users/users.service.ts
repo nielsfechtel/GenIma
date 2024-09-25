@@ -1,4 +1,5 @@
 import { ApiKeyService } from '@api/api_key/api_key.service'
+import { API_Key } from '@api/api_key/schemas/api_key.schema'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
@@ -11,6 +12,7 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Tier.name) private tierModel: Model<Tier>,
+    @InjectModel(API_Key.name) private apiKeyModel: Model<API_Key>,
     private apikeyService: ApiKeyService
   ) {}
 
@@ -62,6 +64,16 @@ export class UsersService {
   }
 
   async deleteOneByEmail(email: string): Promise<void> {
+    const user = await this.userModel.findOne({ email })
+    if (!user) throw new Error('User not found')
+
+    for (const api_key_id in user.api_keys) {
+      console.log(`deleting key ${api_key_id} for user ${user.email}`)
+
+      this.apiKeyModel.findOneAndDelete({ _id: api_key_id })
+    }
+    // TODO also implement deletion of further linked docs, right now we only have api-keys
+
     await this.userModel.deleteOne({
       email,
     })
