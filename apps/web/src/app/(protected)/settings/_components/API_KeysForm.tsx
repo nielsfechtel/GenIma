@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { createAPIKey } from '@web/actions/apikeys.actions'
+import { createAPIKey } from '@web/src/actions/apikeys.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,

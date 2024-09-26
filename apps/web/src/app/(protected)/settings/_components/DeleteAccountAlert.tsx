@@ -1,5 +1,5 @@
 'use client'
-import { sendDeleteAccountEmail } from '@web/actions/auth.actions'
+import { sendDeleteAccountEmail } from '@web/src/actions/auth.actions'
 import {
   AlertDialog,
   AlertDialogAction,

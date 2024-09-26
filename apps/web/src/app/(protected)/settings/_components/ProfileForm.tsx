@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { updateNames } from '@web/actions/user.actions'
+import { updateNames } from '@web/src/actions/user.actions'
 import DeleteAccountAlert from '@web/src/app/(protected)/settings/_components/DeleteAccountAlert'
 import { Button } from '@web/src/components/ui/button'
 import {
