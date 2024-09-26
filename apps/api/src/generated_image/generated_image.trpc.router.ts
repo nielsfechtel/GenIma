@@ -1,8 +1,14 @@
 import { GeneratedImageService } from '@api/generated_image/generated_image.service'
-import { CreateAPIKeySchema } from '@api/schemas/create-apikey.schema'
-import { ObjectIdSchema } from '@api/schemas/object-id.schema'
+import { CreateImageSchema } from '@api/schemas/create-image.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { Injectable } from '@nestjs/common'
+import { v2 as cloudinary } from 'cloudinary'
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 @Injectable()
 export class GeneratedImageTrpcRouter {
@@ -11,23 +17,16 @@ export class GeneratedImageTrpcRouter {
     private readonly genImService: GeneratedImageService
   ) {}
 
-    generatedImageRouter = this.trpc.router({
-    getOne: this.trpc.protectedProcedure
-      .input(ObjectIdSchema)
-      .query(async ({ input }) => {
-        const id = input.id.toString()
-        return this.genImService.findOne()
-      }),
-
-    getAll: this.trpc.protectedProcedure.query(
-      async () => await this.genImService.findAll()
-    ),
-
-    addAPIKey: this.trpc.protectedProcedure
-      .input(CreateAPIKeySchema)
+  generatedImageRouter = this.trpc.router({
+    createImage: this.trpc.protectedProcedure
+      .input(CreateImageSchema)
       .mutation(async ({ ctx, input }) => {
-        return await this.genImService
+        const result = await this.genImService.create(
+          input.inputText,
+          input.inputOptions
+        )
+        console.log('result is', result)
+        return result
       }),
   })
 }
-

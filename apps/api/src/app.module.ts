@@ -1,4 +1,6 @@
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
+import { GeneratedImageService } from '@api/generated_image/generated_image.service'
+import { GeneratedImageTrpcRouter } from '@api/generated_image/generated_image.trpc.router'
 import { TrpcModule } from '@api/trpc/trpc.module'
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
@@ -9,10 +11,11 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
+import { ApiKeyModule } from './api_key/api_key.module'
 import { AuthModule } from './auth/auth.module'
+import { CloudinaryModule } from './cloudinary/cloudinary.module'
+import { GeneratedImageModule } from './generated_image/generated_image.module'
 import { UsersModule } from './users/users.module'
-import { ApiKeyModule } from './api_key/api_key.module';
-import { GeneratedImageModule } from './generated_image/generated_image.module';
 
 @Module({
   imports: [
@@ -55,7 +58,15 @@ import { GeneratedImageModule } from './generated_image/generated_image.module';
     UsersModule,
     ApiKeyModule,
     GeneratedImageModule,
+    CloudinaryModule,
   ],
-  providers: [TrpcRouter, AuthTrpcRouter, TrpcService, UserTrpcRouter],
+  providers: [
+    TrpcRouter,
+    AuthTrpcRouter,
+    GeneratedImageService,
+    TrpcService,
+    UserTrpcRouter,
+    GeneratedImageTrpcRouter,
+  ],
 })
 export class AppModule {}
