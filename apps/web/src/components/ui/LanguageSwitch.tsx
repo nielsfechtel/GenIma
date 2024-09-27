@@ -5,14 +5,15 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { SUPPORTED_LOCALES } from '@web/src/intl.config'
 import { deleteCookie, setCookie } from 'cookies-next'
 import { Globe } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 const languageOptions = SUPPORTED_LOCALES.concat('system')
 
 export default function LanguageSwitch() {
-  const [language, setLanguage] = React.useState('en')
+  const currentLocale = useLocale()
+  const [language, setLanguage] = React.useState(currentLocale)
   const router = useRouter()
 
   const t = useTranslations('LanguageSwitch')
@@ -41,13 +42,15 @@ export default function LanguageSwitch() {
             <DropdownMenuItem key={lang} onClick={() => changeLanguage(lang)}>
               <span className={language === lang ? 'font-bold' : ''}>
                 {
-                  // need to write it like this because TypeScript only accepted literal values 'de' or 'en' for the t-function;
-                  // using t(lang) gave an error
+                  // need to hardcode it like this because TypeScript only accepts literal values 'de' or 'en' for the t-function;
+                  // using t(lang) gives an error
                   lang === 'en'
                     ? t('en')
                     : lang === 'de'
                       ? t('de')
-                      : t('system')
+                      : lang === 'ru'
+                        ? t('ru')
+                        : t('system')
                 }
               </span>
             </DropdownMenuItem>

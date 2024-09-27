@@ -31,7 +31,6 @@ import { UsersModule } from './users/users.module'
     JwtModule.register({
       global: true,
       secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '60s' },
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_URL),
     MailerModule.forRoot({

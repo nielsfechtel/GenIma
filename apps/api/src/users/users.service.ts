@@ -1,4 +1,5 @@
 import { ApiKeyService } from '@api/api_key/api_key.service'
+import { API_Key } from '@api/api_key/schemas/api_key.schema'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
@@ -11,6 +12,7 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Tier.name) private tierModel: Model<Tier>,
+    @InjectModel(API_Key.name) private apiKeyModel: Model<API_Key>,
     private apikeyService: ApiKeyService
   ) {}
 
@@ -62,6 +64,15 @@ export class UsersService {
   }
 
   async deleteOneByEmail(email: string): Promise<void> {
+    const user = await this.userModel.findOne({ email })
+    if (!user) throw new Error('User not found')
+
+    const result = await this.apiKeyModel.deleteMany({
+      _id: { $in: user.api_keys },
+    })
+
+    // TODO also implement deletion of further linked docs, right now we only have api-keys
+
     await this.userModel.deleteOne({
       email,
     })
@@ -77,12 +88,12 @@ export class UsersService {
     return user?.role === 'ADMIN'
   }
 
-  async createAPIKey(email: string, name: string, expiry_date: Date) {
+  async createAPIKey(email: string, name: string, expiry_date: string) {
     const user = await this.userModel.findOne({ email })
     if (!user)
       throw new TRPCError({ code: 'BAD_REQUEST', message: 'User not found' })
 
-    if (user.api_keys.length <= 3)
+    if (user.api_keys.length >= 3)
       throw new TRPCError({
         code: 'BAD_REQUEST',
         message: 'Key-limit of 3 reached',

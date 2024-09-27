@@ -1,0 +1,101 @@
+{
+  "API_KeysForm": {
+    "api-keys": "Ключи API",
+    "create-api-key": "Создать ключ API",
+    "enter-name": "Введите имя ваших ключей API",
+    "generate-api-keys-to-query-the-backend": "Сгенерируйте ключи API для запроса серверной части.",
+    "name": "Имя",
+    "no-api-keys-created-yet": "Ключи API еще не созданы."
+  },
+  "AdminPanel": {
+    "super-secret-admin-panel": "Суперсекретная панель администратора"
+  },
+  "ChangeEmailForm": {
+    "change-your-account-email-address": "Измените адрес электронной почты своей учетной записи.",
+    "confirm-new-email": "Подтвердите новый адрес электронной почты",
+    "confirm-your-new-email": "Подтвердите свой новый адрес электронной почты",
+    "current-email": "Текущий адрес электронной почты",
+    "emails-do-not-match": "Электронная почта не совпадает.",
+    "enter-your-new-email": "Введите новый адрес электронной почты",
+    "new-email": "Новый адрес электронной почты",
+    "update-email": "Обновить электронную почту"
+  },
+  "Common": {
+  },
+  "Dashboard": {
+    "all-images": "Все изображения",
+    "generate-new-image": "Создать новое изображение",
+    "get-started": "Начните с создания нескольких изображений",
+    "my-images": "Мои изображения",
+    "no-images": "Нет изображений",
+    "welcome": "Добро пожаловать",
+    "your-ai-image-dashboard": "Ваша панель изображений AI"
+  },
+  "DeleteAccountAlert": {
+    "are-you-absolutely-sure": "Вы абсолютно уверены?",
+    "delete-account": "Удалить аккаунт",
+    "send-verification-email": "Отправить письмо с подтверждением",
+    "sent-a-verification-email": "Отправил письмо с подтверждением!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения удаления учетной записи."
+  },
+  "LandingPage": {
+    "all-rights-reserved": "Все права защищены.",
+    "create-amazing-images-with-ai": "Создавайте потрясающие изображения с помощью ИИ",
+    "describe-your-idea-and-watch-ai-bring-it-to-life": "Опишите свою идею и наблюдайте, как ИИ воплощает ее в жизнь.",
+    "easy-image-generation": "Простое создание изображений",
+    "features": "Функции",
+    "get-started": "Начать",
+    "get-your-images-in-seconds-not-hours": "Получите изображения за секунды, а не часы.",
+    "lightning-fast": "Молниеносно",
+    "no-technical-knowledge-required": "Никаких технических знаний не требуется – просто опишите, и мы сгенерируем.",
+    "no-technical-skills-needed-perfect-for-all-creators": "Никаких технических навыков не требуется. \nИдеально подходит для всех создателей.",
+    "see-it-in-action": "Посмотрите это в действии"
+  },
+  "LanguageSwitch": {
+    "de": "German",
+    "en": "English",
+    "ru": "Russian",
+    "system": "System",
+    "toggle-language": "Change language"
+  },
+  "LogoutButton": {
+    "logout": "Выход из системы"
+  },
+  "Navbar": {
+    "dashboard": "Панель управления",
+    "hello": "Привет",
+    "landingpage": "Целевая страница",
+    "login": "Авторизоваться",
+    "settings": "Настройки"
+  },
+  "ProfileForm": {
+    "first-name": "Имя",
+    "first-name-must-be-at-least-2-characters": "Имя должно состоять как минимум из 2 символов.",
+    "last-name": "Фамилия",
+    "profile-information": "Информация профиля",
+    "save-changes": "Сохранить изменения",
+    "update-your-profile-details-here": "Обновите данные своего профиля здесь."
+  },
+  "RootLayout": {
+  },
+  "Settings": {
+    "api-keys": "Ключи API",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "profile": "Профиль"
+  },
+  "ThemeSwitcher": {
+    "dark": "Темный",
+    "light": "Свет",
+    "system": "Система"
+  },
+  "UpdatePassword": {
+    "change-password": "Изменить пароль",
+    "confirm-new-password": "Подтвердите новый пароль",
+    "current-password": "Текущий пароль",
+    "new-password": "Новый пароль",
+    "update-password": "Обновить пароль",
+    "update-your-password-here": "Обновите свой пароль здесь.",
+    "you-signed-up-via-google-set-a-new-password": "Вы зарегистрировались через Google – установите новый пароль:"
+  }
+}

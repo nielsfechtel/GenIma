@@ -26,20 +26,21 @@ export class AuthService {
     if (!user) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
+        message: 'Check email or password.',
       })
     }
 
     if (!user.isVerified) {
       throw new TRPCError({
         code: 'BAD_REQUEST',
-        message: 'Please verify your email',
+        message: 'Please verify your email.',
       })
     }
 
     if (!user.password) {
       throw new TRPCError({
         code: 'BAD_REQUEST',
-        message: 'No password set, sign in with Google',
+        message: 'No password set, sign in with Google.',
       })
     }
 
@@ -48,6 +49,7 @@ export class AuthService {
     if (!passwordsMatch) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
+        message: 'Check email or password.',
       })
     }
 

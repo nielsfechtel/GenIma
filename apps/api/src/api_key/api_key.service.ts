@@ -31,7 +31,7 @@ export class ApiKeyService {
 
     const newKey = this.apikeyModel.create({
       name,
-      expiry_date,
+      expiry_date: new Date(expiry_date),
       usesLeft: 3,
       value,
     })

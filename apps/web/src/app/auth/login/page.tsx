@@ -45,24 +45,21 @@ export default function SignupForm() {
       const result = await myOwnServerSideSignIn({
         email: values.email,
         password: values.password,
-        // redirect: false according to https://stackoverflow.com/a/76752733/5272905
-        // redirect: false,
         redirectTo: searchParams.get('callbackUrl') ?? DEFAULT_LOGIN_REDIRECT,
       })
 
-      return {
-        data: null,
-        message: 'User credentials are valid.',
-        success: true,
+      if (result.success) {
+        return {
+          data: null,
+          message: 'User credentials are valid.',
+          success: true,
+        }
+
+      } else {
+        return router.push(`/auth/login?error=${result.message}.`)
       }
     } catch (err) {
-      // So I have no idea why, but the error-message here is not the one I threw in auth.ts, but
-      // AuthJS adds a "Read more at https://errors.authjs.dev" onto it after the end.
-      // Since I'm done with this for now, I just split it by '.' and take the first argument,
-      // as my error-message ends with a '.'
-      const message = err.message.split('.')[0]
-
-      return router.push(`/auth/login?error=${message}.`)
+      return router.push(`/auth/login?error=Error logging in - try again`)
     }
   }
 
@@ -79,7 +76,7 @@ export default function SignupForm() {
       </CardHeader>
       <CardContent className="space-y-8">
         {searchParams.has('error') && (
-          <h3 className="text-red-500 p-2">{searchParams.get('error')}</h3>
+          <h3 className="text-red-500 p-2">{searchParams.get('error').split('.')[0]}.</h3>
         )}
         <Form {...form}>
           <form

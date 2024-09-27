@@ -29,16 +29,11 @@ const providers: Provider[] = [
           password: credentials.password,
         })
       } catch (error) {
-        const errorMessage = error.meta.responseJSON[0].error.message
-
-        throw new CredentialsSignin(errorMessage)
+        throw new CredentialsSignin(error.message)
       }
     },
   }),
-  Google({
-    // Google requires "offline" access_type to provide a `refresh_token`
-    authorization: { params: { access_type: 'offline', prompt: 'consent' } },
-  }),
+  Google,
 ]
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
@@ -75,9 +70,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     async jwt({ token, user, account, profile, trigger, session }) {
       let newUser
       let accessToken
-      const date = new Date()
-      let expires_at = date.setMonth(date.getMonth() + 3)
-      let refreshToken
 
       // session here is a session-update-object, sent over by updateSession
       // See https://next-auth.js.org/getting-started/client#updating-the-session
@@ -96,33 +88,26 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         if (account?.provider === 'credentials') {
           accessToken = user.accessToken
           const data: UserReturnSchema = user.data
-          const {
-            email,
-            firstName,
-            lastName,
-            profileImage,
-            role,
-            tier,
-            api_keys,
-          } = data
+
           newUser = {
-            email,
-            firstName,
-            lastName,
-            profileImage,
-            role,
-            tier,
-            api_keys,
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            profileImage: data.profileImage,
+            role: data.role,
+            tier: data.tier,
+            api_keys: data.api_keys,
           } satisfies UserReturnSchema
         } else if (account?.provider === 'google') {
-          accessToken = account.id_token
-          expires_at = account.expires_at
-          refreshToken = account.refresh_token
+          if (!account.id_token) {
+            throw new Error('no google id_token')
+          }
 
           const result = await trpc.auth.loginWithGoogle.mutate({
             googleIDtoken: account.id_token,
           })
-          const returnedUser = result.data
+          const returnedUser: UserReturnSchema = result.data
+          accessToken = result.accessToken
 
           newUser = {
             email: returnedUser.email,
@@ -131,17 +116,19 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             profileImage: returnedUser.profileImage,
             role: returnedUser.role,
             tier: returnedUser.tier,
+            api_keys: returnedUser.api_keys,
           } satisfies UserReturnSchema
+
         }
+
 
         return {
           ...token,
           accessToken,
-          expires_at,
-          refreshToken,
           user: newUser,
         }
       }
+
 
       return token
     },

@@ -15,9 +15,16 @@ export default function Navbar() {
 
   return (
     <header className="gap-2 md:gap-8 p-4 flex flex-row flex-wrap items-center justify-between border-b">
-      <Link href="/dashboard">
-        <Button>Dashboard</Button>
-      </Link>
+      {'Session is: ' + JSON.stringify(session)}
+      {session ? (
+        <Link href="/dashboard">
+          <Button>{t('dashboard')}</Button>
+        </Link>
+      ) : (
+        <Link href="/landingpage">
+          <Button>{t('landingpage')}</Button>
+        </Link>
+      )}
 
       {session && (
         <Link href="/dashboard">

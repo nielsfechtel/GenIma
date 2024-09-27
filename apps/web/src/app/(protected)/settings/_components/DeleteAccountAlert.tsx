@@ -39,7 +39,6 @@ export default function DeleteAccountAlert() {
       <CardHeader>
         <CardTitle>{t('delete-account')}</CardTitle>
         <CardDescription>
-          {t('permanently-delete-your-account-and-all-associated-data')}
         </CardDescription>
       </CardHeader>
       <CardFooter>

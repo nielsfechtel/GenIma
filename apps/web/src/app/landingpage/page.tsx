@@ -15,7 +15,7 @@ export default async function LandingPage() {
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             {t(
-              'no-technical-knowledge-required-just-describe-and-we-and-apos-ll-generate'
+              'no-technical-knowledge-required'
             )}
           </p>
           <Button size="lg">{t('get-started')}</Button>
