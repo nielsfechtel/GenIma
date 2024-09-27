@@ -1,0 +1,6 @@
+services:
+  node:
+    build:
+      dockerfile: Dockerfile
+
+# From the example https://github.com/larixer/docker-js-monorepo
