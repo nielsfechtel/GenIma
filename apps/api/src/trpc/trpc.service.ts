@@ -87,6 +87,23 @@ export class TrpcService {
     })
   })
 
+  protectedAPIKeyProcedure = this.trpc.procedure.use(async function isAPIKeyAuthed(opts) {
+    const { ctx } = opts
+
+    // user is nullable
+    if (!ctx.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' })
+    }
+
+    // I'm not sure why we need to return ctx again here - would it be 'reset'/deleted otherwise?
+    return opts.next({
+      ctx: {
+        // ✅ user value is known to be non-null now
+        user: ctx.user,
+      },
+    })
+  })
+
   router = this.trpc.router
   mergeRouters = this.trpc.mergeRouters
 }

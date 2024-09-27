@@ -65,6 +65,5 @@ export class UserTrpcRouter {
           input.lastName
         )
       }),
-
   })
 }

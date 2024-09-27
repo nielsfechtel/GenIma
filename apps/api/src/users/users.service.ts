@@ -88,7 +88,7 @@ export class UsersService {
         message: 'Key-limit of 3 reached',
       })
 
-    const newKey = await this.apikeyService.create(name, expiry_date)
+    const newKey = await this.apikeyService.create(email, name, expiry_date)
     console.log('newKey', newKey)
 
     user.api_keys.push(newKey)
