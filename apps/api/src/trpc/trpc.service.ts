@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { initTRPC, TRPCError } from '@trpc/server'
 import * as trpcExpress from '@trpc/server/adapters/express'
+import { OpenApiMeta } from 'trpc-openapi'
 import { createContext } from 'vm'
 
 @Injectable()
@@ -43,7 +44,10 @@ export class TrpcService {
     return {}
   }
 
-  trpc = initTRPC.context<Awaited<ReturnType<typeof createContext>>>().create()
+  trpc = initTRPC
+    .context<Awaited<ReturnType<typeof createContext>>>()
+    .meta<OpenApiMeta>()
+    .create()
 
   // for testing - https://trpc.io/docs/server/server-side-calls
   createCallerFactory = this.trpc.createCallerFactory
@@ -68,18 +72,20 @@ export class TrpcService {
   })
 
   protectedAPIKeyProcedure = this.trpc.procedure.use(
-    async function isAPIKeyAuthed(opts) {
+    // this allows access if either normal login-token or API Key
+    // I only wanted a special few procedures to also be accessible via
+    // API-key.
+    async function isAPIKeyOrNormalAuthed(opts) {
       const { ctx } = opts
-      console.log('protectedAPIKeyProcedure ctx is', ctx)
 
-      // key is nullable
-      if (!ctx.key || !ctx.key.is_api_key) {
+      if (!ctx.key && !ctx.user) {
         throw new TRPCError({ code: 'UNAUTHORIZED' })
       }
 
       return opts.next({
         ctx: {
           key: ctx.key,
+          user: ctx.user,
         },
       })
     }

@@ -18,13 +18,15 @@ export class GeneratedImageTrpcRouter {
   ) {}
 
   generatedImageRouter = this.trpc.router({
-    createImage: this.trpc.protectedProcedure
+    createImage: this.trpc.protectedAPIKeyProcedure
       .input(CreateImageSchema)
       .mutation(async ({ ctx, input }) => {
-        const result = await this.genImService.create(
-          input.inputText,
-          input.inputOptions
-        )
+        const result = await this.genImService.create({
+          email: ctx.user?.email || ctx.key?.email,
+          apiKeyName: ctx.key?.name,
+          inputText: input.inputText,
+          categoriesObject: input.inputOptions,
+        })
         return result
       }),
   })

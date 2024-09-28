@@ -1,10 +1,7 @@
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { CoreMessage } from 'ai'
 import helmet from 'helmet'
-import { expressHandler } from 'trpc-playground/handlers/express'
-import * as cmon from 'trpc-playground/handlers/'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
@@ -17,6 +14,8 @@ async function bootstrap() {
   app.use(helmet())
 
   // tRPC setup
+  // also add OpenAPI from trpc-openapi
+  // both are in the applyMiddleware-func from trpc.router.ts
   const trpc = app.get(TrpcRouter)
   trpc.applyMiddleware(app)
 
@@ -27,27 +26,6 @@ async function bootstrap() {
     throw new Error(`Environment variable port is missing`)
   }
 
-  const trpcApiEndpoint = '/trpc'
-  const playgroundEndpoint = '/trpc-playground'
-
-  // app.use(
-  //   trpcApiEndpoint,
-  //   trpcExpress.createExpressMiddleware({
-  //     router: appRouter,
-  //   })
-  // )
-
-  app.use(
-    playgroundEndpoint,
-    await expressHandler({
-      trpcApiEndpoint,
-      playgroundEndpoint,
-      router: appRouter,
-    })
-  )
-
   await app.listen(port)
-
-  const messages: CoreMessage[] = []
 }
 bootstrap()

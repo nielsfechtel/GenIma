@@ -34,9 +34,11 @@ export default function Navbar() {
       )}
 
       <div className="md:ml-auto flex flex-row gap-2">
-        <Link className="underline" href="/settings">
-          <Button>{t('settings')}</Button>
-        </Link>
+        {session && (
+          <Link className="underline" href="/settings">
+            <Button>{t('settings')}</Button>
+          </Link>
+        )}
 
         {session ? (
           <LogoutButton />

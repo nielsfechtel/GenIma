@@ -4,6 +4,11 @@ import { TrpcService } from '@api/trpc/trpc.service'
 import { UserTrpcRouter } from '@api/users/user.trpc.router'
 import { INestApplication, Injectable } from '@nestjs/common'
 import * as trpcExpress from '@trpc/server/adapters/express'
+import {
+  createOpenApiExpressMiddleware,
+  generateOpenApiDocument,
+} from 'trpc-openapi'
+const swaggerUI = require('swagger-ui-express')
 
 @Injectable()
 export class TrpcRouter {
@@ -24,12 +29,31 @@ export class TrpcRouter {
   // essentially running in parallel
   async applyMiddleware(app: INestApplication) {
     app.use(
-      `/trpc`,
+      `/api/trpc`,
       trpcExpress.createExpressMiddleware({
         router: this.appRouter,
         createContext: this.trpc.createContext,
       })
     )
+
+    app.use(
+      '/api',
+      createOpenApiExpressMiddleware({
+        router: this.appRouter,
+        createContext: this.trpc.createContext,
+      })
+    )
+
+    const openAPIDocument = generateOpenApiDocument(this.appRouter, {
+      title: 'Niels Graduation Project Exposed API',
+      description: 'OpenAPI compliant REST API built using tRPC with NestJS',
+      version: '1.0.0',
+      baseUrl: 'http://localhost:4000/api',
+      docsUrl: 'https://github.com/jlalmes/trpc-openapi',
+      tags: ['images'],
+    })
+
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openAPIDocument))
   }
 }
 

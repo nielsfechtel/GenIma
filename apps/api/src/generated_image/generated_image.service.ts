@@ -1,9 +1,12 @@
 import { openai as openai_aisdk } from '@ai-sdk/openai'
+import { API_Key, API_KeyDocument } from '@api/api_key/schemas/api_key.schema'
 import { CloudinaryService } from '@api/cloudinary/cloudinary.service'
 import { GeneratedImage } from '@api/generated_image/schemas/generated_image.schema'
 import { CreateImageSchema } from '@api/schemas/create-image.schema'
+import { User } from '@api/users/schemas/user.schema'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
+import { TRPCError } from '@trpc/server'
 import { generateText } from 'ai'
 import { Model } from 'mongoose'
 import OpenAI from 'openai'
@@ -14,13 +17,53 @@ export class GeneratedImageService {
   constructor(
     @InjectModel(GeneratedImage.name)
     private genImageModel: Model<GeneratedImage>,
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(API_Key.name) private apiKeyModel: Model<API_Key>,
     private cloudinaryService: CloudinaryService
   ) {}
 
-  async create(
-    inputText: string,
+  async create({
+    email,
+    apiKeyName,
+    inputText,
+    categoriesObject,
+  }: {
+    email: string
+    apiKeyName: string
+    inputText: string | null
     categoriesObject: z.infer<typeof CreateImageSchema>['inputOptions']
-  ) {
+  }) {
+    const user = await this.userModel.findOne({ email }).populate('api_keys')
+    if (!user)
+      throw new TRPCError({ code: 'BAD_REQUEST', message: 'No user found!' })
+
+    // reduce usages - either of API Key or of User - the latter is not currently implemented
+    if (apiKeyName) {
+      // find the API key...
+      // we know this is a valid API-Key-Doc (via populate above) - so _id exists -
+      // but Typescript doesn't know that so we need to (?) cast it with `as API_KeyDocument`
+      const apiKeyUsed = user.api_keys.filter(
+        (key) => key.name === apiKeyName
+      )[0] as API_KeyDocument
+
+      if (!apiKeyUsed)
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'No key found' })
+      const keyDocument = await this.apiKeyModel.findById(apiKeyUsed._id)
+      if (!keyDocument)
+        throw new TRPCError({ code: 'BAD_REQUEST', message: 'No key found' })
+
+      if (keyDocument.usesLeft <= 0)
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'Key has no uses left!',
+        })
+
+      keyDocument.usesLeft--
+
+      await keyDocument.save()
+    }
+
+    // prepare categories and final input
     let categories = []
     for (const [key, value] of Object.entries(categoriesObject)) {
       if (value) categories.push(key)
@@ -78,6 +121,15 @@ export class GeneratedImageService {
       prompt: shortenedText,
       image_url: result.secure_url,
     })
+
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { email },
+      {
+        $push: {
+          images: newImage._id,
+        },
+      }
+    )
 
     return newImage
   }

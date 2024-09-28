@@ -68,7 +68,6 @@ export class AuthService {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      profileImage: user.profileImage,
       role: user.role,
       tier: {
         name: tier.name,
@@ -118,7 +117,6 @@ export class AuthService {
       email: userFound.email,
       firstName: userFound.firstName,
       lastName: userFound.lastName,
-      profileImage: userFound.profileImage,
       role: userFound.role,
       tier: {
         name: tier.name,
