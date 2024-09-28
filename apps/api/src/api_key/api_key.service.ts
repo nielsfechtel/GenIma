@@ -4,9 +4,6 @@ import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-// Some packages can't be found via imports, not sure why. VS-Code problem?
-// The library even says you can import it via ESM, so not sure what's happening
-const { v4: uuidv4 } = require('uuid')
 
 @Injectable()
 export class ApiKeyService {
@@ -16,10 +13,14 @@ export class ApiKeyService {
     private jwtService: JwtService
   ) {}
 
-  async create(creator_email: string, name: string, expiry_date: Date) {
+  async create(creator_email: string, name: string, expiry_date: string) {
     // check if name of key for account is unique
-    const user = await this.userModel.findOne({ email: creator_email })
+    const user = await this.userModel
+      .findOne({ email: creator_email })
+      .populate('api_keys')
     if (!user) throw new Error('User not found')
+
+    // make sure the name is unique (for this user)
     for (const api_key of user.api_keys) {
       if (api_key.name === name) throw new Error('Not a unique API Key-name!')
     }

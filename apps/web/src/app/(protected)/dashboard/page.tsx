@@ -1,6 +1,5 @@
 'use client'
 
-import { Switch } from '@web/src/components/ui/switch'
 import {
   Avatar,
   AvatarFallback,
@@ -8,9 +7,11 @@ import {
 } from '@web/src/components/ui/avatar'
 import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
+import { Switch } from '@web/src/components/ui/switch'
 import { ImageIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Component() {
@@ -87,6 +88,9 @@ export default function Component() {
         </div>
       </header>
       <main>
+        <Link href="/create-image">
+          <Button>Create Image</Button>
+        </Link>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {displayedImages.map((image) => (
             <Card key={image.id} className="overflow-hidden">

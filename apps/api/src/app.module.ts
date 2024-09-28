@@ -1,6 +1,10 @@
 import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { GeneratedImageService } from '@api/generated_image/generated_image.service'
 import { GeneratedImageTrpcRouter } from '@api/generated_image/generated_image.trpc.router'
+import {
+  GeneratedImage,
+  GeneratedImageSchema,
+} from '@api/generated_image/schemas/generated_image.schema'
 import { TrpcModule } from '@api/trpc/trpc.module'
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
@@ -33,6 +37,9 @@ import { UsersModule } from './users/users.module'
       secret: process.env.JWT_KEY,
     }),
     MongooseModule.forRoot(process.env.DB_CONNECTION_URL),
+    MongooseModule.forFeature([
+      { name: GeneratedImage.name, schema: GeneratedImageSchema },
+    ]),
     MailerModule.forRoot({
       transport: {
         host: process.env.RESEND_HOST,

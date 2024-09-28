@@ -5,6 +5,10 @@ import { AuthTrpcRouter } from '@api/auth/auth.trpc.router'
 import { CloudinaryService } from '@api/cloudinary/cloudinary.service'
 import { GeneratedImageService } from '@api/generated_image/generated_image.service'
 import { GeneratedImageTrpcRouter } from '@api/generated_image/generated_image.trpc.router'
+import {
+  GeneratedImage,
+  GeneratedImageSchema,
+} from '@api/generated_image/schemas/generated_image.schema'
 import { Tier, TierSchema } from '@api/tier/schemas/tier.schema'
 import { TierService } from '@api/tier/tier.service'
 import { TrpcRouter } from '@api/trpc/trpc.router'
@@ -21,6 +25,7 @@ import { MongooseModule } from '@nestjs/mongoose'
       { name: User.name, schema: UserSchema },
       { name: Tier.name, schema: TierSchema },
       { name: API_Key.name, schema: API_KeySchema },
+      { name: GeneratedImage.name, schema: GeneratedImageSchema },
     ]),
   ],
   providers: [

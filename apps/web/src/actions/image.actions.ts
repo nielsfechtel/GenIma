@@ -15,7 +15,10 @@ export const createNewImage = async ({
       inputOptions,
     })
     revalidatePath('/')
-    return result
+    return {
+      success: true,
+      result,
+    }
   } catch (error) {
     return {
       success: false,

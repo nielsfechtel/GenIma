@@ -25,7 +25,6 @@ export class GeneratedImageTrpcRouter {
           input.inputText,
           input.inputOptions
         )
-        console.log('result is', result)
         return result
       }),
   })
