@@ -1,8 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Label } from '@web/src/components/ui/label'
-import { updateEmail } from '@web/actions/user.actions'
+import { updateEmail } from '@web/src/actions/user.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -21,6 +20,7 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import { Label } from '@web/src/components/ui/label'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'

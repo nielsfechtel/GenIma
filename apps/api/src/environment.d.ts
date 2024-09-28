@@ -14,6 +14,9 @@ declare global {
       RESEND_USERNAME: string
       RESEND_PASSWORD: string
       HELLO_EMAIL_ADDRESS: string
+      CLOUDINARY_NAME: string
+      CLOUDINARY_API_KEY: string
+      CLOUDINARY_API_SECRET: string
     }
   }
 }

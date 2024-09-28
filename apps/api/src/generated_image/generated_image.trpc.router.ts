@@ -1,6 +1,6 @@
 import { GeneratedImageService } from '@api/generated_image/generated_image.service'
 import { CreateImageSchema } from '@api/schemas/create-image.schema'
-import { GeneratedImageSchema } from '@api/schemas/generated-image.schema'
+import { CreatedImageSchema } from '@api/schemas/created-image.schema'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { Injectable } from '@nestjs/common'
 import { v2 as cloudinary } from 'cloudinary'
@@ -23,18 +23,18 @@ export class GeneratedImageTrpcRouter {
       .meta({
         openapi: {
           method: 'POST',
-          path: '/image',
+          path: '/images',
           protect: true,
           summary: 'Create an image',
           description:
-            'Create a new image by providing an input-text and a range of categories.',
+            'Create an image by providing a prompt and a list of options. Authenticate with an API token.',
         },
       })
       .input(CreateImageSchema)
-      .output(GeneratedImageSchema)
+      .output(CreatedImageSchema)
       .mutation(async ({ ctx, input }) => {
-        return this.genImService.create({
-          email: ctx.key?.email || ctx.user?.email,
+        return await this.genImService.create({
+          email: ctx.user?.email || ctx.key?.email,
           apiKeyName: ctx.key?.name,
           inputText: input.inputText,
           categoriesObject: input.inputOptions,

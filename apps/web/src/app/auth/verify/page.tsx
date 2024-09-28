@@ -1,6 +1,6 @@
 'use client'
 
-import { executeToken } from '@web/actions/auth.actions'
+import { executeToken } from '@web/src/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
