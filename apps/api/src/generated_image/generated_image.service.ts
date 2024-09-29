@@ -1,7 +1,10 @@
 import { openai as openai_aisdk } from '@ai-sdk/openai'
 import { API_Key, API_KeyDocument } from '@api/api_key/schemas/api_key.schema'
 import { CloudinaryService } from '@api/cloudinary/cloudinary.service'
-import { GeneratedImage } from '@api/generated_image/schemas/generated_image.schema'
+import {
+  GeneratedImage,
+  GeneratedImageDocument,
+} from '@api/generated_image/schemas/generated_image.schema'
 import { CreateImageSchema } from '@api/schemas/create-image.schema'
 import { User } from '@api/users/schemas/user.schema'
 import { Injectable } from '@nestjs/common'
@@ -115,6 +118,7 @@ export class GeneratedImageService {
     )
 
     const newImage = await this.genImageModel.create({
+      creator: user._id,
       inputText,
       categories: categories.join(', '),
       finalInput,
@@ -134,19 +138,24 @@ export class GeneratedImageService {
     return newImage
   }
 
-  findAll() {
-    return `This action returns all generatedImage`
+  async findAll(): Promise<GeneratedImageDocument[]> {
+    const resultss = await this.genImageModel
+      .find({}, '_id creator inputText categories finalInput prompt image_url')
+      .populate('creator', 'firstName lastName')
+      .exec()
+    console.log('resultss are', resultss)
+
+    return this.genImageModel
+      .find({}, '_id creator inputText categories finalInput prompt image_url')
+      .populate('creator', 'firstName lastName')
+      .exec()
   }
 
-  findOne(id: number) {
-    return `This action returns a # generatedImage`
+  findOne(id: string) {
+    return this.genImageModel.findById(id).exec()
   }
 
-  update() {
-    return `This action updates a # generatedImage`
-  }
-
-  remove(id: number) {
-    return `This action removes a # generatedImage`
+  remove(id: string) {
+    return this.genImageModel.findByIdAndDelete(id).exec()
   }
 }

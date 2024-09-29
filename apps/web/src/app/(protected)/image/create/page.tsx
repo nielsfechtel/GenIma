@@ -69,7 +69,6 @@ export default function Component() {
       inputOptions: transformedCategories,
     })
     if (result.success) {
-      toast.success('Created!')
       form.reset()
     } else {
       toast.error(`Error - ${result.message}`)

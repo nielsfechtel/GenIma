@@ -36,6 +36,7 @@
   },
   "Dashboard": {
     "all-images": "All Images",
+    "create-image": "Create image",
     "generate-new-image": "Generate new Image",
     "get-started": "Get Started by generating some images",
     "my-images": "My Images",
@@ -107,6 +108,9 @@
     "update-password": "Update Password",
     "update-your-password-here": "Update your password here.",
     "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
+  },
+  "image": {
+    "image-by": "Image by"
   },
   "login": {
     "dont-have-an-account-yet": "Don't have an account yet?",
