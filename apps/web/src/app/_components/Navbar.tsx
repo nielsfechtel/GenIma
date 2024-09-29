@@ -16,13 +16,15 @@ export default function Navbar() {
   return (
     <header className="p-4 flex flex-row flex-wrap items-center justify-between border-b">
       <div className="flex flex-row gap-4 items-center">
-        <Image
-          src="/images/logos/TEMP_L1a.png"
-          alt="Website logo"
-          className="dark:invert"
-          width={40}
-          height={40}
-        />
+        <Link href={session ? '/dashboard' : '/landingpage'}>
+          <Image
+            src="/images/logos/TEMP_L1a.png"
+            alt="Website logo"
+            className="dark:invert"
+            width={40}
+            height={40}
+          />
+        </Link>
         {session ? (
           <Link href="/dashboard">
             <Button>{t('dashboard')}</Button>
