@@ -17,7 +17,6 @@ export const trpc = createTRPCProxyClient<AppRouter>({
         (opts.direction === 'down' && opts.result instanceof Error),
     }),
     httpBatchLink({
-      // TODO you should update this to use env variables
       url: `${process.env.API_SERVER_URL}/api/trpc`,
       async headers() {
         const session = await auth()
