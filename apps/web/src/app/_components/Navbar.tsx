@@ -6,6 +6,7 @@ import LogoutButton from "@web/src/components/ui/LogoutButton";
 import ThemeSwitch from "@web/src/components/ui/ThemeSwitch";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -15,6 +16,13 @@ export default function Navbar() {
 
   return (
     <header className="gap-2 md:gap-8 p-4 flex flex-row flex-wrap items-center justify-between border-b">
+      <Image
+        src="/images/logos/TEMP_L1a.png"
+        alt="Website logo"
+        className="dark:invert"
+        width={65}
+        height={65}
+      />
       {session ? (
         <Link href="/dashboard">
           <Button>{t("dashboard")}</Button>

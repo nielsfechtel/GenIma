@@ -8,7 +8,19 @@
     "no-api-keys-created-yet": "No API keys created yet."
   },
   "AdminPanel": {
-    "super-secret-admin-panel": "Super secret Admin Panel"
+    "actions": "Actions",
+    "admin-panel": "Admin Panel",
+    "are-you-absolutely-sure": "Are you absolutely sure?",
+    "cancel": "Cancel",
+    "delete-user": "Delete User",
+    "edit-the-user-tiers-or-delete-users-from-here": "Edit the user-tiers or delete users from here.",
+    "email": "Email",
+    "name": "Name",
+    "save": "Save",
+    "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "This action cannot be undone. This will permanently delete the user account and remove their data from our servers.",
+    "tiers": "Tiers",
+    "token-limit": "Token Limit",
+    "users": "Users"
   },
   "ChangeEmailForm": {
     "change-your-account-email-address": "Change your account email address.",
@@ -104,6 +116,7 @@
     "password": "Password",
     "sign-up": "Sign up"
   },
+  "this-action-cannot-be-undone": "This action cannot be undone. This will permanently delete the user account and remove their data from our servers.",
   "verify": {
     "verifying": "Verifying..."
   }

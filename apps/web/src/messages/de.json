@@ -8,7 +8,20 @@
     "no-api-keys-created-yet": "Es wurden noch keine API-Schlüssel erstellt."
   },
   "AdminPanel": {
-    "super-secret-admin-panel": "Super geheimes Admin Panel"
+    "actions": "Aktionen",
+    "admin-panel": "Admin-Panel",
+    "are-you-absolutely-sure": "Bist du absolut sicher?",
+    "cancel": "Stornieren",
+    "delete-user": "Benutzer löschen",
+    "edit-the-user-tiers-or-delete-users-from-here": "Bearbeiten Sie hier die Benutzerebenen oder löschen Sie Benutzer.",
+    "email": "E-Mail",
+    "name": "Name",
+    "save": "Speichern",
+    "super-secret-admin-panel": "Super geheimes Admin Panel",
+    "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "Diese Aktion kann nicht rückgängig gemacht werden. \nDadurch wird das Benutzerkonto dauerhaft gelöscht und seine Daten werden von unseren Servern entfernt.",
+    "tiers": "Ebenen",
+    "token-limit": "Token-Limit",
+    "users": "Benutzer"
   },
   "ChangeEmailForm": {
     "change-your-account-email-address": "Ändern Sie die E-Mail-Adresse Ihres Kontos.",
@@ -105,5 +118,9 @@
     "login-with-google": "Melden Sie sich mit Google an",
     "password": "Passwort",
     "sign-up": "Melden Sie sich an"
+  },
+  "this-action-cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden. \nDadurch wird das Benutzerkonto dauerhaft gelöscht und seine Daten werden von unseren Servern entfernt.",
+  "verify": {
+    "verifying": "Überprüfung..."
   }
 }

@@ -8,7 +8,20 @@
     "no-api-keys-created-yet": "Ключи API еще не созданы."
   },
   "AdminPanel": {
-    "super-secret-admin-panel": "Суперсекретная панель администратора"
+    "actions": "Действия",
+    "admin-panel": "Панель администратора",
+    "are-you-absolutely-sure": "Вы абсолютно уверены?",
+    "cancel": "Отмена",
+    "delete-user": "Удалить пользователя",
+    "edit-the-user-tiers-or-delete-users-from-here": "Измените уровни пользователей или удалите пользователей отсюда.",
+    "email": "Электронная почта",
+    "name": "Имя",
+    "save": "Сохранять",
+    "super-secret-admin-panel": "Суперсекретная панель администратора",
+    "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "Это действие невозможно отменить. \nЭто приведет к безвозвратному удалению учетной записи пользователя и его данных с наших серверов.",
+    "tiers": "Уровни",
+    "token-limit": "Лимит токенов",
+    "users": "Пользователи"
   },
   "ChangeEmailForm": {
     "change-your-account-email-address": "Измените адрес электронной почты своей учетной записи.",
@@ -105,5 +118,9 @@
     "login-with-google": "Войти через Google",
     "password": "Пароль",
     "sign-up": "Зарегистрироваться"
+  },
+  "this-action-cannot-be-undone": "Это действие невозможно отменить. \nЭто приведет к безвозвратному удалению учетной записи пользователя и его данных с наших серверов.",
+  "verify": {
+    "verifying": "Проверка..."
   }
 }

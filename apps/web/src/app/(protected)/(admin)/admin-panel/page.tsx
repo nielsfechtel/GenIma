@@ -1,11 +1,3 @@
-"use client";
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@web/src//components/ui/card";
 import { getAllTiers, getAllUsers } from "@web/src/actions/user.actions";
 import {
   AlertDialog,
@@ -19,6 +11,12 @@ import {
   AlertDialogTrigger,
 } from "@web/src/components/ui/alert-dialog";
 import { Button } from "@web/src/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@web/src/components/ui/card";
 import { Input } from "@web/src/components/ui/input";
 import {
   Table,
@@ -28,35 +26,39 @@ import {
   TableHeader,
   TableRow,
 } from "@web/src/components/ui/table";
-import { useState } from "react";
+import { getTranslations } from "next-intl/server";
 
-const allUsers = getAllUsers();
-const initialTiers = getAllTiers();
-console.log("allusers is", allUsers);
-console.log("alltiers is", initialTiers);
-
-export default function AdminPanel() {
-  const [tiers, setTiers] = useState(initialTiers);
-  const [users, setUsers] = useState(allUsers);
+export default async function AdminPanel() {
+  const allUsers = await getAllUsers();
+  const initialTiers = await getAllTiers();
+  const t = await getTranslations("AdminPanel");
 
   return (
     <div className="container mx-auto p-4 space-y-8">
       <Card>
         <CardHeader>
-          <CardTitle>Tiers</CardTitle>
+          <h1 className="font-bold text-2xl">{t("admin-panel")}</h1>
+        </CardHeader>
+        <CardContent>
+          {t("edit-the-user-tiers-or-delete-users-from-here")}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("tiers")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Token Limit</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead>{t("token-limit")}</TableHead>
+                <TableHead>{t("actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tiers.map((tier) => (
-                <TableRow key={tier.id}>
+              {initialTiers.map((tier, key) => (
+                <TableRow key={key}>
                   <TableCell>
                     <Input value={tier.name} />
                   </TableCell>
@@ -64,14 +66,8 @@ export default function AdminPanel() {
                     <Input type="number" value={tier.tokenLimit} />
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        console.log(`Save changes for tier ${tier.id}`)
-                      }
-                    >
-                      Save
+                    <Button variant="outline" size="sm">
+                      {t("save")}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -83,46 +79,44 @@ export default function AdminPanel() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Users</CardTitle>
+          <CardTitle>{t("users")}</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t("users")}</TableHead>
+                <TableHead>{t("email")}</TableHead>
+                <TableHead>{t("actions")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.name}</TableCell>
+              {allUsers.map((user, key) => (
+                <TableRow key={key}>
+                  <TableCell>{`${user.firstName}${user.lastName && " "}${user.lastName}`}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button variant="destructive" size="sm">
-                          Delete User
+                          {t("delete-user")}
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
                           <AlertDialogTitle>
-                            Are you absolutely sure?
+                            {t("are-you-absolutely-sure")}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete the user account and remove their data from
-                            our servers.
+                            {t(
+                              "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers",
+                            )}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={() => alert("User deleted!")}
-                          >
-                            Delete User
+                          <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                          <AlertDialogAction className="bg-destructive text-destructive-foreground">
+                            {t("delete-user")}
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>

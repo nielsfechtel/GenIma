@@ -30,9 +30,9 @@ export class UserTrpcRouter {
         return this.userService.findOne(id)
       }),
 
-    getAll: this.trpc.protectedProcedure.query(
-      async () => await this.userService.findAll()
-    ),
+    getAll: this.trpc.protectedProcedure.query(async () => {
+      return await this.userService.findAll()
+    }),
 
     getAllTiers: this.trpc.protectedProcedure.query(
       async () => await this.tierService.findAll()
