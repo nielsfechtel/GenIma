@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const CreateImageSchema = z.object({
-  inputText: z.string().min(50).max(1500),
+  inputText: z.string().max(1500),
   inputOptions: z.object({
     'ASCII-art': z.boolean(),
     'Copy art': z.boolean(),

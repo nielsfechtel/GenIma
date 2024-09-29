@@ -17,7 +17,6 @@
     "email": "Электронная почта",
     "name": "Имя",
     "save": "Сохранять",
-    "super-secret-admin-panel": "Суперсекретная панель администратора",
     "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "Это действие невозможно отменить. \nЭто приведет к безвозвратному удалению учетной записи пользователя и его данных с наших серверов.",
     "tiers": "Уровни",
     "token-limit": "Лимит токенов",
@@ -34,12 +33,25 @@
     "update-email": "Обновить электронную почту"
   },
   "Common": {},
+  "CreateImage": {
+    "categories-select-up-to-5": "Категории (выберите до 5)",
+    "categories-selected": "выбранные категории",
+    "characters": "персонажи",
+    "describe-the-image-you-want-to-generate-up-to-1500-characters": "Опишите изображение, которое вы хотите создать (до 1500 символов).",
+    "generate-image": "Создать изображение",
+    "image-text": "Текст создания изображения",
+    "text-is-required": "Требуется текст",
+    "text-must-be-1500-characters-or-less": "Текст должен содержать не более 1500 символов.",
+    "you-have-unsaved-changes-are-you-sure-you-wish-to-leave-this-page": "Вы уверены, что хотите уйти?"
+  },
   "Dashboard": {
     "all-images": "Все изображения",
+    "create-image": "Создать изображение",
     "generate-new-image": "Создать новое изображение",
     "get-started": "Начните с создания нескольких изображений",
     "my-images": "Мои изображения",
     "no-images": "Нет изображений",
+    "view-all-images": "Посмотреть все изображения",
     "welcome": "Добро пожаловать",
     "your-ai-image-dashboard": "Ваша панель изображений AI"
   },
@@ -49,6 +61,12 @@
     "send-verification-email": "Отправить письмо с подтверждением",
     "sent-a-verification-email": "Отправил письмо с подтверждением!",
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения удаления учетной записи."
+  },
+  "ImageComponent": {
+    "created-by": "Создано",
+    "input-text": "Введите текст",
+    "show-less": "Показать меньше",
+    "show-more": "Показать больше"
   },
   "LandingPage": {
     "all-rights-reserved": "Все права защищены.",
@@ -109,6 +127,22 @@
     "update-your-password-here": "Обновите свой пароль здесь.",
     "you-signed-up-via-google-set-a-new-password": "Вы зарегистрировались через Google – установите новый пароль:"
   },
+  "image-categories": {
+    "ASCII-art": "ASCII-арт",
+    "Copy art": "Копирование искусства",
+    "Drawing": "Рисунок",
+    "Dystopian": "антиутопический",
+    "Fantasy": "Фантастика",
+    "Futuristic": "Футуристический",
+    "Medieval": "Средневековый",
+    "Nature": "Природа",
+    "Painting": "Рисование",
+    "Photograph": "Фотография",
+    "Photorealistic": "Фотореалистичный",
+    "Prehistoric": "доисторический",
+    "Scifi": "Научная фантастика",
+    "Sketch": "Эскиз"
+  },
   "login": {
     "dont-have-an-account-yet": "У вас еще нет учетной записи?",
     "email": "Электронная почта",
@@ -117,7 +151,6 @@
     "password": "Пароль",
     "sign-up": "Зарегистрироваться"
   },
-  "this-action-cannot-be-undone": "Это действие невозможно отменить. \nЭто приведет к безвозвратному удалению учетной записи пользователя и его данных с наших серверов.",
   "verify": {
     "verifying": "Проверка..."
   }

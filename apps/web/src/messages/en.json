@@ -32,7 +32,17 @@
     "new-email": "New Email",
     "update-email": "Update Email"
   },
-  "Common": {},
+  "CreateImage": {
+    "categories-select-up-to-5": "Categories (select up to 5)",
+    "categories-selected": "categories selected",
+    "characters": "characters",
+    "describe-the-image-you-want-to-generate-up-to-1500-characters": "Describe the image you want to generate (up to 1500 characters)",
+    "generate-image": "Generate Image",
+    "image-text": "Image Creation Text",
+    "text-is-required": "Text is required",
+    "text-must-be-1500-characters-or-less": "Text must be 1500 characters or less",
+    "you-have-unsaved-changes-are-you-sure-you-wish-to-leave-this-page": "Are you sure you wish to leave?"
+  },
   "Dashboard": {
     "all-images": "All Images",
     "create-image": "Create image",
@@ -40,6 +50,7 @@
     "get-started": "Get Started by generating some images",
     "my-images": "My Images",
     "no-images": "No Images",
+    "view-all-images": "View all images",
     "welcome": "Welcome",
     "your-ai-image-dashboard": "Your AI Image Dashboard"
   },
@@ -49,6 +60,12 @@
     "send-verification-email": "Send verification email",
     "sent-a-verification-email": "Sent a verification-email!",
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion"
+  },
+  "ImageComponent": {
+    "created-by": "Created by",
+    "input-text": "Input text",
+    "show-less": "Show Less",
+    "show-more": "Show More"
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",
@@ -108,8 +125,21 @@
     "update-your-password-here": "Update your password here.",
     "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
   },
-  "image": {
-    "image-by": "Image by"
+  "image-categories": {
+    "ASCII-art": "ASCII-art",
+    "Copy art": "Copy art",
+    "Drawing": "Drawing",
+    "Dystopian": "Dystopian",
+    "Fantasy": "Fantasy",
+    "Futuristic": "Futuristic",
+    "Medieval": "Medieval",
+    "Nature": "Nature",
+    "Painting": "Painting",
+    "Photograph": "Photograph",
+    "Photorealistic": "Photorealistic",
+    "Prehistoric": "Prehistoric",
+    "Scifi": "Scifi",
+    "Sketch": "Sketch"
   },
   "login": {
     "dont-have-an-account-yet": "Don't have an account yet?",
@@ -119,7 +149,6 @@
     "password": "Password",
     "sign-up": "Sign up"
   },
-  "this-action-cannot-be-undone": "This action cannot be undone. This will permanently delete the user account and remove their data from our servers.",
   "verify": {
     "verifying": "Verifying..."
   }

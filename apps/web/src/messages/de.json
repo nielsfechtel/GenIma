@@ -17,7 +17,6 @@
     "email": "E-Mail",
     "name": "Name",
     "save": "Speichern",
-    "super-secret-admin-panel": "Super geheimes Admin Panel",
     "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "Diese Aktion kann nicht rückgängig gemacht werden. \nDadurch wird das Benutzerkonto dauerhaft gelöscht und seine Daten werden von unseren Servern entfernt.",
     "tiers": "Ebenen",
     "token-limit": "Token-Limit",
@@ -33,13 +32,27 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {},
+  "Common": {
+  },
+  "CreateImage": {
+    "categories-select-up-to-5": "Kategorien (bis zu 5 auswählen)",
+    "categories-selected": "Kategorien ausgewählt",
+    "characters": "Charaktere",
+    "describe-the-image-you-want-to-generate-up-to-1500-characters": "Beschreiben Sie das Bild, das Sie generieren möchten (bis zu 1500 Zeichen)",
+    "generate-image": "Bild generieren",
+    "image-text": "Bilderstellungstext",
+    "text-is-required": "Text ist erforderlich",
+    "text-must-be-1500-characters-or-less": "Der Text darf maximal 1500 Zeichen lang sein",
+    "you-have-unsaved-changes-are-you-sure-you-wish-to-leave-this-page": "Sind Sie sicher, dass Sie gehen möchten?"
+  },
   "Dashboard": {
     "all-images": "Alle Bilder",
+    "create-image": "Bild erstellen",
     "generate-new-image": "Neues Bild generieren",
     "get-started": "Beginnen Sie mit der Erstellung einiger Bilder",
     "my-images": "Meine Bilder",
     "no-images": "Keine Bilder",
+    "view-all-images": "Alle Bilder ansehen",
     "welcome": "Willkommen",
     "your-ai-image-dashboard": "Ihr AI-Image-Dashboard"
   },
@@ -49,6 +62,12 @@
     "send-verification-email": "Verifizierungs-E-Mail senden",
     "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Bestätigung der Kontolöschung"
+  },
+  "ImageComponent": {
+    "created-by": "Erstellt von",
+    "input-text": "Eingabetext",
+    "show-less": "Weniger anzeigen",
+    "show-more": "Mehr anzeigen"
   },
   "LandingPage": {
     "all-rights-reserved": "Alle Rechte vorbehalten.",
@@ -88,7 +107,8 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {},
+  "RootLayout": {
+  },
   "Settings": {
     "api-keys": "API-Schlüssel",
     "email": "E-Mail",
@@ -109,6 +129,22 @@
     "update-your-password-here": "Aktualisieren Sie hier Ihr Passwort.",
     "you-signed-up-via-google-set-a-new-password": "Sie haben sich über Google angemeldet – legen Sie ein neues Passwort fest:"
   },
+  "image-categories": {
+    "ASCII-art": "ASCII-Art",
+    "Copy art": "Copy Art",
+    "Drawing": "Zeichnung",
+    "Dystopian": "Dystopisch",
+    "Fantasy": "Fantasie",
+    "Futuristic": "Futuristisch",
+    "Medieval": "Mittelalterlich",
+    "Nature": "Natur",
+    "Painting": "Gemälde",
+    "Photograph": "Foto",
+    "Photorealistic": "Fotorealistisch",
+    "Prehistoric": "Prähistorisch",
+    "Scifi": "Science-Fiction",
+    "Sketch": "Skizze"
+  },
   "login": {
     "dont-have-an-account-yet": "Sie haben noch kein Konto?",
     "email": "E-Mail",
@@ -117,7 +153,6 @@
     "password": "Passwort",
     "sign-up": "Melden Sie sich an"
   },
-  "this-action-cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden. \nDadurch wird das Benutzerkonto dauerhaft gelöscht und seine Daten werden von unseren Servern entfernt.",
   "verify": {
     "verifying": "Überprüfung..."
   }

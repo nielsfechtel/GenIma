@@ -2,8 +2,10 @@
 
 import { CreateImageSchema } from '@api/schemas/create-image.schema'
 import { createNewImage } from '@web/src/actions/image.actions'
+import LoadingAnim from '@web/src/app/_components/LoadingAnim'
 import { Button } from '@web/src/components/ui/button'
 import { Checkbox } from '@web/src/components/ui/checkbox'
+
 import {
   Form,
   FormControl,
@@ -14,9 +16,9 @@ import {
 } from '@web/src/components/ui/form'
 import { Progress } from '@web/src/components/ui/progress'
 import { Textarea } from '@web/src/components/ui/textarea'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 import z from 'zod'
 
 const categories = Object.keys(CreateImageSchema.shape.inputOptions.shape)
@@ -26,7 +28,41 @@ type FormData = {
   categories: string[]
 }
 
-export default function Component() {
+export default function CreateImage() {
+  const t = useTranslations('CreateImage')
+  const t_categories = useTranslations('image-categories')
+
+  /*
+    So I wanted to have a 'Careful you have unsaved changes'-type-message, found this method https://stackoverflow.com/a/70841409/5272905
+    However, it appears the App-router _still_ doesn't have events like routeChange (see below), and nothing equivalent (scroll to bottom):
+    https://github.com/vercel/next.js/discussions/41934#discussioncomment-8996669
+  */
+  // const router = useRouter()
+  // const [unsavedChanges, setUnsavedChanges] = useState(false)
+  // const warningText = t(
+  //   'you-have-unsaved-changes-are-you-sure-you-wish-to-leave-this-page'
+  // )
+  // useEffect(() => {
+  //   const handleWindowClose = (e) => {
+  //     if (!unsavedChanges) return
+  //     e.preventDefault()
+  //     return (e.returnValue = warningText)
+  //   }
+  //   const handleBrowseAway = () => {
+  //     if (!unsavedChanges) return
+  //     if (window.confirm(warningText)) return
+  //     router.events.emit('routeChangeError')
+  //     throw 'routeChange aborted.'
+  //   }
+  //   window.addEventListener('beforeunload', handleWindowClose)
+  //   router.events.on('routeChangeStart', handleBrowseAway)
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleWindowClose)
+  //     router.events.off('routeChangeStart', handleBrowseAway)
+  //   }
+  // }, [unsavedChanges])
+
+  const [loadingImageCreation, setLoadingImageCreation] = useState(false)
   const [charCount, setCharCount] = useState(0)
   const form = useForm<FormData>({
     defaultValues: {
@@ -64,49 +100,55 @@ export default function Component() {
       Sketch: data.categories.includes('Sketch'),
     }
 
-    const result = await createNewImage({
+    setLoadingImageCreation(true)
+    await createNewImage({
       inputText: data.description,
       inputOptions: transformedCategories,
     })
-    if (result.success) {
-      form.reset()
-    } else {
-      toast.error(`Error - ${result.message}`)
-    }
   }
 
-  return (
+  return loadingImageCreation ? (
+    <div className="w-96 h-96 grid place-content-center">
+      <LoadingAnim />
+    </div>
+  ) : (
     <Form {...form}>
       <form
+        // onChange={() => !unsavedChanges && setUnsavedChanges(true)}
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 max-w-2xl mx-auto p-6 bg-background rounded-lg shadow-lg">
+        className="space-y-8 min-w-96 max-w-2xl mx-auto p-6 bg-background rounded-lg shadow-lg">
         <FormField
           control={control}
           name="description"
           rules={{
-            required: 'Description is required',
+            required: t('text-is-required'),
             maxLength: {
               value: 1500,
-              message: 'Description must be 1500 characters or less',
+              message: t('text-must-be-1500-characters-or-less'),
             },
           }}
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-lg font-semibold">
-                Image Description
+                {t('image-text')}
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Describe the image you want to generate (up to 1500 characters)"
+                  placeholder={t(
+                    'describe-the-image-you-want-to-generate-up-to-1500-characters'
+                  )}
                   className="mt-1 h-40"
                   {...field}
                 />
               </FormControl>
               <div className="flex justify-between items-center mt-2">
                 <p className="text-sm text-muted-foreground">
-                  {charCount} / 1500 characters
+                  {charCount} / 1500 {t('characters')}
                 </p>
-                <Progress value={(charCount / 1500) * 100} className="w-1/2" />
+                <Progress
+                  value={(charCount / 1500) * 100}
+                  className="w-1/2 opacity-40"
+                />
               </div>
               <FormMessage />
             </FormItem>
@@ -123,9 +165,9 @@ export default function Component() {
           render={() => (
             <FormItem>
               <FormLabel className="text-lg font-semibold">
-                Categories (select up to 5)
+                {t('categories-select-up-to-5')}
               </FormLabel>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+              <div className="grid grid-cols-2 md:grid-cols-3 pt-1 lg:grid-cols-4 gap-4 mt-2">
                 {categories.map((category) => (
                   <FormField
                     key={category}
@@ -133,7 +175,7 @@ export default function Component() {
                     name="categories"
                     render={({ field }) => {
                       return (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 select-none">
                           <FormControl>
                             <Checkbox
                               checked={field.value?.includes(category)}
@@ -153,7 +195,7 @@ export default function Component() {
                             />
                           </FormControl>
                           <FormLabel className="text-sm font-normal">
-                            {category}
+                            {t_categories(category)}
                           </FormLabel>
                         </FormItem>
                       )
@@ -161,8 +203,8 @@ export default function Component() {
                   />
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mt-2">
-                {selectedCategories.length} / 5 categories selected
+              <p className="text-sm text-muted-foreground pt-4">
+                {selectedCategories.length} / 5 {t('categories-selected')}
               </p>
               <FormMessage />
             </FormItem>
@@ -170,7 +212,7 @@ export default function Component() {
         />
 
         <Button type="submit" className="w-full">
-          Generate Image
+          {t('generate-image')}
         </Button>
       </form>
     </Form>

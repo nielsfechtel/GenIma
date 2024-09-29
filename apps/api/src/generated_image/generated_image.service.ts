@@ -139,12 +139,6 @@ export class GeneratedImageService {
   }
 
   async findAll(): Promise<GeneratedImageDocument[]> {
-    const resultss = await this.genImageModel
-      .find({}, '_id creator inputText categories finalInput prompt image_url')
-      .populate('creator', 'firstName lastName')
-      .exec()
-    console.log('resultss are', resultss)
-
     return this.genImageModel
       .find({}, '_id creator inputText categories finalInput prompt image_url')
       .populate('creator', 'firstName lastName')
@@ -152,7 +146,13 @@ export class GeneratedImageService {
   }
 
   findOne(id: string) {
-    return this.genImageModel.findById(id).exec()
+    return this.genImageModel
+      .findById(
+        id,
+        '_id creator inputText categories finalInput prompt image_url'
+      )
+      .populate('creator', 'firstName lastName')
+      .exec()
   }
 
   remove(id: string) {

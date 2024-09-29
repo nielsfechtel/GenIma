@@ -100,7 +100,6 @@ export class UsersService {
       })
 
     const newKey = await this.apikeyService.create(email, name, expiry_date)
-    console.log('newKey', newKey)
 
     user.api_keys.push(newKey)
     await user.save()
