@@ -36,7 +36,7 @@ export class UserTrpcRouter {
 
     getAllTiers: this.trpc.protectedProcedure.query(
       async () => await this.tierService.findAll()
-    )
+    ),
 
     hasPassword: this.trpc.protectedProcedure.query(async ({ ctx }) => {
       return this.userService.hasPassword(ctx.user.email)
