@@ -12,8 +12,7 @@ export default function LogoutButton() {
       onClick={() => {
         signOut({ redirect: true, callbackUrl: '/landingpage' })
       }}
-      type="submit"
-    >
+      type="submit">
       {t('logout')}
     </Button>
   )

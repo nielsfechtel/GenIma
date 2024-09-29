@@ -32,8 +32,7 @@
     "new-email": "New Email",
     "update-email": "Update Email"
   },
-  "Common": {
-  },
+  "Common": {},
   "Dashboard": {
     "all-images": "All Images",
     "create-image": "Create image",

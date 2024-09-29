@@ -118,9 +118,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             tier: returnedUser.tier,
             api_keys: returnedUser.api_keys,
           } satisfies UserReturnSchema
-
         }
-
 
         return {
           ...token,
@@ -128,7 +126,6 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           user: newUser,
         }
       }
-
 
       return token
     },

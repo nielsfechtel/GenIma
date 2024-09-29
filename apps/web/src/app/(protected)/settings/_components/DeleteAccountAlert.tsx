@@ -38,8 +38,7 @@ export default function DeleteAccountAlert() {
     <Card>
       <CardHeader>
         <CardTitle>{t('delete-account')}</CardTitle>
-        <CardDescription>
-        </CardDescription>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardFooter>
         <AlertDialog>
@@ -61,8 +60,7 @@ export default function DeleteAccountAlert() {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDeleteAccountMail}
-                className="bg-destructive text-destructive-foreground"
-              >
+                className="bg-destructive text-destructive-foreground">
                 {t('send-verification-email')}
               </AlertDialogAction>
             </AlertDialogFooter>

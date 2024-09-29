@@ -24,7 +24,7 @@ export const sendDeleteAccountEmail = async () => {
   try {
     const result = trpc.auth.deleteAccount.query()
     return {
-      success: true
+      success: true,
     }
   } catch (error) {
     return {
@@ -51,15 +51,14 @@ export const executeToken = async (token: string) => {
 export const myOwnServerSideSignIn = async (options) => {
   try {
     const result = await signIn('credentials', options)
-return {
-  success:true
-}
+    return {
+      success: true,
+    }
   } catch (error: unknown) {
-
-return {
-  success: false,
-  message: error.message
-}
+    return {
+      success: false,
+      message: error.message,
+    }
   }
 }
 

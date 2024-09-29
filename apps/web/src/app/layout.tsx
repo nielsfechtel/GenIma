@@ -36,18 +36,16 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning className="h-full">
       <body
         suppressHydrationWarning
-        className="h-full bg-background text-foreground"
-      >
+        className="h-full bg-background text-foreground">
         <SessionProvider session={session}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-            disableTransitionOnChange
-          >
+            disableTransitionOnChange>
             <NextIntlClientProvider messages={messages}>
               <Navbar />
-              <main className="p-4  flex items-center flex-col">{children}</main>
+              <main className="p-4 flex items-center flex-col">{children}</main>
               <Toaster
                 toastOptions={{
                   unstyled: true,

@@ -20,26 +20,22 @@ export default async function SettingsPage() {
       <TabsList className="grid w-full grid-cols-2 h-fit gap-2 p-2">
         <TabsTrigger
           className="p-2 border border-foreground/20"
-          value="profile"
-        >
+          value="profile">
           {t('profile')}
         </TabsTrigger>
         <TabsTrigger
           className="p-2 border border-foreground/20"
-          value="changeEmail"
-        >
+          value="changeEmail">
           {t('email')}
         </TabsTrigger>
         <TabsTrigger
           className="p-2 border border-foreground/20"
-          value="updatePassword"
-        >
+          value="updatePassword">
           {t('password')}
         </TabsTrigger>
         <TabsTrigger
           className="p-2 border border-foreground/20"
-          value="api_keys"
-        >
+          value="api_keys">
           {t('api-keys')}
         </TabsTrigger>
       </TabsList>

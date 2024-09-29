@@ -33,8 +33,7 @@
     "new-email": "Новый адрес электронной почты",
     "update-email": "Обновить электронную почту"
   },
-  "Common": {
-  },
+  "Common": {},
   "Dashboard": {
     "all-images": "Все изображения",
     "generate-new-image": "Создать новое изображение",
@@ -89,8 +88,7 @@
     "save-changes": "Сохранить изменения",
     "update-your-profile-details-here": "Обновите данные своего профиля здесь."
   },
-  "RootLayout": {
-  },
+  "RootLayout": {},
   "Settings": {
     "api-keys": "Ключи API",
     "email": "Электронная почта",

@@ -33,8 +33,7 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {
-  },
+  "Common": {},
   "Dashboard": {
     "all-images": "Alle Bilder",
     "generate-new-image": "Neues Bild generieren",
@@ -89,8 +88,7 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {
-  },
+  "RootLayout": {},
   "Settings": {
     "api-keys": "API-Schlüssel",
     "email": "E-Mail",
