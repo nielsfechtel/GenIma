@@ -2,7 +2,7 @@
 
 import { SignUpSchema } from '@api/schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { updatePassword } from '@web/actions/auth.actions'
+import { updatePassword } from '@web/src/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,

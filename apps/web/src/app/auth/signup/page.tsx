@@ -2,7 +2,7 @@
 
 import { SignUpSchema } from '@api/schemas/signup.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { handleSignup } from '@web/actions/auth.actions'
+import { handleSignup } from '@web/src/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -154,8 +154,7 @@ export default function SignupForm() {
         <Button
           onClick={handleGoogleSignup}
           variant="outline"
-          className="w-full"
-        >
+          className="w-full">
           Sign up with Google
         </Button>
         <div className="text-center text-sm">

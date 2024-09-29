@@ -1,4 +1,5 @@
 import { API_Key } from '@api/api_key/schemas/api_key.schema'
+import { GeneratedImage } from '@api/generated_image/schemas/generated_image.schema'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { IsEmail } from 'class-validator'
@@ -15,7 +16,7 @@ export class User {
   @IsEmail()
   email: string
 
-  // not necessarily required, as signup with an OAuth-provider is supported
+  // this is -not- rquired, as signup with an OAuth-provider is supported
   @Prop()
   password: string
 
@@ -28,8 +29,15 @@ export class User {
   @Prop()
   lastName: string
 
-  @Prop()
-  profileImage: string
+  @Prop({
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'GeneratedImage',
+      },
+    ],
+  })
+  images: GeneratedImage[]
 
   @Prop({
     type: [

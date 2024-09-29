@@ -2,6 +2,7 @@
 import { CreateAPIKeySchema } from '@api/schemas/create-apikey.schema'
 import { ObjectIdSchema } from '@api/schemas/object-id.schema'
 import { UpdateNamesSchema } from '@api/schemas/update-names.schema'
+import { TierService } from '@api/tier/tier.service'
 import { TrpcService } from '@api/trpc/trpc.service'
 import { UsersService } from '@api/users/users.service'
 import { Injectable } from '@nestjs/common'
@@ -11,7 +12,8 @@ import { z } from 'zod'
 export class UserTrpcRouter {
   constructor(
     private readonly trpc: TrpcService,
-    private readonly userService: UsersService
+    private readonly userService: UsersService,
+    private readonly tierService: TierService
   ) {}
 
   userRouter = this.trpc.router({
@@ -28,8 +30,12 @@ export class UserTrpcRouter {
         return this.userService.findOne(id)
       }),
 
-    getAll: this.trpc.protectedProcedure.query(
-      async () => await this.userService.findAll()
+    getAll: this.trpc.protectedProcedure.query(async () => {
+      return await this.userService.findAll()
+    }),
+
+    getAllTiers: this.trpc.protectedProcedure.query(
+      async () => await this.tierService.findAll()
     ),
 
     hasPassword: this.trpc.protectedProcedure.query(async ({ ctx }) => {

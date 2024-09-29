@@ -4,7 +4,12 @@ tabWidth: 2
 semi: false
 singleQuote: true
 
+# To not have the HTML-closing-bracket on a new line, see https://prettier.io/docs/en/options#bracket-line
+# the second option is set because this stackoverflow-article told me so...
+# https://stackoverflow.com/questions/53366923/closing-in-new-line
+bracketSameLine: true
+htmlWhitespaceSensitivity: 'ignore'
+
 plugins:
   - prettier-plugin-tailwindcss
   - prettier-plugin-classnames
-

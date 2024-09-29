@@ -8,7 +8,19 @@
     "no-api-keys-created-yet": "No API keys created yet."
   },
   "AdminPanel": {
-    "super-secret-admin-panel": "Super secret Admin Panel"
+    "actions": "Actions",
+    "admin-panel": "Admin Panel",
+    "are-you-absolutely-sure": "Are you absolutely sure?",
+    "cancel": "Cancel",
+    "delete-user": "Delete User",
+    "edit-the-user-tiers-or-delete-users-from-here": "Edit the user-tiers or delete users from here.",
+    "email": "Email",
+    "name": "Name",
+    "save": "Save",
+    "this-action-cannot-be-undone-this-will-permanently-delete-the-user-account-and-remove-their-data-from-our-servers": "This action cannot be undone. This will permanently delete the user account and remove their data from our servers.",
+    "tiers": "Tiers",
+    "token-limit": "Token Limit",
+    "users": "Users"
   },
   "ChangeEmailForm": {
     "change-your-account-email-address": "Change your account email address.",
@@ -20,13 +32,25 @@
     "new-email": "New Email",
     "update-email": "Update Email"
   },
-  "Common": {},
+  "CreateImage": {
+    "categories-select-up-to-5": "Categories (select up to 5)",
+    "categories-selected": "categories selected",
+    "characters": "characters",
+    "describe-the-image-you-want-to-generate-up-to-1500-characters": "Describe the image you want to generate (up to 1500 characters)",
+    "generate-image": "Generate Image",
+    "image-text": "Image Creation Text",
+    "text-is-required": "Text is required",
+    "text-must-be-1500-characters-or-less": "Text must be 1500 characters or less",
+    "you-have-unsaved-changes-are-you-sure-you-wish-to-leave-this-page": "Are you sure you wish to leave?"
+  },
   "Dashboard": {
     "all-images": "All Images",
+    "create-image": "Create image",
     "generate-new-image": "Generate new Image",
     "get-started": "Get Started by generating some images",
     "my-images": "My Images",
     "no-images": "No Images",
+    "view-all-images": "View all images",
     "welcome": "Welcome",
     "your-ai-image-dashboard": "Your AI Image Dashboard"
   },
@@ -34,8 +58,14 @@
     "are-you-absolutely-sure": "Are you absolutely sure?",
     "delete-account": "Delete Account",
     "send-verification-email": "Send verification email",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion",
-    "sent-a-verification-email": "Sent a verification-email!"
+    "sent-a-verification-email": "Sent a verification-email!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion"
+  },
+  "ImageComponent": {
+    "created-by": "Created by",
+    "input-text": "Input text",
+    "show-less": "Show Less",
+    "show-more": "Show More"
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",
@@ -46,8 +76,8 @@
     "get-started": "Get Started",
     "get-your-images-in-seconds-not-hours": "Get your images in seconds, not hours.",
     "lightning-fast": "Lightning Fast",
-    "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
     "no-technical-knowledge-required": "No technical knowledge required - just describe and we generate.",
+    "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
     "see-it-in-action": "See It in Action"
   },
   "LanguageSwitch": {
@@ -94,5 +124,32 @@
     "update-password": "Update Password",
     "update-your-password-here": "Update your password here.",
     "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
+  },
+  "image-categories": {
+    "ASCII-art": "ASCII-art",
+    "Copy art": "Copy art",
+    "Drawing": "Drawing",
+    "Dystopian": "Dystopian",
+    "Fantasy": "Fantasy",
+    "Futuristic": "Futuristic",
+    "Medieval": "Medieval",
+    "Nature": "Nature",
+    "Painting": "Painting",
+    "Photograph": "Photograph",
+    "Photorealistic": "Photorealistic",
+    "Prehistoric": "Prehistoric",
+    "Scifi": "Scifi",
+    "Sketch": "Sketch"
+  },
+  "login": {
+    "dont-have-an-account-yet": "Don't have an account yet?",
+    "email": "Email",
+    "login": "Login",
+    "login-with-google": "Login with Google",
+    "password": "Password",
+    "sign-up": "Sign up"
+  },
+  "verify": {
+    "verifying": "Verifying..."
   }
 }

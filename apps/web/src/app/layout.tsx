@@ -1,3 +1,4 @@
+import Footer from '@web/src/app/_components/Footer'
 import Navbar from '@web/src/app/_components/Navbar'
 import { auth } from '@web/src/auth'
 import { Metadata } from 'next'
@@ -18,7 +19,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Receive messages provided in `i18n/request.ts`
   const messages = await getMessages()
   const locale = await getLocale()
 
@@ -36,18 +36,19 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning className="h-full">
       <body
         suppressHydrationWarning
-        className="h-full bg-background text-foreground"
-      >
+        className="h-full bg-background text-foreground grid grid-rows-[auto_1fr_auto]">
         <SessionProvider session={session}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-            disableTransitionOnChange
-          >
+            disableTransitionOnChange>
             <NextIntlClientProvider messages={messages}>
               <Navbar />
-              <main className="p-4  flex items-center flex-col">{children}</main>
+              <main className="p-12 flex items-center flex-col">
+                {children}
+              </main>
+              <Footer />
               <Toaster
                 toastOptions={{
                   unstyled: true,

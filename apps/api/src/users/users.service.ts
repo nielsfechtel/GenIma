@@ -1,5 +1,6 @@
 import { ApiKeyService } from '@api/api_key/api_key.service'
 import { API_Key } from '@api/api_key/schemas/api_key.schema'
+import { GeneratedImage } from '@api/generated_image/schemas/generated_image.schema'
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
@@ -13,6 +14,8 @@ export class UsersService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Tier.name) private tierModel: Model<Tier>,
     @InjectModel(API_Key.name) private apiKeyModel: Model<API_Key>,
+    @InjectModel(GeneratedImage.name)
+    private genImModel: Model<GeneratedImage>,
     private apikeyService: ApiKeyService
   ) {}
 
@@ -67,11 +70,13 @@ export class UsersService {
     const user = await this.userModel.findOne({ email })
     if (!user) throw new Error('User not found')
 
-    const result = await this.apiKeyModel.deleteMany({
+    // cascade-deleting associated API-keys and images
+    await this.apiKeyModel.deleteMany({
       _id: { $in: user.api_keys },
     })
-
-    // TODO also implement deletion of further linked docs, right now we only have api-keys
+    await this.genImModel.deleteMany({
+      _id: { $in: user.images },
+    })
 
     await this.userModel.deleteOne({
       email,
@@ -99,7 +104,7 @@ export class UsersService {
         message: 'Key-limit of 3 reached',
       })
 
-    const newKey = await this.apikeyService.create(name, expiry_date)
+    const newKey = await this.apikeyService.create(email, name, expiry_date)
 
     user.api_keys.push(newKey)
     await user.save()

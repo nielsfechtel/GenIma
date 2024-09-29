@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { updateNames } from '@web/actions/user.actions'
+import { updateNames } from '@web/src/actions/user.actions'
 import DeleteAccountAlert from '@web/src/app/(protected)/settings/_components/DeleteAccountAlert'
 import { Button } from '@web/src/components/ui/button'
 import {
@@ -13,8 +13,14 @@ import {
   CardTitle,
 } from '@web/src/components/ui/card'
 import {
-  Form
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@web/src/components/ui/form'
+import { Input } from '@web/src/components/ui/input'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -65,8 +71,7 @@ export function ProfileForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent className="space-y-4">
-              {'session is' + JSON.stringify(session)}
-              {/* <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="firstName"
@@ -75,7 +80,7 @@ export function ProfileForm() {
                       <FormLabel>{t('first-name')}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={session.user.firstName}
+                          placeholder={session?.user.firstName}
                           {...field}
                         />
                       </FormControl>
@@ -91,7 +96,7 @@ export function ProfileForm() {
                       <FormLabel>{t('last-name')}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={session.user.lastName ?? 'no last name'}
+                          placeholder={session?.user.lastName ?? 'no last name'}
                           {...field}
                         />
                       </FormControl>
@@ -99,7 +104,7 @@ export function ProfileForm() {
                     </FormItem>
                   )}
                 />
-              </div> */}
+              </div>
             </CardContent>
             <CardFooter>
               <Button type="submit">{t('save-changes')}</Button>

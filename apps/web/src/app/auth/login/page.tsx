@@ -2,7 +2,7 @@
 
 import { LoginSchema } from '@api/schemas/login.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { myOwnServerSideSignIn } from '@web/actions/auth.actions'
+import { myOwnServerSideSignIn } from '@web/src/actions/auth.actions'
 import { Button } from '@web/src/components/ui/button'
 import {
   Card,
@@ -21,6 +21,7 @@ import {
 import { Input } from '@web/src/components/ui/input'
 import { DEFAULT_LOGIN_REDIRECT } from '@web/src/routes'
 import { signIn } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -29,6 +30,8 @@ import * as z from 'zod'
 const formSchema = LoginSchema
 
 export default function SignupForm() {
+  const t = useTranslations('login')
+
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -54,7 +57,6 @@ export default function SignupForm() {
           message: 'User credentials are valid.',
           success: true,
         }
-
       } else {
         return router.push(`/auth/login?error=${result.message}.`)
       }
@@ -72,23 +74,24 @@ export default function SignupForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-xl">Login</CardTitle>
+        <CardTitle className="text-xl">{t('login')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
         {searchParams.has('error') && (
-          <h3 className="text-red-500 p-2">{searchParams.get('error').split('.')[0]}.</h3>
+          <h3 className="text-red-500 p-2">
+            {searchParams.get('error').split('.')[0]}.
+          </h3>
         )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleCredentialSignin)}
-            className="space-y-4"
-          >
+            className="space-y-4">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('email')}</FormLabel>
                   <FormControl>
                     <Input autoFocus type="email" {...field} />
                   </FormControl>
@@ -101,7 +104,7 @@ export default function SignupForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('password')}</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -111,21 +114,21 @@ export default function SignupForm() {
             />
 
             <Button type="submit" className="w-full">
-              Login
+              {t('login')}
             </Button>
           </form>
         </Form>
         <Button
           onClick={handleGoogleSignup}
           variant="outline"
-          className="w-full"
-        >
-          Login with Google
+          className="w-full">
+          {t('login-with-google')}
         </Button>
         <div className="text-center text-sm">
-          {`Don't have an account yet? `}
+          {t('dont-have-an-account-yet')}
+          {` `}
           <Link href="/auth/signup" className="underline">
-            Sign up
+            {t('sign-up')}
           </Link>
         </div>
       </CardContent>

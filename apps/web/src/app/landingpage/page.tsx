@@ -2,6 +2,7 @@ import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
 import { ImageIcon, Users, Zap } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import Link from 'next/link'
 
 export default async function LandingPage() {
   const t = await getTranslations('LandingPage')
@@ -14,11 +15,11 @@ export default async function LandingPage() {
             {t('create-amazing-images-with-ai')}
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
-            {t(
-              'no-technical-knowledge-required'
-            )}
+            {t('no-technical-knowledge-required')}
           </p>
-          <Button size="lg">{t('get-started')}</Button>
+          <Link href="/login">
+            <Button size="lg">{t('get-started')}</Button>
+          </Link>
         </section>
 
         <section className="py-12 bg-muted">
@@ -69,7 +70,9 @@ export default async function LandingPage() {
             <h2 className="text-3xl font-bold text-center mb-12">
               {t('see-it-in-action')}
             </h2>
-            <div className="relative h-[400px] w-full max-w-[600px] mx-auto overflow-hidden rounded-lg shadow-lg">
+            <div
+              className="relative h-[400px] w-full max-w-[600px] mx-auto overflow-hidden rounded-lg
+                shadow-lg">
               {/* {slides.map((slide, index) => (
                 <Image
                   key={index}

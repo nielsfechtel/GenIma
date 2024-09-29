@@ -8,7 +8,7 @@ export type Messages = typeof en
 
 declare global {
   interface ProcessEnv {
-    NEXT_PUBLIC_NESTJS_SERVER: string
+    API_SERVER_URL: string
     AUTH_SECRET: string
     AUTH_GOOGLE_ID: string
     AUTH_GOOGLE_SECRET: string

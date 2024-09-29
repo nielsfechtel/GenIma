@@ -1,7 +1,6 @@
 'use client'
 
-import { executeToken } from '@web/actions/auth.actions'
-import { Button } from '@web/src/components/ui/button'
+import { executeToken } from '@web/src/actions/auth.actions'
 import {
   Card,
   CardContent,
@@ -9,10 +8,12 @@ import {
   CardTitle,
 } from '@web/src/components/ui/card'
 import { signOut } from 'next-auth/react'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 
 export default function Verify() {
+  const t = useTranslations('verify')
+
   let message
   let gotoLocation = 'dashboard'
   const searchParams = useSearchParams()
@@ -62,19 +63,7 @@ export default function Verify() {
         <CardTitle className="text-xl">{message}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
-        {gotoLocation && (
-          <Button>
-            <Link href={`/${gotoLocation}`}>
-              Go to <span className="underline">{gotoLocation}</span>
-            </Link>
-          </Button>
-        )}
-        <form>
-          <h3>Update password here!</h3>
-          <h5>
-            This won&apos;t work, this is not a client-component. Redirect?
-          </h5>
-        </form>
+        <h2>{t('verifying')}</h2>
       </CardContent>
     </Card>
   )
