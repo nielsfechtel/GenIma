@@ -20,7 +20,8 @@
     "new-email": "New Email",
     "update-email": "Update Email"
   },
-  "Common": {},
+  "Common": {
+  },
   "Dashboard": {
     "all-images": "All Images",
     "generate-new-image": "Generate new Image",
@@ -34,8 +35,8 @@
     "are-you-absolutely-sure": "Are you absolutely sure?",
     "delete-account": "Delete Account",
     "send-verification-email": "Send verification email",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion",
-    "sent-a-verification-email": "Sent a verification-email!"
+    "sent-a-verification-email": "Sent a verification-email!",
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion"
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",
@@ -46,8 +47,8 @@
     "get-started": "Get Started",
     "get-your-images-in-seconds-not-hours": "Get your images in seconds, not hours.",
     "lightning-fast": "Lightning Fast",
-    "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
     "no-technical-knowledge-required": "No technical knowledge required - just describe and we generate.",
+    "no-technical-skills-needed-perfect-for-all-creators": "No technical skills needed. Perfect for all creators.",
     "see-it-in-action": "See It in Action"
   },
   "LanguageSwitch": {
@@ -94,5 +95,16 @@
     "update-password": "Update Password",
     "update-your-password-here": "Update your password here.",
     "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
+  },
+  "login": {
+    "dont-have-an-account-yet": "Don't have an account yet?",
+    "email": "Email",
+    "login": "Login",
+    "login-with-google": "Login with Google",
+    "password": "Password",
+    "sign-up": "Sign up"
+  },
+  "verify": {
+    "verifying": "Verifying..."
   }
 }

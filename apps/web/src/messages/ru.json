@@ -97,5 +97,13 @@
     "update-password": "Обновить пароль",
     "update-your-password-here": "Обновите свой пароль здесь.",
     "you-signed-up-via-google-set-a-new-password": "Вы зарегистрировались через Google – установите новый пароль:"
+  },
+  "login": {
+    "dont-have-an-account-yet": "У вас еще нет учетной записи?",
+    "email": "Электронная почта",
+    "login": "Авторизоваться",
+    "login-with-google": "Войти через Google",
+    "password": "Пароль",
+    "sign-up": "Зарегистрироваться"
   }
 }

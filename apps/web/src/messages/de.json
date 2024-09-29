@@ -97,5 +97,13 @@
     "update-password": "Passwort aktualisieren",
     "update-your-password-here": "Aktualisieren Sie hier Ihr Passwort.",
     "you-signed-up-via-google-set-a-new-password": "Sie haben sich über Google angemeldet – legen Sie ein neues Passwort fest:"
+  },
+  "login": {
+    "dont-have-an-account-yet": "Sie haben noch kein Konto?",
+    "email": "E-Mail",
+    "login": "Login",
+    "login-with-google": "Melden Sie sich mit Google an",
+    "password": "Passwort",
+    "sign-up": "Melden Sie sich an"
   }
 }
