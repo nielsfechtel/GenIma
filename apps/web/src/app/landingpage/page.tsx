@@ -17,7 +17,7 @@ export default async function LandingPage() {
           <p className="text-xl text-muted-foreground mb-8">
             {t('no-technical-knowledge-required')}
           </p>
-          <Link href="/login">
+          <Link href="/image/create">
             <Button size="lg">{t('get-started')}</Button>
           </Link>
         </section>
@@ -87,12 +87,6 @@ export default async function LandingPage() {
           </div>
         </section>
       </main>
-
-      <footer className="bg-background py-6 text-center">
-        <p className="text-muted-foreground">
-          &copy; 2023 AI ImageCraft. {t('all-rights-reserved')}
-        </p>
-      </footer>
     </div>
   )
 }
