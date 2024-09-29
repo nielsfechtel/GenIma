@@ -7,6 +7,8 @@ import {
   GeneratedImageSchema,
 } from '@api/generated_image/schemas/generated_image.schema'
 
+import { Tier, TierSchema } from '@api/tier/schemas/tier.schema'
+import { TierService } from '@api/tier/tier.service'
 import { TrpcModule } from '@api/trpc/trpc.module'
 import { TrpcRouter } from '@api/trpc/trpc.router'
 import { TrpcService } from '@api/trpc/trpc.service'
@@ -43,6 +45,7 @@ import { UsersModule } from './users/users.module'
     MongooseModule.forFeature([
       { name: GeneratedImage.name, schema: GeneratedImageSchema },
       { name: User.name, schema: UserSchema },
+      { name: Tier.name, schema: TierSchema },
       { name: API_Key.name, schema: API_KeySchema },
     ]),
     MailerModule.forRoot({
@@ -76,6 +79,7 @@ import { UsersModule } from './users/users.module'
     AuthTrpcRouter,
     GeneratedImageService,
     TrpcService,
+    TierService,
     UserTrpcRouter,
     GeneratedImageTrpcRouter,
   ],
