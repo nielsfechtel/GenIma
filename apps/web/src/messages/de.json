@@ -92,20 +92,27 @@
   },
   "API_KeysForm": {
     "all-keys-have-three-uses": "Alle Schlüssel haben drei Verwendungszwecke.",
+    "an-expiry-date-is-required": "Es ist ein Ablaufdatum erforderlich",
     "api-keys": "API-Schlüssel",
     "are-you-sure-you-want-to-delete-the-key": "Sind Sie sicher, dass Sie den Schlüssel löschen möchten?",
-    "cancel": "Stornieren",
+    "cancel": "Abbrechen",
     "create-a-new-api-key": "Erstellen Sie einen neuen API-Schlüssel",
     "create-api-key": "API-Schlüssel erstellen",
+    "date-has-to-be-in-the-future": "Das Datum muss in der Zukunft liegen.",
     "days": "Tage",
     "delete-key": "Schlüssel löschen",
     "enter-name": "Geben Sie den Namen Ihres API-Schlüssels ein",
+    "error-try-again": "Fehler, versuchen Sie es erneut",
     "expires-on": "Läuft ab am",
+    "expiry-date": "Verfallsdatum",
     "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
     "in": "In",
     "key-limit-of-3-reached": "Tastenlimit von 3 erreicht",
     "name": "Name",
+    "name-is-too-long": "Der Name ist zu lang.",
     "no-api-keys-created-yet": "Es wurden noch keine API-Schlüssel erstellt.",
+    "pick-a-date": "Wählen Sie ein Datum",
+    "the-day-the-api-key-becomes-invalid": "Der Tag, an dem der API-Schlüssel ungültig wird.",
     "uses-left": "Verwendungsmöglichkeiten übrig",
     "value": "Wert"
   },
@@ -113,7 +120,7 @@
     "actions": "Aktionen",
     "admin-panel": "Admin-Panel",
     "are-you-absolutely-sure": "Bist du absolut sicher?",
-    "cancel": "Stornieren",
+    "cancel": "Abbrechen",
     "delete-user": "Benutzer löschen",
     "edit-the-user-tiers-or-delete-users-from-here": "Bearbeiten Sie hier die Benutzerebenen oder löschen Sie Benutzer.",
     "email": "E-Mail",
@@ -134,8 +141,7 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {
-  },
+  "Common": {},
   "CreateImage": {
     "categories-select-up-to-5": "Kategorien (bis zu 5 auswählen)",
     "categories-selected": "Kategorien ausgewählt",
@@ -160,6 +166,7 @@
   },
   "DeleteAccountAlert": {
     "are-you-absolutely-sure": "Sind Sie absolut sicher?",
+    "cancel": "Abbrechen",
     "delete-account": "Konto löschen",
     "send-verification-email": "Verifizierungs-E-Mail senden",
     "sent-a-verification-email": "Eine Bestätigungs-E-Mail wurde gesendet!",
@@ -167,6 +174,7 @@
   },
   "ImageComponent": {
     "are-you-sure-you-want-to-delete-the-image": "Sind Sie sicher, dass Sie das Bild löschen möchten?",
+    "cancel": "Abbrechen",
     "created-by": "Erstellt von",
     "delete-image": "Löschen",
     "generated-prompt": "Generierte Eingabeaufforderung:",
@@ -214,8 +222,7 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {
-  },
+  "RootLayout": {},
   "Settings": {
     "api-keys": "API-Schlüssel",
     "api_keys": "API-Schlüssel",

@@ -14,23 +14,32 @@ import {
   AlertDialogTrigger,
 } from '@web/src/components/ui/alert-dialog'
 import { Button } from '@web/src/components/ui/button'
+import { Calendar } from '@web/src/components/ui/calendar'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@web/src/components/ui/card'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@web/src/components/ui/popover'
+import { cn } from '@web/src/lib/utils'
+import { format } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -44,23 +53,23 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
   const t = useTranslations('API_KeysForm')
   const locale = useLocale()
 
-  // this should be taken from the DB-schema..
   const apikeyFormSchema = z.object({
-    name: z.string().min(4),
-    // https://ui.shadcn.com/docs/components/date-picker
-    // https://stackoverflow.com/questions/77810607/how-to-use-shadcn-ui-range-date-picker-inside-form
-
-    // expire_at: z
-    //   .object(
-    //     {
-    //       from: z.date(),
-    //       to: z.date().optional(),
-    //     },
-    //     { required_error: 'Date is required.' }
-    //   )
-    //   .refine((date) => {
-    //     return !!date.to
-    //   }, 'End Date is required.'),
+    name: z.string().min(4).max(50),
+    expiry_date: z
+      .date({
+        required_error: t('an-expiry-date-is-required'),
+      })
+      .refine(
+        (date) => {
+          const nowDate = new Date()
+          const dateIn1Day = new Date()
+          dateIn1Day.setDate(nowDate.getDate() + 1)
+          return dateIn1Day >= nowDate
+        },
+        {
+          message: t('date-has-to-be-in-the-future'),
+        }
+      ),
   })
 
   const form = useForm<z.infer<typeof apikeyFormSchema>>({
@@ -71,14 +80,19 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
   })
 
   const onSubmit = async (data: z.infer<typeof apikeyFormSchema>) => {
-    const date = new Date()
-    date.setMonth(date.getMonth() + 3)
-    const result = await createAPIKey(data.name, date.toISOString())
+    const result = await createAPIKey(
+      data.name,
+      data.expiry_date.toDateString()
+    )
     if (result.success) {
       toast.success('Created!')
       form.reset()
     } else {
-      toast.error(`Error - ${result.message}`)
+      if (JSON.parse(result.message)[0].code === 'too_big') {
+        toast.error(t('name-is-too-long'))
+      } else {
+        toast.error(t('error-try-again'))
+      }
     }
   }
 
@@ -93,28 +107,65 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
         </CardHeader>
         <CardContent className="space-y-4">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('name')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('enter-name')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('name')}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('enter-name')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="expiry_date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>{t('expiry-date')}</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'w-[240px] pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground'
+                            )}>
+                            {field.value ? (
+                              format(field.value, 'PPP')
+                            ) : (
+                              <span>{t('pick-a-date')}</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      {t('the-day-the-api-key-becomes-invalid')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">{t('create-api-key')}</Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
-          <Button type="submit">{t('create-api-key')}</Button>
-        </CardFooter>
       </Card>
       <Card>
         <CardHeader>
@@ -125,8 +176,8 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
             {api_keys.length === 3 && `( ${t('key-limit-of-3-reached')} )`}
           </h3>
 
-          {!api_keys ? (
-            <span>{t('no-api-keys-created-yet')}</span>
+          {api_keys.length === 0 ? (
+            <span className="py-2">{t('no-api-keys-created-yet')}</span>
           ) : (
             api_keys.map((api_key, key) => {
               return (

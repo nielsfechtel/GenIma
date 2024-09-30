@@ -11,6 +11,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@web/src/components/ui/alert-dialog'
+
+import { CalendarIcon } from "lucide-react"
 import { Badge } from '@web/src/components/ui/badge'
 import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
@@ -159,7 +161,7 @@ export default function ImageComponent({
                 </AlertDialogTitle>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={(e) => {
                     e.preventDefault()
