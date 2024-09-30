@@ -72,8 +72,12 @@ export class AuthService {
       tier: {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
+        createdAt: tier.createdAt,
+        updatedAt: tier.updatedAt,
       },
       api_keys: user.api_keys,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     }
 
     return {
@@ -121,8 +125,12 @@ export class AuthService {
       tier: {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
+        createdAt: tier.createdAt,
+        updatedAt: tier.updatedAt,
       },
       api_keys: userFound.api_keys,
+      createdAt: userFound.createdAt,
+      updatedAt: userFound.updatedAt,
     }
 
     return {

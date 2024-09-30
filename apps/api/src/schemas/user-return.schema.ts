@@ -3,5 +3,5 @@ import { InferSchemaType } from 'mongoose'
 
 export type UserReturnSchema = Pick<
   InferSchemaType<typeof UserSchema>,
-  'email' | 'firstName' | 'lastName' | 'role' | 'tier' | 'api_keys'
+  'email' | 'firstName' | 'lastName' | 'role' | 'tier' | 'api_keys' | 'updatedAt' | 'createdAt'
 >

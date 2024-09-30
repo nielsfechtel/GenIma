@@ -3,14 +3,14 @@ import { GeneratedImage } from '@api/generated_image/schemas/generated_image.sch
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { IsEmail } from 'class-validator'
-import mongoose, { HydratedDocument } from 'mongoose'
+import mongoose, { HydratedDocument, now } from 'mongoose'
 
 // this I've also seen written as 'export type UserDocument =  User & Document'
 // it's a type that includes mongo-specific properties like _id, which we don't want to
 // specify in our schema below.
 export type UserDocument = HydratedDocument<User>
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   @IsEmail()
@@ -62,6 +62,12 @@ export class User {
     enum: ['USER', 'ADMIN'],
   })
   role: string
+
+  @Prop({ default: now() })
+  createdAt: Date
+
+  @Prop({ default: now() })
+  updatedAt: Date
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

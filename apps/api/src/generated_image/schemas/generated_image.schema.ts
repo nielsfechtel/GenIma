@@ -1,10 +1,10 @@
 import { User } from '@api/users/schemas/user.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import mongoose, { HydratedDocument } from 'mongoose'
+import mongoose, {now, HydratedDocument } from 'mongoose'
 
 export type GeneratedImageDocument = HydratedDocument<GeneratedImage>
 
-@Schema()
+@Schema({ timestamps: true})
 export class GeneratedImage {
   @Prop({
     required: true,
@@ -27,6 +27,12 @@ export class GeneratedImage {
 
   @Prop({ required: true })
   image_url: string
+
+  @Prop({ default: now() })
+  createdAt: Date
+
+  @Prop({ default: now() })
+  updatedAt: Date
 }
 
 export const GeneratedImageSchema = SchemaFactory.createForClass(GeneratedImage)
