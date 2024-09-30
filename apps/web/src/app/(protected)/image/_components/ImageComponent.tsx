@@ -73,7 +73,7 @@ export default function ImageComponent({
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto border-foreground/20">
       <CardContent className="p-4 flex flex-col">
         <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
           <DialogTrigger asChild>
@@ -113,7 +113,7 @@ export default function ImageComponent({
         <div className="py-4 border-b border-foreground/10">
           <h2 className="text-sm font-semibold">{t('input-text')}:</h2>
           <p
-            onClick={() => setInputIsExpanded(!inputIsExpanded)}
+            onClick={() => setInputIsExpanded(true)}
             className={`text-sm ${inputIsExpanded ? '' : 'line-clamp-3'}`}>
             {`"${inputText}"`}
           </p>
@@ -129,7 +129,7 @@ export default function ImageComponent({
         <div className="py-4">
           <h2 className="text-sm font-semibold">{t('generated-prompt')}</h2>
           <p
-            onClick={() => setPromptIsExpanded(!promptIsExpanded)}
+            onClick={() => setPromptIsExpanded(true)}
             className={`text-sm ${promptIsExpanded ? '' : 'line-clamp-3'}`}>
             {`"${prompt}"`}
           </p>

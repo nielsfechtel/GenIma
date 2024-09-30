@@ -91,12 +91,23 @@
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
   "API_KeysForm": {
+    "all-keys-have-three-uses": "Все ключи имеют три применения.",
     "api-keys": "Ключи API",
+    "are-you-sure-you-want-to-delete-the-key": "Вы уверены, что хотите удалить ключ?",
+    "cancel": "Отмена",
+    "create-a-new-api-key": "Создайте новый ключ API",
     "create-api-key": "Создать ключ API",
+    "days": "дни",
+    "delete-key": "Удалить ключ",
     "enter-name": "Введите имя ваших ключей API",
+    "expires-on": "Срок действия истекает",
     "generate-api-keys-to-query-the-backend": "Сгенерируйте ключи API для запроса серверной части.",
+    "in": "в",
+    "key-limit-of-3-reached": "Достигнут предел в 3 ключа",
     "name": "Имя",
-    "no-api-keys-created-yet": "Ключи API еще не созданы."
+    "no-api-keys-created-yet": "Ключи API еще не созданы.",
+    "uses-left": "Использовано слева",
+    "value": "Ценить"
   },
   "AdminPanel": {
     "actions": "Действия",

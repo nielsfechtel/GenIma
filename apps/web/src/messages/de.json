@@ -91,12 +91,23 @@
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
   "API_KeysForm": {
+    "all-keys-have-three-uses": "Alle Schlüssel haben drei Verwendungszwecke.",
     "api-keys": "API-Schlüssel",
+    "are-you-sure-you-want-to-delete-the-key": "Sind Sie sicher, dass Sie den Schlüssel löschen möchten?",
+    "cancel": "Stornieren",
+    "create-a-new-api-key": "Erstellen Sie einen neuen API-Schlüssel",
     "create-api-key": "API-Schlüssel erstellen",
+    "days": "Tage",
+    "delete-key": "Schlüssel löschen",
     "enter-name": "Geben Sie den Namen Ihres API-Schlüssels ein",
+    "expires-on": "Läuft ab am",
     "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
+    "in": "In",
+    "key-limit-of-3-reached": "Tastenlimit von 3 erreicht",
     "name": "Name",
-    "no-api-keys-created-yet": "Es wurden noch keine API-Schlüssel erstellt."
+    "no-api-keys-created-yet": "Es wurden noch keine API-Schlüssel erstellt.",
+    "uses-left": "Verwendungsmöglichkeiten übrig",
+    "value": "Wert"
   },
   "AdminPanel": {
     "actions": "Aktionen",

@@ -51,7 +51,7 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
   }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
+    <div className="flex flex-col items-center justify-center h-screen gap-12">
       {showMessages && (
         <div className="space-y-2">
           <p className="text-primary dark:text-foreground text-sm mb-4 text-center animate-pulse-subtle">

@@ -125,7 +125,7 @@ export class UsersService {
     const user = await this.userModel.findOne({ email })
     if (!user) throw new Error('User not found')
 
-    return await this.apiKeyModel.find({
+    await this.apiKeyModel.deleteOne({
       _id: { $in: user.api_keys },
       name: { $eq: name },
     })

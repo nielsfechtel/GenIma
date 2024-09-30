@@ -91,12 +91,23 @@
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
   "API_KeysForm": {
+    "all-keys-have-three-uses": "All keys have three uses.",
     "api-keys": "API keys",
+    "are-you-sure-you-want-to-delete-the-key": "Are you sure you want to delete the key?",
+    "cancel": "Cancel",
+    "create-a-new-api-key": "Create a new API Key",
     "create-api-key": "Create API Key",
+    "days": "days",
+    "delete-key": "Delete key",
     "enter-name": "Enter your API Keys' name",
+    "expires-on": "Expires on",
     "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
+    "in": "in",
+    "key-limit-of-3-reached": "Key-limit of 3 reached",
     "name": "Name",
-    "no-api-keys-created-yet": "No API keys created yet."
+    "no-api-keys-created-yet": "No API keys created yet.",
+    "uses-left": "Uses left",
+    "value": "Value"
   },
   "AdminPanel": {
     "actions": "Actions",

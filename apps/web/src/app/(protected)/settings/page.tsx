@@ -22,7 +22,7 @@ export default async function SettingsPage() {
   return (
     // using a modified controlled Tabs-component (tabs.tsx), thank you KATT
     // https://github.com/shadcn-ui/ui/issues/414#issuecomment-1772421366
-    <Tabs defaultValue={tabs[0]} className="w-[400px]">
+    <Tabs defaultValue={tabs[0]} className="w-full max-w-md">
       <TabsList className="grid w-full grid-cols-2 h-fit gap-2 p-2">
         {tabs.map((tabValue) => (
           <TabsTrigger
