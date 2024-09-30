@@ -112,7 +112,24 @@ export class UsersService {
     await user.save()
   }
 
-  async deleteAPIKey(email: string, name: string) {}
+  async getAPIKeysOfUser(email: string) {
+    const user = await this.userModel.findOne({ email })
+    if (!user) throw new Error('User not found')
+
+    return await this.apiKeyModel.find({
+      _id: { $in: user.api_keys },
+    })
+  }
+
+  async deleteAPIKey(email: string, name: string) {
+    const user = await this.userModel.findOne({ email })
+    if (!user) throw new Error('User not found')
+
+    return await this.apiKeyModel.find({
+      _id: { $in: user.api_keys },
+      name: { $eq: name },
+    })
+  }
 
   async updateNames(email: string, firstName: string, lastName?: string) {
     const user = await this.userModel.findOne({ email })

@@ -47,7 +47,7 @@ export default function LandingPage() {
         </Link>
       </section>
 
-      <section className="py-12 bg-muted">
+      <section className="py-12 bg-muted rounded-md">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl font-bold text-center mb-8">
             {t('features')}
@@ -98,6 +98,7 @@ export default function LandingPage() {
           <Carousel
             // https://www.embla-carousel.com/plugins/autoplay/
             plugins={[plugin.current]}
+            opts={{ loop: true }}
             className="w-full max-w-xl"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}>

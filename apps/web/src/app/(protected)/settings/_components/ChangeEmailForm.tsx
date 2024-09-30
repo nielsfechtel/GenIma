@@ -21,15 +21,17 @@ import {
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
 import { Label } from '@web/src/components/ui/label'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
 
-export default function ChangeEmailForm() {
+interface EmailFormProps {
+  currentEmail: string
+}
+
+export default function ChangeEmailForm({ currentEmail }: EmailFormProps) {
   const t = useTranslations('ChangeEmailForm')
-  const { data: session } = useSession()
 
   const emailSchema = z
     .object({
@@ -77,7 +79,7 @@ export default function ChangeEmailForm() {
                 id="currentEmail"
                 type="email"
                 disabled
-                value={session?.user.email}
+                value={currentEmail}
               />
             </div>
             <FormField

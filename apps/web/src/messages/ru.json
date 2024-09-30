@@ -207,6 +207,8 @@
   },
   "Settings": {
     "api-keys": "Ключи API",
+    "api_keys": "API-ключи",
+    "apikeys": "API-ключи",
     "email": "Электронная почта",
     "password": "Пароль",
     "profile": "Профиль"

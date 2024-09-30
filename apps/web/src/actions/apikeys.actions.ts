@@ -17,3 +17,29 @@ export const createAPIKey = async (name: string, expiry_date: string) => {
     }
   }
 }
+
+export const getUserAPIKeys = async () => {
+  try {
+    return await trpc.user.getAPIKeys.query()
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}
+
+export const deleteAPIKey = async (name: string) => {
+  try {
+    await trpc.user.deleteAPIKey.mutate({ name })
+    revalidatePath('/settings')
+    return {
+      success: true,
+    }
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    }
+  }
+}

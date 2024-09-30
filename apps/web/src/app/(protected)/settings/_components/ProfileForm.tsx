@@ -21,14 +21,20 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
 
-export function ProfileForm() {
-  const { data: session, update: updateSession } = useSession()
+interface ProfileFormProps {
+  firstName: string
+  lastName: string | null
+}
+
+export default function ImageComponent({
+  firstName,
+  lastName,
+}: ProfileFormProps) {
   const t = useTranslations('ProfileForm')
 
   const profileSchema = z.object({
@@ -50,10 +56,6 @@ export function ProfileForm() {
     if (result.success) {
       toast.success('Names updated!')
       form.reset()
-      updateSession({
-        firstName,
-        lastName,
-      })
     } else {
       toast.error(`Something wen't wrong - try again`)
     }
@@ -79,10 +81,7 @@ export function ProfileForm() {
                     <FormItem>
                       <FormLabel>{t('first-name')}</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder={session?.user.firstName}
-                          {...field}
-                        />
+                        <Input placeholder={firstName} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -96,7 +95,7 @@ export function ProfileForm() {
                       <FormLabel>{t('last-name')}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={session?.user.lastName ?? 'no last name'}
+                          placeholder={lastName ?? 'no last name'}
                           {...field}
                         />
                       </FormControl>

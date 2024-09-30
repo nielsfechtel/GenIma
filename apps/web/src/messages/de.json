@@ -123,7 +123,8 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {},
+  "Common": {
+  },
   "CreateImage": {
     "categories-select-up-to-5": "Kategorien (bis zu 5 auswählen)",
     "categories-selected": "Kategorien ausgewählt",
@@ -202,9 +203,12 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {},
+  "RootLayout": {
+  },
   "Settings": {
     "api-keys": "API-Schlüssel",
+    "api_keys": "API-Schlüssel",
+    "apikeys": "API-Schlüssel",
     "email": "E-Mail",
     "password": "Passwort",
     "profile": "Profil"

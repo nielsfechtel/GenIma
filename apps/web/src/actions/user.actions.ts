@@ -35,6 +35,10 @@ export const updateEmail = async (newEmail: string) => {
   }
 }
 
+export const getUser = async () => {
+  return await trpc.user.getUser.query()
+}
+
 export const getAllUsers = async () => {
   return await trpc.user.getAll.query()
 }

@@ -202,7 +202,8 @@
     "update-your-profile-details-here": "Update your profile details here."
   },
   "Settings": {
-    "api-keys": "API Keys",
+    "api_keys": "API Keys",
+    "apikeys": "API Keys",
     "email": "Email",
     "password": "Password",
     "profile": "Profile"

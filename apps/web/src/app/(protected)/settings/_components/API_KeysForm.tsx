@@ -1,5 +1,6 @@
 'use client'
 
+import { UserReturnSchema } from '@api/schemas/user-return.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createAPIKey } from '@web/src/actions/apikeys.actions'
 import { Button } from '@web/src/components/ui/button'
@@ -20,15 +21,17 @@ import {
   FormMessage,
 } from '@web/src/components/ui/form'
 import { Input } from '@web/src/components/ui/input'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-export default function API_KeysForm() {
+interface APIKeysFormProps {
+  api_keys: UserReturnSchema['api_keys']
+}
+
+export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
   const t = useTranslations('API_KeysForm')
-  const session = useSession()
 
   // this should be taken from the DB-schema..
   const apikeyFormSchema = z.object({
@@ -79,14 +82,13 @@ export default function API_KeysForm() {
         </CardHeader>
         <CardFooter className="flex flex-col gap-8">
           <h3 className="text-red-400/70">
-            {session?.data?.user.api_keys.length === 3 &&
-              '( Key-limit of 3 reached )'}
+            {api_keys.length === 3 && '( Key-limit of 3 reached )'}
           </h3>
           <ul>
-            {!session.data.user.api_keys ? (
+            {!api_keys ? (
               <span>{t('no-api-keys-created-yet')}</span>
             ) : (
-              session.data.user.api_keys.map((api_key, key) => {
+              api_keys.map((api_key, key) => {
                 return (
                   <li key={key}>
                     <span>{api_key.name}</span> : <span>{api_key.value}</span>
