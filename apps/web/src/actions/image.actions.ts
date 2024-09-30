@@ -2,7 +2,8 @@
 
 import { CreateImageSchema } from '@api/schemas/create-image.schema'
 import { trpc } from '@web/src/trpc'
-import { redirect } from 'next/navigation'
+import mongoose from 'mongoose'
+import { notFound, redirect } from 'next/navigation'
 import z from 'zod'
 
 export const createNewImage = async ({
@@ -29,5 +30,11 @@ export const fetchAllImages = async () => {
 }
 
 export const fetchImageById = async (id: string) => {
-  return await trpc.generatedImage.getImageById.query({ id })
+  if (!mongoose.isValidObjectId(id)) notFound()
+  const result = await trpc.generatedImage.getImageById.query({ id })
+
+  if (!result) {
+    notFound()
+  }
+  return result
 }

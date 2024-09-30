@@ -109,7 +109,7 @@ export default function CreateImage() {
 
   return loadingImageCreation ? (
     <div className="w-96 h-96 grid place-content-center">
-      <LoadingAnim />
+      <LoadingAnim showMessages={true} />
     </div>
   ) : (
     <Form {...form}>

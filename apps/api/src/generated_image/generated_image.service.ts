@@ -140,7 +140,11 @@ export class GeneratedImageService {
 
   async findAll(): Promise<GeneratedImageDocument[]> {
     return this.genImageModel
-      .find({}, '_id creator inputText categories finalInput prompt image_url')
+      .find({}, '_id creator inputText categories finalInput prompt image_url', {
+        sort: {
+          created_at: -1
+        }
+      })
       .populate('creator', 'firstName lastName')
       .exec()
   }
