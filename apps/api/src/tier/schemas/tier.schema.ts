@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import {now, HydratedDocument } from 'mongoose'
+import { HydratedDocument } from 'mongoose'
 
 export type TierDocument = HydratedDocument<Tier>
 
-@Schema({ timestamps: true})
+@Schema({ timestamps: true })
 export class Tier {
   @Prop({ required: true, unique: true })
   name: string
@@ -11,10 +11,10 @@ export class Tier {
   @Prop({ required: true, unique: true })
   tokenLimit: number
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   createdAt: Date
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   updatedAt: Date
 }
 

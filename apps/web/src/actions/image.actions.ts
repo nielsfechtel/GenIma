@@ -38,3 +38,8 @@ export const fetchImageById = async (id: string) => {
   }
   return result
 }
+
+export const deleteImage = async (id: string) => {
+  await trpc.generatedImage.deleteImageById.mutate({ id })
+  redirect('/dashboard')
+}

@@ -13,4 +13,7 @@ export const CreatedImageSchema = z.object({
   inputText: z.string(),
   categories: z.string(),
   image_url: z.string(),
+  prompt: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 })

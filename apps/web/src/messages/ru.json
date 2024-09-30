@@ -1,6 +1,6 @@
 {
   "404page": {
-    "404-page-not-found": "404: Страница не найдена",
+    "404-page-not-found": "404: Искусство не найдено... пока!",
     "art_being_made": "Искусство создается... скоро вы это увидите!",
     "art_being_made_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690192/wvhonc783qfco0nivudm.png",
     "art_made_easy": "Чтобы искусство выглядело простым, требуется несколько секунд… почти готово!",
@@ -155,10 +155,14 @@
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения удаления учетной записи."
   },
   "ImageComponent": {
+    "are-you-sure-you-want-to-delete-the-image": "Вы уверены, что хотите удалить изображение?",
     "created-by": "Создано",
+    "delete-image": "Удалить",
+    "generated-prompt": "Сгенерированная подсказка:",
     "input-text": "Введите текст",
     "show-less": "Показать меньше",
-    "show-more": "Показать больше"
+    "show-more": "Показать больше",
+    "you": "ты"
   },
   "LandingPage": {
     "all-rights-reserved": "Все права защищены.",
@@ -184,6 +188,7 @@
     "logout": "Выход из системы"
   },
   "Navbar": {
+    "create-a-new-image": "Новое изображение",
     "dashboard": "Панель управления",
     "hello": "Привет",
     "landingpage": "Целевая страница",

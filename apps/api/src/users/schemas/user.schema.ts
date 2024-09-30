@@ -3,7 +3,7 @@ import { GeneratedImage } from '@api/generated_image/schemas/generated_image.sch
 import { Tier } from '@api/tier/schemas/tier.schema'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { IsEmail } from 'class-validator'
-import mongoose, { HydratedDocument, now } from 'mongoose'
+import mongoose, { HydratedDocument } from 'mongoose'
 
 // this I've also seen written as 'export type UserDocument =  User & Document'
 // it's a type that includes mongo-specific properties like _id, which we don't want to
@@ -63,10 +63,10 @@ export class User {
   })
   role: string
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   createdAt: Date
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   updatedAt: Date
 }
 

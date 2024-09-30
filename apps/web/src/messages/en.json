@@ -1,6 +1,6 @@
 {
   "404page": {
-    "404-page-not-found": "404: Page Not Found",
+    "404-page-not-found": "404: Art not found.. yet!",
     "art_being_made": "Art is being made... you'll see it soon!",
     "art_being_made_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690192/wvhonc783qfco0nivudm.png",
     "art_made_easy": "Making art look easy takes a few seconds... almost there!",
@@ -153,10 +153,14 @@
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion"
   },
   "ImageComponent": {
+    "are-you-sure-you-want-to-delete-the-image": "Are you sure you want to delete the image?",
     "created-by": "Created by",
+    "delete-image": "Delete",
+    "generated-prompt": "Generated prompt:",
     "input-text": "Input text",
     "show-less": "Show Less",
-    "show-more": "Show More"
+    "show-more": "Show More",
+    "you": "you"
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",
@@ -182,6 +186,7 @@
     "logout": "Logout"
   },
   "Navbar": {
+    "create-a-new-image": "New image",
     "dashboard": "Dashboard",
     "hello": "Hi",
     "landingpage": "Landingpage",

@@ -30,6 +30,11 @@ export class GeneratedImageTrpcRouter {
       .query(async ({ input }) => {
         return await this.genImService.findOne(input.id)
       }),
+    deleteImageById: this.trpc.protectedProcedure
+      .input(z.object({ id: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        return await this.genImService.deleteOwnImage(ctx.user.email, input.id)
+      }),
     createImage: this.trpc.protectedAPIKeyProcedure
       .meta({
         openapi: {

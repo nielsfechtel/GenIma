@@ -14,7 +14,7 @@ export default function Navbar() {
   const t = useTranslations('Navbar')
 
   return (
-    <header className="p-4 flex flex-row flex-wrap items-center justify-between border-b">
+    <header className="p-4 flex flex-row gap-2 flex-wrap items-center justify-between border-b">
       <div className="flex flex-row gap-4 items-center">
         <Link href="/landingpage">
           <Image
@@ -34,6 +34,9 @@ export default function Navbar() {
             <Button>{t('landingpage')}</Button>
           </Link>
         )}
+        <Link href="/image/create">
+          <Button>{t('create-a-new-image')}</Button>
+        </Link>
       </div>
 
       <div className="flex flex-row gap-4 items-center">

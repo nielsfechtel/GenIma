@@ -33,6 +33,8 @@ export class UsersService {
       isVerified: false,
       role: 'USER',
       tier: lowestTier,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     })
     return createdUser.save()
   }

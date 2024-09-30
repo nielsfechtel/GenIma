@@ -11,7 +11,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { TRPCError } from '@trpc/server'
 import { generateText } from 'ai'
-import { Model } from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import OpenAI from 'openai'
 import { z } from 'zod'
 
@@ -81,13 +81,14 @@ export class GeneratedImageService {
 
     const finalInput =
       `Write a detailed prompt for the Dall-e-3 image generation AI. It may not be longer than 950 characters. The prompt should result in an image that is` +
-      `${finalCategories} and expresses the following text: "${inputText}". Make sure the prompt is not longer than 950 characters.`
+      `${finalCategories} and expresses the following text: "${inputText}". If this text is in a language you understand, write the prompt in that language. Make sure the prompt is not longer than 950 characters.`
 
     const { text: prompt } = await generateText({
       model: openai_aisdk('gpt-4o-mini'),
       system:
         'You are a professional writer and artist. ' +
         'You write simple, clear, and concise content, focusing on visual descriptions.' +
+        'You understand many languages.' +
         'Your texts are never longer than 900 characters.',
       prompt: finalInput,
     })
@@ -124,6 +125,8 @@ export class GeneratedImageService {
       finalInput,
       prompt: shortenedText,
       image_url: result.secure_url,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     })
 
     const updatedUser = await this.userModel.findOneAndUpdate(
@@ -139,13 +142,17 @@ export class GeneratedImageService {
   }
 
   async findAll(): Promise<GeneratedImageDocument[]> {
-    return this.genImageModel
-      .find({}, '_id creator inputText categories finalInput prompt image_url', {
-        sort: {
-          created_at: -1
+    return await this.genImageModel
+      .find(
+        {},
+        '_id creator inputText categories finalInput prompt image_url createdAt updatedAt',
+        {
+          sort: {
+            createdAt: -1,
+          },
         }
-      })
-      .populate('creator', 'firstName lastName')
+      )
+      .populate('creator', '_id firstName lastName')
       .exec()
   }
 
@@ -153,10 +160,23 @@ export class GeneratedImageService {
     return this.genImageModel
       .findById(
         id,
-        '_id creator inputText categories finalInput prompt image_url'
+        '_id creator inputText categories finalInput prompt image_url createdAt updatedAt'
       )
-      .populate('creator', 'firstName lastName')
+      .populate('creator', '_id firstName lastName')
       .exec()
+  }
+
+  async deleteOwnImage(email: string, imageId: string) {
+    const user = await this.userModel.findOne({ email })
+    if (!user) throw new TRPCError({ code: 'BAD_REQUEST' })
+
+    const oids = Object.values(user.images).map((oid) => oid.toString())
+
+    if (!oids.includes(imageId)) throw new TRPCError({ code: 'UNAUTHORIZED' })
+
+    return this.genImageModel.findOneAndDelete(
+      new mongoose.Types.ObjectId(imageId)
+    )
   }
 
   remove(id: string) {

@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { HydratedDocument, now } from 'mongoose'
+import { HydratedDocument } from 'mongoose'
 
 export type API_KeyDocument = HydratedDocument<API_Key>
 
-@Schema({ timestamps: true})
+@Schema({ timestamps: true })
 export class API_Key {
   @Prop({ required: true })
   name: string
@@ -17,10 +17,10 @@ export class API_Key {
   @Prop({ required: true, immutable: true })
   expiry_date: Date
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   createdAt: Date
 
-  @Prop({ default: now() })
+  @Prop({ required: true })
   updatedAt: Date
 }
 

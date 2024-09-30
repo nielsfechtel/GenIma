@@ -1,6 +1,6 @@
 {
   "404page": {
-    "404-page-not-found": "404: Seite nicht gefunden",
+    "404-page-not-found": "404: Kunst nicht gefunden - noch nicht!",
     "art_being_made": "Es wird Kunst gemacht... Sie werden es bald sehen!",
     "art_being_made_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690192/wvhonc783qfco0nivudm.png",
     "art_made_easy": "Es dauert ein paar Sekunden, Kunst einfach aussehen zu lassen ... fast geschafft!",
@@ -123,8 +123,7 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {
-  },
+  "Common": {},
   "CreateImage": {
     "categories-select-up-to-5": "Kategorien (bis zu 5 auswählen)",
     "categories-selected": "Kategorien ausgewählt",
@@ -155,10 +154,14 @@
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Bestätigung der Kontolöschung"
   },
   "ImageComponent": {
+    "are-you-sure-you-want-to-delete-the-image": "Sind Sie sicher, dass Sie das Bild löschen möchten?",
     "created-by": "Erstellt von",
+    "delete-image": "Löschen",
+    "generated-prompt": "Generierte Eingabeaufforderung:",
     "input-text": "Eingabetext",
     "show-less": "Weniger anzeigen",
-    "show-more": "Mehr anzeigen"
+    "show-more": "Mehr anzeigen",
+    "you": "dir"
   },
   "LandingPage": {
     "all-rights-reserved": "Alle Rechte vorbehalten.",
@@ -184,6 +187,7 @@
     "logout": "Ausloggen"
   },
   "Navbar": {
+    "create-a-new-image": "Neues Bild",
     "dashboard": "Dashboard",
     "hello": "Hi",
     "landingpage": "Home\n",
@@ -198,8 +202,7 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {
-  },
+  "RootLayout": {},
   "Settings": {
     "api-keys": "API-Schlüssel",
     "email": "E-Mail",

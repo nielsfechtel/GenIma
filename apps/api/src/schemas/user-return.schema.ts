@@ -1,7 +1,16 @@
 import { UserSchema } from '@api/users/schemas/user.schema'
-import { InferSchemaType } from 'mongoose'
+import { HydratedDocument, InferSchemaType } from 'mongoose'
 
 export type UserReturnSchema = Pick<
-  InferSchemaType<typeof UserSchema>,
-  'email' | 'firstName' | 'lastName' | 'role' | 'tier' | 'api_keys' | 'updatedAt' | 'createdAt'
+  HydratedDocument<InferSchemaType<typeof UserSchema>>,
+  | '_id'
+  | 'email'
+  | 'firstName'
+  | 'lastName'
+  | 'role'
+  | 'tier'
+  | 'api_keys'
+  | 'updatedAt'
+  | 'createdAt'
+  | 'images'
 >

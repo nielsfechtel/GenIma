@@ -1,5 +1,6 @@
 'use client'
 
+import { Progress } from '@web/src/components/ui/progress'
 import enMessages from '@web/src/messages/en.json'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
@@ -32,14 +33,32 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
 
       return () => clearInterval(intervalId)
     }
-  }, [showMessages, messageKeys])
+  }, [])
+
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          return 0
+        }
+        return prevProgress + 1
+      })
+    }, 55) // 55ms * 100 steps = 5500ms (5.5 seconds)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen gap-4">
       {showMessages && (
-        <p className="text-primary dark:text-foreground text-sm mb-4 text-center animate-pulse-subtle">
-          {currentMessage}
-        </p>
+        <div className="space-y-2">
+          <p className="text-primary dark:text-foreground text-sm mb-4 text-center animate-pulse-subtle">
+            {currentMessage}
+          </p>
+          <Progress value={progress} className="w-full opacity-20" />
+        </div>
       )}
       <div className="flex space-x-2">
         {[0, 1, 2].map((index) => (
