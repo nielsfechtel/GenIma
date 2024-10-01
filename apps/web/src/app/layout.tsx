@@ -54,8 +54,10 @@ export default async function RootLayout({
                   unstyled: true,
                   classNames: {
                     error: 'space-y-2 shadow p-4 rounded bg-red-400',
-                    success: 'space-y-2 shadow p-4 rounded text-green-400',
-                    warning: 'space-y-2 shadow p-4 rounded text-yellow-400',
+                    success:
+                      'space-y-2 shadow p-4 rounded bg-background text-green-400',
+                    warning:
+                      'space-y-2 shadow p-4 rounded bg-background text-yellow-400',
                     info: 'space-y-2 shadow p-4 rounded bg-blue-400',
                   },
                 }}

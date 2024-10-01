@@ -1,3 +1,4 @@
+import { UsersService } from '@api/users/users.service'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { initTRPC, TRPCError } from '@trpc/server'
@@ -7,7 +8,10 @@ import { createContext } from 'vm'
 
 @Injectable()
 export class TrpcService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private userService: UsersService
+  ) {}
 
   createContext = async ({
     req,
@@ -71,10 +75,28 @@ export class TrpcService {
     })
   })
 
+  protectedAdminProcedure = this.trpc.procedure.use(
+    async (opts) => {
+      const { ctx } = opts
+
+      if (!ctx.key && !ctx.user) {
+        throw new TRPCError({ code: 'UNAUTHORIZED' })
+      }
+
+      if (!(await this.userService.isAdmin(opts.ctx.user.email)))
+        throw new TRPCError({ code: 'UNAUTHORIZED' })
+
+      return opts.next({
+        ctx: {
+          key: ctx.key,
+          user: ctx.user,
+        },
+      })
+    }
+  )
+
+  // this allows access if either a normal login-token or an API Key (in the form of a token) are present
   protectedAPIKeyProcedure = this.trpc.procedure.use(
-    // this allows access if either normal login-token or API Key
-    // I only wanted a special few procedures to also be accessible via
-    // API-key.
     async function isAPIKeyOrNormalAuthed(opts) {
       const { ctx } = opts
 

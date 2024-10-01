@@ -14,9 +14,9 @@ export default function Navbar() {
   const t = useTranslations('Navbar')
 
   return (
-    <header className="p-4 flex flex-row flex-wrap items-center justify-between border-b">
+    <header className="p-4 flex flex-row gap-2 flex-wrap items-center justify-between border-b">
       <div className="flex flex-row gap-4 items-center">
-        <Link href={session ? '/dashboard' : '/landingpage'}>
+        <Link href="/landingpage">
           <Image
             src="/images/logos/TEMP_L1a.png"
             alt="Website logo"
@@ -34,6 +34,9 @@ export default function Navbar() {
             <Button>{t('landingpage')}</Button>
           </Link>
         )}
+        <Link href="/image/create">
+          <Button>{t('create-a-new-image')}</Button>
+        </Link>
       </div>
 
       <div className="flex flex-row gap-4 items-center">

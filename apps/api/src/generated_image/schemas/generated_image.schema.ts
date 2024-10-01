@@ -4,7 +4,7 @@ import mongoose, { HydratedDocument } from 'mongoose'
 
 export type GeneratedImageDocument = HydratedDocument<GeneratedImage>
 
-@Schema()
+@Schema({ timestamps: true })
 export class GeneratedImage {
   @Prop({
     required: true,
@@ -27,6 +27,12 @@ export class GeneratedImage {
 
   @Prop({ required: true })
   image_url: string
+
+  @Prop({ required: true })
+  createdAt: Date
+
+  @Prop({ required: true })
+  updatedAt: Date
 }
 
 export const GeneratedImageSchema = SchemaFactory.createForClass(GeneratedImage)

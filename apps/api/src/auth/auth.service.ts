@@ -1,5 +1,6 @@
 import { SignUpSchema } from '@api/schemas/signup.schema'
 import { UserReturnSchema } from '@api/schemas/user-return.schema'
+
 import { VerifyTokenSchema } from '@api/schemas/verifyToken.schema'
 import { TierSchema } from '@api/tier/schemas/tier.schema'
 import { MailerService } from '@nestjs-modules/mailer'
@@ -65,6 +66,7 @@ export class AuthService {
     const tier = user.tier as unknown as InferSchemaType<typeof TierSchema>
 
     const data: UserReturnSchema = {
+      _id: user._id,
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -72,8 +74,13 @@ export class AuthService {
       tier: {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
+        createdAt: tier.createdAt,
+        updatedAt: tier.updatedAt,
       },
       api_keys: user.api_keys,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      images: user.images,
     }
 
     return {
@@ -114,6 +121,7 @@ export class AuthService {
     const tier = userFound.tier as unknown as InferSchemaType<typeof TierSchema>
 
     const data: UserReturnSchema = {
+      _id: userFound._id,
       email: userFound.email,
       firstName: userFound.firstName,
       lastName: userFound.lastName,
@@ -121,8 +129,13 @@ export class AuthService {
       tier: {
         name: tier.name,
         tokenLimit: tier.tokenLimit,
+        createdAt: tier.createdAt,
+        updatedAt: tier.updatedAt,
       },
       api_keys: userFound.api_keys,
+      createdAt: userFound.createdAt,
+      updatedAt: userFound.updatedAt,
+      images: userFound.images,
     }
 
     return {

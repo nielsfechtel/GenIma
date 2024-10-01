@@ -1,6 +1,5 @@
 // modules/user/user.trpc.ts
 import { CreateAPIKeySchema } from '@api/schemas/create-apikey.schema'
-import { ObjectIdSchema } from '@api/schemas/object-id.schema'
 import { UpdateNamesSchema } from '@api/schemas/update-names.schema'
 import { TierService } from '@api/tier/tier.service'
 import { TrpcService } from '@api/trpc/trpc.service'
@@ -17,24 +16,15 @@ export class UserTrpcRouter {
   ) {}
 
   userRouter = this.trpc.router({
-    getOneByEmail: this.trpc.protectedProcedure
-      .input(z.object({ email: z.string().email() }))
-      .query(async ({ input }) => {
-        return this.userService.findOneByEmail(input.email)
-      }),
+    getUser: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return await this.userService.findOneByEmail(ctx.user.email)
+    }),
 
-    getOne: this.trpc.protectedProcedure
-      .input(ObjectIdSchema)
-      .query(async ({ input }) => {
-        const id = input.id.toString()
-        return this.userService.findOne(id)
-      }),
-
-    getAll: this.trpc.protectedProcedure.query(async () => {
+    getAll: this.trpc.protectedAdminProcedure.query(async () => {
       return await this.userService.findAll()
     }),
 
-    getAllTiers: this.trpc.protectedProcedure.query(
+    getAllTiers: this.trpc.protectedAdminProcedure.query(
       async () => await this.tierService.findAll()
     ),
 
@@ -56,8 +46,12 @@ export class UserTrpcRouter {
         )
       }),
 
+    getAPIKeys: this.trpc.protectedProcedure.query(async ({ ctx }) => {
+      return await this.userService.getAPIKeysOfUser(ctx.user.email)
+    }),
+
     deleteAPIKey: this.trpc.protectedProcedure
-      .input(CreateAPIKeySchema)
+      .input(z.object({ name: z.string() }))
       .mutation(async ({ ctx, input }) => {
         return await this.userService.deleteAPIKey(ctx.user.email, input.name)
       }),

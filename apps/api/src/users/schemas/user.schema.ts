@@ -10,7 +10,7 @@ import mongoose, { HydratedDocument } from 'mongoose'
 // specify in our schema below.
 export type UserDocument = HydratedDocument<User>
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   @IsEmail()
@@ -62,6 +62,12 @@ export class User {
     enum: ['USER', 'ADMIN'],
   })
   role: string
+
+  @Prop({ required: true })
+  createdAt: Date
+
+  @Prop({ required: true })
+  updatedAt: Date
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

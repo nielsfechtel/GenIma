@@ -57,7 +57,7 @@ export default function DeleteAccountAlert() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDeleteAccountMail}
                 className="bg-destructive text-destructive-foreground">

@@ -37,7 +37,7 @@ const providers: Provider[] = [
 ]
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
-  // this is to make it work when using Docker, fails otherwise
+  // trustHost is set to ture  to make it work when using Docker, fails otherwise
   trustHost: true,
   session: {
     strategy: 'jwt',
@@ -90,13 +90,16 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           const data: UserReturnSchema = user.data
 
           newUser = {
+            _id: data._id,
             email: data.email,
             firstName: data.firstName,
             lastName: data.lastName,
-            profileImage: data.profileImage,
             role: data.role,
             tier: data.tier,
             api_keys: data.api_keys,
+            images: data.images,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt,
           } satisfies UserReturnSchema
         } else if (account?.provider === 'google') {
           if (!account.id_token) {
@@ -110,13 +113,16 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           accessToken = result.accessToken
 
           newUser = {
+            _id: returnedUser._id,
             email: returnedUser.email,
             firstName: returnedUser.firstName,
             lastName: returnedUser.lastName,
-            profileImage: returnedUser.profileImage,
             role: returnedUser.role,
             tier: returnedUser.tier,
             api_keys: returnedUser.api_keys,
+            images: returnedUser.images,
+            createdAt: returnedUser.createdAt,
+            updatedAt: returnedUser.updatedAt,
           } satisfies UserReturnSchema
         }
 

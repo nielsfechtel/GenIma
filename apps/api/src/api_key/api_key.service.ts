@@ -35,6 +35,8 @@ export class ApiKeyService {
       expiry_date: new Date(expiry_date),
       usesLeft: 3,
       value,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     })
 
     return newKey

@@ -15,7 +15,7 @@ export default async function Component() {
         <div className="flex items-center mb-4 sm:mb-0">
           <div>
             <h1 className="text-2xl font-bold">{t('welcome')}!</h1>
-            <p className="text-muted-foreground">{t('view-all-images')}:</p>
+            <p className="text-muted-foreground">{t('view-all-images')}.</p>
           </div>
         </div>
       </header>
@@ -27,7 +27,9 @@ export default async function Component() {
           {images.map((image, key) => (
             <ImageComponent
               key={key}
+              smallImageDimension={500}
               firstName={image.creator.firstName}
+              creatorId={image.creator._id}
               {...image}
               enableLink
             />
