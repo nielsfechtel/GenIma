@@ -1,6 +1,28 @@
-services:
-  node:
-    build:
-      dockerfile: Dockerfile
+# Approach: don't use Compose to BUILD, only to run
+# Build manually/via script
+# otherwise you'd need to specify build: -> context -> folder w/ Dockerfile
+# You can specify both, it'd build if the image doesn't exist
 
-# From the example https://github.com/larixer/docker-js-monorepo
+# For the start-command, we don't specify any, so it will use the one specified in the Dockerfile as ENTRYPOINT
+
+services:
+  database:
+    image: "mongodb"
+  nest-service:
+    image: ""
+    build:
+      # Why both? -> Clearer/more specific
+      context: ./apps/api
+      dockerfile: ./apps/api/Dockerfile
+    ports:
+     -  4000:4000
+    env:
+      - API_KEY_AI=""
+      - MONGO_URL="mongodb+src://user:password@db:<port>"
+    depends_on:
+      - database
+  next-service:
+    depends_on:
+      - database
+    env:
+      - BACKEND_URL="http://nest-service:4000"

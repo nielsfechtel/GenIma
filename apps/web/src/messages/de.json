@@ -64,6 +64,12 @@
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Sie erhalten eine E-Mail mit einem Link zur Bestätigung der Kontolöschung"
   },
   "ImageComponent": {
+<<<<<<< Updated upstream
+=======
+    "are-you-sure-you-want-to-delete-the-image": "Sind Sie sicher, dass Sie das Bild löschen möchten?",
+    "asdf": "asdf",
+    "cancel": "Abbrechen",
+>>>>>>> Stashed changes
     "created-by": "Erstellt von",
     "input-text": "Eingabetext",
     "show-less": "Weniger anzeigen",

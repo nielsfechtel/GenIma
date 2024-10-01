@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm run --parallel dev"
+    "dev": "pnpm run --parallel dev",
+    "start:api": "pnpm run --filter=api start",
+    "start:web": "pnpm run --filter=web start",
+    "build:api": "pnpm run --filter=api build",
+    "build:web": "pnpm run --filter=web build"
   },
   "keywords": [],
   "author": "",

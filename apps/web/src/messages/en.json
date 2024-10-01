@@ -65,7 +65,13 @@
     "created-by": "Created by",
     "input-text": "Input text",
     "show-less": "Show Less",
+<<<<<<< Updated upstream
     "show-more": "Show More"
+=======
+    "show-more": "Show More",
+    "you": "you",
+    "asdf": "asdf"
+>>>>>>> Stashed changes
   },
   "LandingPage": {
     "all-rights-reserved": "All rights reserved.",

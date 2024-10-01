@@ -63,6 +63,12 @@
     "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "Вы получите электронное письмо со ссылкой для подтверждения удаления учетной записи."
   },
   "ImageComponent": {
+<<<<<<< Updated upstream
+=======
+    "are-you-sure-you-want-to-delete-the-image": "Вы уверены, что хотите удалить изображение?",
+    "asdf": "ASDF",
+    "cancel": "Отмена",
+>>>>>>> Stashed changes
     "created-by": "Создано",
     "input-text": "Введите текст",
     "show-less": "Показать меньше",
