@@ -165,21 +165,23 @@
   },
   "DeleteAccountAlert": {
     "are-you-absolutely-sure": "Are you absolutely sure?",
+    "cancel": "Cancel",
     "delete-account": "Delete Account",
     "send-verification-email": "Send verification email",
     "sent-a-verification-email": "Sent a verification-email!",
-    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion",
-    "cancel": "Cancel"
+    "you-will-receive-an-email-with-a-link-to-verify-your-account-and-apos-deletion": "You will receive an email with a link to verify the accounts deletion"
   },
   "ImageComponent": {
     "are-you-sure-you-want-to-delete-the-image": "Are you sure you want to delete the image?",
     "cancel": "Cancel",
     "created-by": "Created by",
     "delete-image": "Delete",
-    "generated-prompt": "Generated prompt:",
+    "generated-prompt": "Generated prompt",
     "input-text": "Input text",
     "show-less": "Show Less",
     "show-more": "Show More",
+    "view-all-images": "View all images",
+    "view-own-images": "View own images",
     "you": "you"
   },
   "LandingPage": {
@@ -222,8 +224,8 @@
     "update-your-profile-details-here": "Update your profile details here."
   },
   "Settings": {
-    "api_keys": "API Keys",
     "api-keys": "API Keys",
+    "api_keys": "API Keys",
     "apikeys": "API Keys",
     "email": "Email",
     "password": "Password",
@@ -241,7 +243,7 @@
     "new-password": "New Password",
     "update-password": "Update Password",
     "update-your-password-here": "Update your password here.",
-    "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password:"
+    "you-signed-up-via-google-set-a-new-password": "You signed up via Google - set a new password"
   },
   "image-categories": {
     "ASCII-art": "ASCII-art",

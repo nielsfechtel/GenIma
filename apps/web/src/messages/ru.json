@@ -178,10 +178,12 @@
     "cancel": "Отмена",
     "created-by": "Создано",
     "delete-image": "Удалить",
-    "generated-prompt": "Сгенерированная подсказка:",
+    "generated-prompt": "Сгенерированная подсказка",
     "input-text": "Введите текст",
     "show-less": "Показать меньше",
     "show-more": "Показать больше",
+    "view-all-images": "Посмотреть все изображения",
+    "view-own-images": "Просмотр собственных изображений",
     "you": "ты"
   },
   "LandingPage": {

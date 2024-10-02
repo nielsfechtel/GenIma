@@ -141,7 +141,8 @@
     "new-email": "Neue E-Mail",
     "update-email": "E-Mail aktualisieren"
   },
-  "Common": {},
+  "Common": {
+  },
   "CreateImage": {
     "categories-select-up-to-5": "Kategorien (bis zu 5 auswählen)",
     "categories-selected": "Kategorien ausgewählt",
@@ -177,10 +178,12 @@
     "cancel": "Abbrechen",
     "created-by": "Erstellt von",
     "delete-image": "Löschen",
-    "generated-prompt": "Generierte Eingabeaufforderung:",
+    "generated-prompt": "Generierte Eingabeaufforderung",
     "input-text": "Eingabetext",
     "show-less": "Weniger anzeigen",
     "show-more": "Mehr anzeigen",
+    "view-all-images": "Alle Bilder ansehen",
+    "view-own-images": "Eigene Bilder ansehen",
     "you": "dir"
   },
   "LandingPage": {
@@ -222,7 +225,8 @@
     "save-changes": "Änderungen speichern",
     "update-your-profile-details-here": "Aktualisieren Sie hier Ihre Profildetails."
   },
-  "RootLayout": {},
+  "RootLayout": {
+  },
   "Settings": {
     "api-keys": "API-Schlüssel",
     "api_keys": "API-Schlüssel",

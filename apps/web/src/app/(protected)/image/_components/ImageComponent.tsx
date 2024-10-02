@@ -12,7 +12,6 @@ import {
   AlertDialogTrigger,
 } from '@web/src/components/ui/alert-dialog'
 
-import { CalendarIcon } from "lucide-react"
 import { Badge } from '@web/src/components/ui/badge'
 import { Button } from '@web/src/components/ui/button'
 import { Card, CardContent } from '@web/src/components/ui/card'
@@ -112,37 +111,27 @@ export default function ImageComponent({
           ))}
         </div>
 
-        <div className="py-4 border-b border-foreground/10">
-          <h2 className="text-sm font-semibold">{t('input-text')}:</h2>
-          <p
-            onClick={() => setInputIsExpanded(true)}
-            className={`text-sm ${inputIsExpanded ? '' : 'line-clamp-3'}`}>
+        <div className="py-4 border-foreground/10">
+          <Button
+            variant={'outline'}
+            onClick={() => setInputIsExpanded(!inputIsExpanded)}
+            className="text-sm">
+            {t('input-text')}
+          </Button>
+          <p className={`py-2 break-words text-sm ${inputIsExpanded ? '' : 'hidden'}`}>
             {`"${inputText}"`}
           </p>
-          {inputText.length > 150 && (
-            <Button
-              variant="link"
-              className="p-0 h-auto"
-              onClick={() => setInputIsExpanded(!inputIsExpanded)}>
-              {inputIsExpanded ? t('show-less') : t('show-more')}
-            </Button>
-          )}
         </div>
-        <div className="py-4">
-          <h2 className="text-sm font-semibold">{t('generated-prompt')}</h2>
-          <p
-            onClick={() => setPromptIsExpanded(true)}
-            className={`text-sm ${promptIsExpanded ? '' : 'line-clamp-3'}`}>
+        <div>
+          <Button
+            variant={'outline'}
+            onClick={() => setPromptIsExpanded(!promptIsExpanded)}
+            className="text-sm">
+            {t('generated-prompt')}
+          </Button>
+          <p className={`py-2 break-words text-sm ${promptIsExpanded ? '' : 'hidden'}`}>
             {`"${prompt}"`}
           </p>
-          {inputText.length > 150 && (
-            <Button
-              variant="link"
-              className="p-0 h-auto"
-              onClick={() => setPromptIsExpanded(!promptIsExpanded)}>
-              {promptIsExpanded ? t('show-less') : t('show-more')}
-            </Button>
-          )}
         </div>
 
         {showDeleteButton && user?.user?._id.toString() === creatorId && (

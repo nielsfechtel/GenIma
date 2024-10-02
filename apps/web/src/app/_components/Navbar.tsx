@@ -25,18 +25,11 @@ export default function Navbar() {
             height={40}
           />
         </Link>
-        {session ? (
+        {session && (
           <Link href="/dashboard">
             <Button>{t('dashboard')}</Button>
           </Link>
-        ) : (
-          <Link href="/landingpage">
-            <Button>{t('landingpage')}</Button>
-          </Link>
         )}
-        <Link href="/image/create">
-          <Button>{t('create-a-new-image')}</Button>
-        </Link>
       </div>
 
       <div className="flex flex-row gap-4 items-center">

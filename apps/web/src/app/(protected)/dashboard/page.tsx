@@ -1,5 +1,5 @@
 import { fetchAllImages } from '@web/src/actions/image.actions'
-import ImageComponent from '@web/src/app/(protected)/image/_components/ImageComponent'
+import ImageList from '@web/src/app/(protected)/dashboard/_dashboard/ImageList'
 import { Button } from '@web/src/components/ui/button'
 import { ImageIcon } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
@@ -23,19 +23,7 @@ export default async function Component() {
         <Link href="/image/create">
           <Button>{t('create-image')}</Button>
         </Link>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {images.map((image, key) => (
-            <ImageComponent
-              key={key}
-              smallImageDimension={500}
-              firstName={image.creator.firstName}
-              creatorId={image.creator._id}
-              {...image}
-              enableLink
-            />
-          ))}
-        </div>
-        {images.length === 0 && (
+        {images.length === 0 ? (
           <div className="text-center py-12">
             <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-semibold text-gray-900">
@@ -48,6 +36,8 @@ export default async function Component() {
               </Link>
             </div>
           </div>
+        ) : (
+          <ImageList images={images} />
         )}
       </main>
     </div>
