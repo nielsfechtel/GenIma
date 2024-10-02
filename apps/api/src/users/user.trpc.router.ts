@@ -51,9 +51,9 @@ export class UserTrpcRouter {
     }),
 
     deleteAPIKey: this.trpc.protectedProcedure
-      .input(z.object({ name: z.string() }))
+      .input(z.object({ value: z.string() }))
       .mutation(async ({ ctx, input }) => {
-        return await this.userService.deleteAPIKey(ctx.user.email, input.name)
+        return await this.userService.deleteAPIKey(ctx.user.email, input.value)
       }),
 
     updateNames: this.trpc.protectedProcedure

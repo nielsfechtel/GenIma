@@ -29,9 +29,9 @@ export const getUserAPIKeys = async () => {
   }
 }
 
-export const deleteAPIKey = async (name: string) => {
+export const deleteAPIKey = async (value: string) => {
   try {
-    await trpc.user.deleteAPIKey.mutate({ name })
+    await trpc.user.deleteAPIKey.mutate({ value })
     revalidatePath('/settings')
     return {
       success: true,

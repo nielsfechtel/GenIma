@@ -108,8 +108,16 @@ export class UsersService {
 
     const newKey = await this.apikeyService.create(email, name, expiry_date)
 
-    user.api_keys.push(newKey)
-    await user.save()
+    await this.userModel.updateOne(
+      { email },
+      {
+        $push: {
+          api_keys: newKey._id,
+        },
+      }
+    )
+
+    return newKey
   }
 
   async getAPIKeysOfUser(email: string) {
@@ -121,13 +129,26 @@ export class UsersService {
     })
   }
 
-  async deleteAPIKey(email: string, name: string) {
+  async deleteAPIKey(email: string, value: string) {
     const user = await this.userModel.findOne({ email })
-    if (!user) throw new Error('User not found')
+    if (!user) throw new TRPCError({ code: 'BAD_REQUEST' })
+
+    const key = await this.apiKeyModel.findOne({ value })
+    if (!key) throw new TRPCError({ code: 'BAD_REQUEST' })
+
+    await this.userModel.updateOne(
+      { email },
+      {
+        $pull: {
+          api_keys: {
+            $in: [key._id],
+          },
+        },
+      }
+    )
 
     await this.apiKeyModel.deleteOne({
-      _id: { $in: user.api_keys },
-      name: { $eq: name },
+      _id: key._id,
     })
   }
 

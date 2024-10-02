@@ -88,7 +88,9 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
       toast.success('Created!')
       form.reset()
     } else {
-      if (JSON.parse(result.message)[0].code === 'too_big') {
+      if (typeof result.message === 'string') {
+        toast.error(result.message)
+      } else if (JSON.parse(result.message)[0].code === 'too_big') {
         toast.error(t('name-is-too-long'))
       } else {
         toast.error(t('error-try-again'))
@@ -111,6 +113,7 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
               <FormField
                 control={form.control}
                 name="name"
+                disabled={api_keys.length === 3}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('name')}</FormLabel>
@@ -124,6 +127,7 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
               <FormField
                 control={form.control}
                 name="expiry_date"
+                disabled={api_keys.length === 3}
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>{t('expiry-date')}</FormLabel>
@@ -162,7 +166,12 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
                   </FormItem>
                 )}
               />
-              <Button type="submit">{t('create-api-key')}</Button>
+              <Button disabled={api_keys.length === 3} type="submit">
+                {t('create-api-key')}
+              </Button>
+              <h3 className="text-red-400/70">
+                {api_keys.length === 3 && `( ${t('key-limit-of-3-reached')} )`}
+              </h3>
             </form>
           </Form>
         </CardContent>
@@ -172,10 +181,6 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
           <CardTitle>{t('api-keys')}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-8 w-full divide-y-2">
-          <h3 className="text-red-400/70">
-            {api_keys.length === 3 && `( ${t('key-limit-of-3-reached')} )`}
-          </h3>
-
           {api_keys.length === 0 ? (
             <span className="py-2">{t('no-api-keys-created-yet')}</span>
           ) : (
@@ -229,7 +234,7 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
                           <AlertDialogAction
                             onClick={(e) => {
                               e.preventDefault()
-                              deleteAPIKey(api_key.name)
+                              deleteAPIKey(api_key.value)
                             }}
                             className="bg-destructive text-destructive-foreground">
                             {t('delete-key')}

@@ -32,9 +32,9 @@ export class ApiKeyService {
 
     const newKey = this.apikeyModel.create({
       name,
+      value,
       expiry_date: new Date(expiry_date),
       usesLeft: 3,
-      value,
       createdAt: new Date(),
       updatedAt: new Date(),
     })
@@ -54,7 +54,7 @@ export class ApiKeyService {
     return this.apikeyModel.updateOne({ value }, updates).exec()
   }
 
-  async remove(value: string) {
+  async remove(email: string, value: string) {
     return this.apikeyModel.findOneAndDelete({ value }).exec()
   }
 }
