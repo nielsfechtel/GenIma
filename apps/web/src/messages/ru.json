@@ -141,8 +141,7 @@
     "new-email": "Новый адрес электронной почты",
     "update-email": "Обновить электронную почту"
   },
-  "Common": {
-  },
+  "Common": {},
   "CreateImage": {
     "categories-select-up-to-5": "Категории (выберите до 5)",
     "categories-selected": "выбранные категории",
@@ -225,8 +224,7 @@
     "save-changes": "Сохранить изменения",
     "update-your-profile-details-here": "Обновите данные своего профиля здесь."
   },
-  "RootLayout": {
-  },
+  "RootLayout": {},
   "Settings": {
     "api-keys": "Ключи API",
     "api_keys": "API-ключи",
