@@ -6,13 +6,13 @@ FROM node:18-alpine As development
 RUN npm i -g pnpm
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/monorepo_root
 
 COPY --chown=node:node . .
 
 RUN pnpm install --prod
 
-WORKDIR /usr/src/app/apps/api
+WORKDIR /usr/src/monorepo_root/apps/api
 
 RUN pnpm run build
 
@@ -24,13 +24,13 @@ USER node
 FROM node:18-alpine As production
 
 
-WORKDIR /usr/src/app
-COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
+WORKDIR /usr/src/monorepo_root
+COPY --chown=node:node --from=development /usr/src/monorepo_root/node_modules ./node_modules
 
-WORKDIR /usr/src/app/apps/api
+WORKDIR /usr/src/monorepo_root/apps/api
 
-COPY --chown=node:node --from=development /usr/src/app/apps/api/node_modules ./node_modules
-COPY --chown=node:node --from=development /usr/src/app/apps/api/dist ./dist
+COPY --chown=node:node --from=development /usr/src/monorepo_root/apps/api/node_modules ./node_modules
+COPY --chown=node:node --from=development /usr/src/monorepo_root/apps/api/dist ./dist
 
 ENV NODE_ENV production
 
