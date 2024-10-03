@@ -1,7 +1,7 @@
 ###################
 # DEVELOPMENT STAGE
 ###################
-FROM node:18-alpine As development
+FROM node:18-alpine AS development
 # get pnpm
 RUN npm i -g pnpm
 
@@ -21,8 +21,7 @@ USER node
 ###################
 # PRODUCTION STAGE
 ###################
-FROM node:18-alpine As production
-
+FROM node:18-alpine AS production
 
 WORKDIR /usr/src/app
 COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modules
