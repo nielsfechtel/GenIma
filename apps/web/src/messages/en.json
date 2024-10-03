@@ -91,6 +91,8 @@
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
   "API_KeysForm": {
+    "api-documentation": "API-documentation",
+    "for-information-on-how-to-use-the-api-check-out-the": "For information on how to use the API, check out the",
     "all-keys-have-three-uses": "All keys have three uses.",
     "an-expiry-date-is-required": "An expiry date is required",
     "api-keys": "API keys",

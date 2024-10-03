@@ -41,6 +41,7 @@ import { cn } from '@web/src/lib/utils'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -105,6 +106,8 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
           <CardTitle>{t('create-a-new-api-key')}</CardTitle>
           <CardDescription>
             {`${t('generate-api-keys-to-query-the-backend')} ${t('all-keys-have-three-uses')}`}
+            {t('for-information-on-how-to-use-the-api-check-out-the')}{' '}
+            <Link target='_blank' className='underline underline-offset-2' href="/api/api-docs">{t('api-documentation')}.</Link>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
