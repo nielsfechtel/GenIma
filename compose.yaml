@@ -6,23 +6,26 @@
 # For the start-command, we don't specify any, so it will use the one specified in the Dockerfile as ENTRYPOINT
 
 services:
-  database:
-    image: "mongodb"
+  # database:
+  #   image: "mongodb"
   nest-service:
-    image: ""
     build:
       # Why both? -> Clearer/more specific
-      context: ./apps/api
+      # Actually in this case we need both, as they are also different - because
+      context: .
       dockerfile: ./apps/api/Dockerfile
     ports:
      -  4000:4000
-    env:
-      - API_KEY_AI=""
-      - MONGO_URL="mongodb+src://user:password@db:<port>"
-    depends_on:
-      - database
+    # env:
+    #   - API_KEY_AI=""
+    #   - MONGO_URL="mongodb+src://user:password@db:<port>"
+    # depends_on:
+    #   - database
   next-service:
-    depends_on:
-      - database
-    env:
-      - BACKEND_URL="http://nest-service:4000"
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    # depends_on:
+    #   - database
+    # env:
+    #   - BACKEND_URL="http://nest-service:4000"
