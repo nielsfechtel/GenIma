@@ -93,6 +93,7 @@
   "API_KeysForm": {
     "all-keys-have-three-uses": "Все ключи имеют три применения.",
     "an-expiry-date-is-required": "Укажите дату истечения срока действия.",
+    "api-documentation": "API-документация",
     "api-keys": "Ключи API",
     "are-you-sure-you-want-to-delete-the-key": "Вы уверены, что хотите удалить ключ?",
     "cancel": "Отмена",
@@ -105,6 +106,7 @@
     "error-try-again": "Ошибка, попробуйте еще раз",
     "expires-on": "Срок действия истекает",
     "expiry-date": "Дата истечения срока действия",
+    "for-information-on-how-to-use-the-api-check-out-the": "Информацию о том, как использовать API, см.",
     "generate-api-keys-to-query-the-backend": "Сгенерируйте ключи API для запроса серверной части.",
     "in": "в",
     "key-limit-of-3-reached": "Достигнут предел в 3 ключа",
@@ -141,7 +143,8 @@
     "new-email": "Новый адрес электронной почты",
     "update-email": "Обновить электронную почту"
   },
-  "Common": {},
+  "Common": {
+  },
   "CreateImage": {
     "categories-select-up-to-5": "Категории (выберите до 5)",
     "categories-selected": "выбранные категории",
@@ -224,7 +227,8 @@
     "save-changes": "Сохранить изменения",
     "update-your-profile-details-here": "Обновите данные своего профиля здесь."
   },
-  "RootLayout": {},
+  "RootLayout": {
+  },
   "Settings": {
     "api-keys": "Ключи API",
     "api_keys": "API-ключи",

@@ -93,6 +93,7 @@
   "API_KeysForm": {
     "all-keys-have-three-uses": "Alle Schlüssel haben drei Verwendungszwecke.",
     "an-expiry-date-is-required": "Es ist ein Ablaufdatum erforderlich",
+    "api-documentation": "API-Dokumentation",
     "api-keys": "API-Schlüssel",
     "are-you-sure-you-want-to-delete-the-key": "Sind Sie sicher, dass Sie den Schlüssel löschen möchten?",
     "cancel": "Abbrechen",
@@ -105,6 +106,7 @@
     "error-try-again": "Fehler, versuchen Sie es erneut",
     "expires-on": "Läuft ab am",
     "expiry-date": "Verfallsdatum",
+    "for-information-on-how-to-use-the-api-check-out-the": "Informationen zur Verwendung der API finden Sie unter",
     "generate-api-keys-to-query-the-backend": "Generieren Sie API-Schlüssel, um das Backend abzufragen.",
     "in": "In",
     "key-limit-of-3-reached": "Tastenlimit von 3 erreicht",
