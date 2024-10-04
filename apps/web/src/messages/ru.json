@@ -90,6 +90,10 @@
     "visualizing_genius": "Визуализируя свой гений... оставайтесь с нами!",
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
+  "APIKeyValueEl": {
+    "copied-to-clipboard": "Скопировано в буфер обмена!",
+    "not-defined": "Ключ API не определен"
+  },
   "API_KeysForm": {
     "all-keys-have-three-uses": "Все ключи имеют три применения.",
     "an-expiry-date-is-required": "Укажите дату истечения срока действия.",

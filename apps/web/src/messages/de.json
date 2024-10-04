@@ -90,6 +90,10 @@
     "visualizing_genius": "Visualisieren Sie Ihr Genie... bleiben Sie bei uns!",
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
+  "APIKeyValueEl": {
+    "copied-to-clipboard": "In die Zwischenablage kopiert!",
+    "not-defined": "Der API-Schlüssel ist nicht definiert"
+  },
   "API_KeysForm": {
     "all-keys-have-three-uses": "Alle Schlüssel haben drei Verwendungszwecke.",
     "an-expiry-date-is-required": "Es ist ein Ablaufdatum erforderlich",
