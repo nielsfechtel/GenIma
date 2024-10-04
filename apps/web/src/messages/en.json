@@ -90,9 +90,14 @@
     "visualizing_genius": "Visualizing your genius... stay with us!",
     "visualizing_genius_image_url": "https://res.cloudinary.com/graduationproject/image/upload/v1727690149/ibdmqzopnoii6vtdcj7h.png"
   },
+  "APIKeyValueEl": {
+    "copied-to-clipboard": "Copied to clipboard!",
+    "not-defined": "API key is not defined"
+  },
   "API_KeysForm": {
     "all-keys-have-three-uses": "All keys have three uses.",
     "an-expiry-date-is-required": "An expiry date is required",
+    "api-documentation": "API-documentation",
     "api-keys": "API keys",
     "are-you-sure-you-want-to-delete-the-key": "Are you sure you want to delete the key?",
     "cancel": "Cancel",
@@ -105,6 +110,7 @@
     "error-try-again": "Error, try again",
     "expires-on": "Expires on",
     "expiry-date": "Expiry date",
+    "for-information-on-how-to-use-the-api-check-out-the": "For information on how to use the API, check out the",
     "generate-api-keys-to-query-the-backend": "Generate API keys to query the backend.",
     "in": "in",
     "key-limit-of-3-reached": "Key-limit of 3 reached",

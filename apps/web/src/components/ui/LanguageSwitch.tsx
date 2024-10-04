@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@web/src/components/ui/dropdown-menu'
 import { SUPPORTED_LOCALES } from '@web/src/intl.config'
-import { deleteCookie, setCookie } from 'cookies-next'
+import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { Globe } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -26,6 +26,8 @@ export default function LanguageSwitch() {
   function changeLanguage(code: string) {
     if (code === 'system') {
       deleteCookie('locale')
+      setLanguage(code)
+      router.refresh()
     } else {
       setCookie('locale', code)
       setLanguage(code)

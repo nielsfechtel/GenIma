@@ -3,6 +3,7 @@
 import { UserReturnSchema } from '@api/schemas/user-return.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createAPIKey, deleteAPIKey } from '@web/src/actions/apikeys.actions'
+import APIKeyValueEl from '@web/src/app/(protected)/settings/_components/APIKeyValueEl'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,6 +42,8 @@ import { cn } from '@web/src/lib/utils'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
+import Link from 'next/link'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -52,6 +55,7 @@ interface APIKeysFormProps {
 export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
   const t = useTranslations('API_KeysForm')
   const locale = useLocale()
+  const [isCopied, setIsCopied] = useState(false)
 
   const apikeyFormSchema = z.object({
     name: z.string().min(4).max(50),
@@ -105,6 +109,13 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
           <CardTitle>{t('create-a-new-api-key')}</CardTitle>
           <CardDescription>
             {`${t('generate-api-keys-to-query-the-backend')} ${t('all-keys-have-three-uses')}`}
+            {t('for-information-on-how-to-use-the-api-check-out-the')}{' '}
+            <Link
+              target="_blank"
+              className="underline underline-offset-2"
+              href="/api/api-docs">
+              {t('api-documentation')}.
+            </Link>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -195,7 +206,7 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
                   </li>
                   <li>
                     <span className="font-semibold">{t('value')}: </span>
-                    <div className="break-words">{api_key.value}</div>
+                    <APIKeyValueEl apiKey={api_key.value} />
                   </li>
                   <li>
                     <span className="font-semibold">{t('uses-left')}: </span>

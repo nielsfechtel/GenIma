@@ -4,6 +4,7 @@ import { Button } from '@web/src/components/ui/button'
 import LanguageSwitch from '@web/src/components/ui/LanguageSwitch'
 import LogoutButton from '@web/src/components/ui/LogoutButton'
 import ThemeSwitch from '@web/src/components/ui/ThemeSwitch'
+import { SquarePlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -26,9 +27,16 @@ export default function Navbar() {
           />
         </Link>
         {session && (
-          <Link href="/dashboard">
-            <Button>{t('dashboard')}</Button>
-          </Link>
+          <>
+            <Link href="/dashboard">
+              <Button>{t('dashboard')}</Button>
+            </Link>
+            <Link href="/image/create">
+              <Button variant={'outline'} className="p-2">
+                <SquarePlusIcon className="stroke-foreground/80" />
+              </Button>
+            </Link>
+          </>
         )}
       </div>
 

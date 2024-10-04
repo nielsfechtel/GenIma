@@ -64,13 +64,12 @@ export default function ImageComponent({
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const CreatedByComponent = () => {
     const content = ` ${user?.user.firstName === firstName ? t('you') : firstName}`
-    return enableLink ? (
-      <Link href={`/image/${_id}`}>
-        {t('created-by')} <span className="italic">{content}</span>
-      </Link>
-    ) : (
-      content
+    const element = (
+      <>
+        {t('created-by')} <span>{content}</span>
+      </>
     )
+    return enableLink ? <Link href={`/image/${_id}`}>{element}</Link> : element
   }
 
   return (
@@ -111,27 +110,31 @@ export default function ImageComponent({
           ))}
         </div>
 
-        <div className="py-4 border-foreground/10">
-          <Button
-            variant={'outline'}
-            onClick={() => setInputIsExpanded(!inputIsExpanded)}
-            className="text-sm">
-            {t('input-text')}
-          </Button>
-          <p className={`py-2 break-words text-sm ${inputIsExpanded ? '' : 'hidden'}`}>
-            {`"${inputText}"`}
-          </p>
-        </div>
-        <div>
-          <Button
-            variant={'outline'}
-            onClick={() => setPromptIsExpanded(!promptIsExpanded)}
-            className="text-sm">
-            {t('generated-prompt')}
-          </Button>
-          <p className={`py-2 break-words text-sm ${promptIsExpanded ? '' : 'hidden'}`}>
-            {`"${prompt}"`}
-          </p>
+        <div className="pt-4 flex flex-wrap gap-4 items-center">
+          <div className="border-foreground/10">
+            <Button
+              variant={'outline'}
+              onClick={() => setInputIsExpanded(!inputIsExpanded)}
+              className="text-sm">
+              {t('input-text')}
+            </Button>
+            <p
+              className={`py-2 break-words text-sm ${inputIsExpanded ? '' : 'hidden'}`}>
+              {`"${inputText}"`}
+            </p>
+          </div>
+          <div>
+            <Button
+              variant={'outline'}
+              onClick={() => setPromptIsExpanded(!promptIsExpanded)}
+              className="text-sm">
+              {t('generated-prompt')}
+            </Button>
+            <p
+              className={`py-2 break-words text-sm ${promptIsExpanded ? '' : 'hidden'}`}>
+              {`"${prompt}"`}
+            </p>
+          </div>
         </div>
 
         {showDeleteButton && user?.user?._id.toString() === creatorId && (
