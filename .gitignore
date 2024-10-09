@@ -3,8 +3,9 @@ dist
 build
 .env
 .env.*
+.pnpm-store
+
 
 # miscellaneous files we don't want
 design
 basic_tiers.json
-test no longer.txt
