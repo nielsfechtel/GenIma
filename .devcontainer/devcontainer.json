@@ -1,23 +1,22 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "Node.js & TypeScript Monorepo",
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+  "name": "Node.js & TypeScript Monorepo",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
 
-	"features": {
-		"ghcr.io/devcontainers-contrib/features/pnpm:2": {},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
-	},
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/pnpm:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
 
-	"forwardPorts": [3000, 3001],
+  "forwardPorts": [3000, 3001],
 
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode"
-			]
-		}
-	}
-
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    },
+    "settings": {
+      "files.eol": "\n"
+    }
+  }
 }
