@@ -3,6 +3,7 @@
 import { SignUpSchema } from '@api/schemas/signup.schema'
 import { signIn } from '@web/src/auth'
 import { trpc } from '@web/src/trpc'
+import { SignInOptions } from 'next-auth/react'
 import { revalidatePath } from 'next/cache'
 import * as z from 'zod'
 
@@ -13,23 +14,27 @@ export const handleSignup = async (formData: z.infer<typeof SignUpSchema>) => {
       success: true,
     }
   } catch (error: unknown) {
-    return {
-      success: false,
-      message: error.message,
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
 }
 
 export const sendDeleteAccountEmail = async () => {
   try {
-    const result = trpc.auth.deleteAccount.query()
+    trpc.auth.deleteAccount.query()
     return {
       success: true,
     }
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
 }
@@ -37,10 +42,12 @@ export const sendDeleteAccountEmail = async () => {
 export const executeToken = async (token: string) => {
   try {
     return trpc.auth.executeToken.mutate({ token })
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
 }
@@ -48,16 +55,18 @@ export const executeToken = async (token: string) => {
 // this appears to be necessary, as the signIn that is recommended to be used in client-components,
 // imported from next-auth/react, somehow deletes the error-codes. So I need to provide my own, which
 // just throws them forward, as you'd expect
-export const myOwnServerSideSignIn = async (options) => {
+export const myOwnServerSideSignIn = async (options: SignInOptions) => {
   try {
-    const result = await signIn('credentials', options)
+    await signIn('credentials', options)
     return {
       success: true,
     }
   } catch (error: unknown) {
-    return {
-      success: false,
-      message: error.message,
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
 }
@@ -67,7 +76,7 @@ export const updatePassword = async (
   newPassword: string
 ) => {
   try {
-    const result = await trpc.auth.changePassword.mutate({
+    await trpc.auth.changePassword.mutate({
       oldPassword,
       newPassword,
     })
@@ -75,10 +84,12 @@ export const updatePassword = async (
     return {
       success: true,
     }
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
 }

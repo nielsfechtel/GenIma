@@ -9,6 +9,8 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "useUnknownInCatchVariables": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@api/*": ["./apps/api/src/*"],

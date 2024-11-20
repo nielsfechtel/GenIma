@@ -28,8 +28,10 @@ const providers: Provider[] = [
           email: credentials.email,
           password: credentials.password,
         })
-      } catch (error) {
-        throw new CredentialsSignin(error.message)
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          throw new CredentialsSignin(error.message)
+        }
       }
     },
   }),
@@ -48,7 +50,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   },
   providers,
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ account, profile }) {
       if (account?.provider === 'google') {
         // check if the account is verified
         if (!profile?.email_verified)
@@ -59,15 +61,17 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           await trpc.auth.loginWithGoogle.mutate({
             googleIDtoken: account.id_token!,
           })
-        } catch (error) {
-          const errorMessage = error.meta.responseJSON[0].error.message
-          return `/auth/login?error=${errorMessage}`
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            const errorMessage = error.meta.responseJSON[0].error.message
+            return `/auth/login?error=${errorMessage}`
+          }
         }
       }
 
       return true
     },
-    async jwt({ token, user, account, profile, trigger, session }) {
+    async jwt({ token, user, account, trigger, session }) {
       let newUser
       let accessToken
 

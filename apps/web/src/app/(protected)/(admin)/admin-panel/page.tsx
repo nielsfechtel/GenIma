@@ -57,7 +57,7 @@ export default async function AdminPanel() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {initialTiers.map((tier, key) => (
+              {initialTiers.map((tier: any, key: number) => (
                 <TableRow key={key}>
                   <TableCell>
                     <Input value={tier.name} />
@@ -91,9 +91,11 @@ export default async function AdminPanel() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {allUsers.map((user, key) => (
+              {allUsers.map((user: any, key) => (
                 <TableRow key={key}>
-                  <TableCell>{`${user.firstName}${user.lastName && ' '}${user.lastName}`}</TableCell>
+                  <TableCell>{`${user.firstName}${user.lastName && ' '}${
+                    user.lastName
+                  }`}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
                     <AlertDialog>

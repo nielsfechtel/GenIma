@@ -16,13 +16,15 @@ export const createNewImage = async ({
       inputText,
       inputOptions,
     })
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        message: error.message,
+      }
     }
   }
-  redirect(`/image/${result._id}`)
+  if (result) redirect(`/image/${result._id}`)
 }
 
 export const fetchAllImages = async () => {

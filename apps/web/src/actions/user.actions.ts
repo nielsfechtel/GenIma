@@ -11,11 +11,13 @@ export const updateNames = async (firstName: string, lastName: string) => {
     return {
       success: true,
     }
-  } catch (error) {
+  } catch (error: unknown) {
+if (error instanceof Error) {
     return {
       success: false,
       message: error.message,
     }
+  }
   }
 }
 
@@ -27,11 +29,13 @@ export const updateEmail = async (newEmail: string) => {
     return {
       success: true,
     }
-  } catch (error) {
+  } catch (error: unknown) {
+if (error instanceof Error) {
     return {
       success: false,
       message: error.message,
     }
+  }
   }
 }
 

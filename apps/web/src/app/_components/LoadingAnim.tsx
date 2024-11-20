@@ -19,8 +19,6 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
 
   useEffect(() => {
     if (showMessages) {
-      const key = messageKeys[Math.floor(Math.random() * messageKeys.length)]
-
       setCurrentMessage(
         t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
       )
@@ -33,7 +31,7 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
 
       return () => clearInterval(intervalId)
     }
-  }, [])
+  }, [showMessages, messageKeys, t])
 
   const [progress, setProgress] = useState(0)
 

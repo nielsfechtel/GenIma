@@ -26,14 +26,17 @@ export default function ImageList({ images }: ImageListProps) {
   useEffect(() => {
     if (showOnlyOwnImages) {
       setShowingImages(
-        images.filter(
-          (image) => user?.user?._id.toString() === image.creator._id
-        )
+        images.filter((image: ImageType) => {
+          if (typeof image.creator === 'string') {
+            return user?.user?._id.toString() === image.creator
+          }
+          return user?.user?._id.toString() === image.creator._id
+        })
       )
     } else {
       setShowingImages(images)
     }
-  }, [showOnlyOwnImages])
+  }, [showOnlyOwnImages, images, user?.user?._id])
 
   return (
     <main className="flex flex-col gap-4">

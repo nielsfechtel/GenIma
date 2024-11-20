@@ -1,8 +1,12 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-  "name": "Node.js & TypeScript Monorepo",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+  "name": "Node.js & TypeScript Container",
+
+  "dockerComposeFile": "./compose.yaml",
+  "service": "devContainer",
+  "shutdownAction": "none",
+  "workspaceFolder": "/workspace",
 
   "features": {
     "ghcr.io/devcontainers-contrib/features/pnpm:2": {},

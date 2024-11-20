@@ -43,7 +43,6 @@ import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -55,7 +54,6 @@ interface APIKeysFormProps {
 export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
   const t = useTranslations('API_KeysForm')
   const locale = useLocale()
-  const [isCopied, setIsCopied] = useState(false)
 
   const apikeyFormSchema = z.object({
     name: z.string().min(4).max(50),
@@ -64,7 +62,7 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
         required_error: t('an-expiry-date-is-required'),
       })
       .refine(
-        (date) => {
+        () => {
           const nowDate = new Date()
           const dateIn1Day = new Date()
           dateIn1Day.setDate(nowDate.getDate() + 1)

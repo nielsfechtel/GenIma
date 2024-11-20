@@ -20,7 +20,6 @@ export default async function NotFound() {
   )
 
   const randomKey = errorKeys[Math.floor(Math.random() * errorKeys.length)]
-  const randomErrorMessage = errorMessages[randomKey]
   const randomErrorImageUrl = errorMessages[randomKey + '_image_url']
 
   return (

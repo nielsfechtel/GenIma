@@ -15,7 +15,6 @@ export default function Verify() {
   const t = useTranslations('verify')
 
   let message
-  let gotoLocation = 'dashboard'
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
 

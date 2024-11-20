@@ -11,7 +11,7 @@ interface Context {
   searchParam: string
   selected: string
 }
-const TabsContext = React.createContext<Context>(null as any)
+const TabsContext = React.createContext<Context>({} as Context)
 
 export function Tabs(props: {
   children: React.ReactNode
@@ -45,7 +45,7 @@ export function Tabs(props: {
 
       return pathname + (asString ? '?' + asString : '')
     },
-    [searchParams, props.searchParam]
+    [searchParams, pathname, props.defaultValue, searchParam]
   )
 
   return (
