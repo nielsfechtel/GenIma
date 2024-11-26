@@ -4,7 +4,3 @@ build
 .env
 .env.*
 
-# miscellaneous files we don't want
-design
-basic_tiers.json
-test no longer.txt
