@@ -10,6 +10,8 @@ Give it a try!
 _(Also try accessing the 404-page a few times!)_
 
 ## Environment variables
+Format these like:
+`.env.<environment>`, e.g. `.env.local`, `.env.test` or `.env.prod`.
 
 The following are required:
 
