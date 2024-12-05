@@ -13,29 +13,27 @@ _(Also try accessing the 404-page a few times!)_
 Format these like:
 `.env.<environment>`, e.g. `.env.local`, `.env.test` or `.env.prod`.
 
-The following are required:
-
-### Database
-- DB_CONNECTION_URL: a Mongo DB-connection-string, including user and password
-
-### API
+### apps/web
+#### API
 - API_SERVER_URL: the URL of backend
+#### Authentication
+- AUTH_GOOGLE_ID: Google OAuth Client ID
+- AUTH_GOOGLE_SECRET: Google OAuth Secret
+- AUTH_SECRET: a secret used by Next-Auth. Can be generated with `npx auth secret`.
 
-### Emails
-- RESEND_HOST: the Resend-host
-- RESEND_USERNAME: the Resend-username
-- RESEND_PASSWORD: the Resend-password
-- HELLO_EMAIL_ADDRESS: the address used for hello@..., e.g. for verify-email-mails
-- WEB_BASE_URL: the base-url used for the link in the e.g. verify-email-mails
-
-### Login
-- JWT_KEY: the a random long string used for encrypting the JWTs
-- AUTH_GOOGLE_ID: the for Google-login
-
-### Cloudinary
+### apps/api
+> This file has to be in `apps/api/config`!
+#### Authentication
+- JWT_KEY: a random long string used for encrypting the JWTs
+#### OpenAI
+- OPENAI_API_KEY: the OpenAI-package auto-reads this from `process.env`
+#### Cloudinary
 - CLOUDINARY_NAME: the Cloudinary project name
 - CLOUDINARY_API_KEY: the key
 - CLOUDINARY_API_SECRET: the secret
-
-### OpenAI
-- OPENAI_API_KEY: the OpenAI-package auto-reads this from `process.env`
+#### Emails
+- RESEND_API_KEY
+- HELLO_EMAIL_ADDRESS: the address used for hello@..., e.g. for verify-email-mails
+- WEB_BASE_URL: the base-url used for the link in the e.g. verify-email-mails
+#### Database
+- DB_CONNECTION_URL: a Mongo DB-connection-string, including user and password
