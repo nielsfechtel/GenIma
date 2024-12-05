@@ -7,17 +7,12 @@ declare global {
       AUTH_GOOGLE_ID: string
       OPENAI_API_KEY: string
       JWT_KEY: string
-      PORT: number
       WEB_BASE_URL: string
-      RESEND_HOST: string
-      RESEND_PORT: number
-      RESEND_USERNAME: string
-      RESEND_PASSWORD: string
+      RESEND_API_KEY: string
       HELLO_EMAIL_ADDRESS: string
       CLOUDINARY_NAME: string
       CLOUDINARY_API_KEY: string
       CLOUDINARY_API_SECRET: string
-      CLOUDINARY_BASE_URL: string
     }
   }
 }
