@@ -1,10 +1,11 @@
 {
-
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
+    "ghcr.io/kreemer/features/stow:1": {},
+    "ghcr.io/devcontainers-extra/features/fzf:1": {},
     "ghcr.io/devcontainers-contrib/features/neovim-homebrew:1": {},
-"ghcr.io/kreemer/features/stow:1": {},
-"ghcr.io/devcontainers-extra/features/fzf:1": {},
-"ghcr.io/devcontainers-extra/features/starship-homebrew:1": {},
-}
+    "ghcr.io/devcontainers-extra/features/starship-homebrew:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  }
 }
