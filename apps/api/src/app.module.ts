@@ -50,10 +50,12 @@ import { UsersModule } from './users/users.module'
     ]),
     MailerModule.forRoot({
       transport: {
-        host: process.env.RESEND_HOST,
+        host: "smtp.resend.com",
+        secure: true,
+        port: 465,
         auth: {
-          user: process.env.RESEND_USERNAME,
-          pass: process.env.RESEND_PASSWORD,
+          user: "resend",
+          pass: process.env.RESEND_API_KEY,
         },
       },
       defaults: {
