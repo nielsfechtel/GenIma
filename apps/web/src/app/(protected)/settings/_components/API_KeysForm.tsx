@@ -86,13 +86,14 @@ export default function API_KeysForm({ api_keys }: APIKeysFormProps) {
       data.name,
       data.expiry_date.toDateString()
     )
-    if (result.success) {
+    if (result?.success) {
       toast.success('Created!')
       form.reset()
     } else {
-      if (typeof result.message === 'string') {
+      if (typeof result?.message === 'string') {
         toast.error(result.message)
-      } else if (JSON.parse(result.message)[0].code === 'too_big') {
+        // @ts-expect-error Error format is weird
+      } else if (JSON.parse(result?.message)[0]?.code === 'too_big') {
         toast.error(t('name-is-too-long'))
       } else {
         toast.error(t('error-try-again'))

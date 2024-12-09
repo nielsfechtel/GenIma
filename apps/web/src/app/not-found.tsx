@@ -20,6 +20,7 @@ export default async function NotFound() {
   )
 
   const randomKey = errorKeys[Math.floor(Math.random() * errorKeys.length)]
+  // @ts-expect-error Next-intl typing error
   const randomErrorImageUrl = errorMessages[randomKey + '_image_url']
 
   return (

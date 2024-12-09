@@ -46,7 +46,7 @@ export function UpdatePassword(props: { hasPassword: boolean }) {
 
   const onSubmit = async (data: z.infer<typeof passwordSchema>) => {
     const result = await updatePassword(data.oldPassword || '', data.password)
-    if (result.success) {
+    if (result?.success) {
       toast.success('Password updated!')
       form.reset()
     } else {

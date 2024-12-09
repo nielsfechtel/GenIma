@@ -43,3 +43,5 @@ export default async function Component() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

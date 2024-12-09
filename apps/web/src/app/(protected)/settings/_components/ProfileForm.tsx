@@ -53,7 +53,7 @@ export default function ImageComponent({
   const onSubmit = async (data: z.infer<typeof profileSchema>) => {
     const { firstName, lastName } = data
     const result = await updateNames(firstName, lastName || '')
-    if (result.success) {
+    if (result?.success) {
       toast.success('Names updated!')
       form.reset()
     } else {

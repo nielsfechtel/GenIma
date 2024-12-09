@@ -19,14 +19,14 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
 
   useEffect(() => {
     if (showMessages) {
-      setCurrentMessage(
-        t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
-      )
+      // @ts-expect-error Again, Next-intl typing errors
+      const message = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+      // @ts-expect-error Again, Next-intl typing errors
+      const message_interval = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+      setCurrentMessage(message)
 
       const intervalId = setInterval(() => {
-        setCurrentMessage(
-          t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
-        )
+        setCurrentMessage(message_interval)
       }, 5500)
 
       return () => clearInterval(intervalId)

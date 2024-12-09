@@ -54,7 +54,7 @@ export default function ChangeEmailForm({ currentEmail }: EmailFormProps) {
   const onSubmit = async (data: z.infer<typeof emailSchema>) => {
     const { newEmail } = data
     const result = await updateEmail(newEmail)
-    if (result.success) {
+    if (result?.success) {
       toast.success('Email sent - check your inbox!')
       form.reset()
     } else {

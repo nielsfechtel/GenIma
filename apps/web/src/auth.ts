@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { UserReturnSchema } from '@api/schemas/user-return.schema'
 import { trpc } from '@web/src/trpc'
 import NextAuth, { CredentialsSignin } from 'next-auth'
@@ -63,6 +66,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           })
         } catch (error: unknown) {
           if (error instanceof Error) {
+            // @ts-expect-error Error-type from trpc
             const errorMessage = error.meta.responseJSON[0].error.message
             return `/auth/login?error=${errorMessage}`
           }

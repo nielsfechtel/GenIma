@@ -27,10 +27,10 @@ export default function DeleteAccountAlert() {
 
   const handleDeleteAccountMail = async () => {
     const result = await sendDeleteAccountEmail()
-    if (result.success) {
+    if (result?.success) {
       toast.success(t('sent-a-verification-email'))
     } else {
-      toast.error(result.message)
+      toast.error(result?.message)
     }
   }
 

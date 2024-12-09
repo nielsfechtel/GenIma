@@ -12,11 +12,19 @@ import {
 } from '@web/src/components/ui/tabs'
 import { getTranslations } from 'next-intl/server'
 
+type User = {
+  email: string
+  firstName: string
+  lastName: string
+  isPassworded: boolean
+  api_keys: unknown[]
+}
+
 export default async function SettingsPage() {
   const tabs = ['profile', 'email', 'password', 'api_keys']
 
   const isPassworded = await hasPassword()
-  const user = await getUser()
+  const user = (await getUser()) as User
   const t = await getTranslations('Settings')
 
   return (
@@ -29,6 +37,7 @@ export default async function SettingsPage() {
             key={tabValue}
             className="p-2 border border-foreground/20"
             value={tabValue}>
+            {/* @ts-expect-error Next-intl has odd typing I don't understand */}
             {t(tabValue)}
           </TabsTrigger>
         ))}
@@ -47,8 +56,11 @@ export default async function SettingsPage() {
       </TabsContent>
 
       <TabsContent value="api_keys">
+        {/* @ts-expect-error Error*/}
         <API_KeysForm api_keys={user.api_keys} />
       </TabsContent>
     </Tabs>
   )
 }
+
+export const dynamic = 'force-dynamic'

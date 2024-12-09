@@ -51,14 +51,14 @@ export default function SignupForm() {
         redirectTo: searchParams.get('callbackUrl') ?? DEFAULT_LOGIN_REDIRECT,
       })
 
-      if (result.success) {
+      if (result?.success) {
         return {
           data: null,
           message: 'User credentials are valid.',
           success: true,
         }
       } else {
-        return router.push(`/auth/login?error=${result.message}.`)
+        return router.push(`/auth/login?error=${result?.message}.`)
       }
     } catch (err) {
       return router.push(`/auth/login?error=Error logging in - try again`)
@@ -79,7 +79,7 @@ export default function SignupForm() {
       <CardContent className="space-y-8">
         {searchParams.has('error') && (
           <h3 className="text-red-500 p-2">
-            {searchParams.get('error').split('.')[0]}.
+            {searchParams.get('error')?.split('.')[0]}.
           </h3>
         )}
         <Form {...form}>

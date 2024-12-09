@@ -8,9 +8,9 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
-type ImageType = RouterOutputs['generatedImage']['getAllImages']
+type ImagesType = RouterOutputs['generatedImage']['getAllImages']
 interface ImageListProps {
-  images: ImageType[]
+  images: ImagesType
 }
 
 export default function ImageList({ images }: ImageListProps) {
@@ -26,7 +26,7 @@ export default function ImageList({ images }: ImageListProps) {
   useEffect(() => {
     if (showOnlyOwnImages) {
       setShowingImages(
-        images.filter((image: ImageType) => {
+        images.filter((image) => {
           if (typeof image.creator === 'string') {
             return user?.user?._id.toString() === image.creator
           }
@@ -52,14 +52,18 @@ export default function ImageList({ images }: ImageListProps) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {showingImages.map((image, key) => (
-          <ImageComponent
-            key={key}
-            smallImageDimension={500}
-            firstName={image.creator.firstName}
-            creatorId={image.creator._id}
-            {...image}
-            enableLink
-          />
+          typeof image.creator !== "string" &&
+            <ImageComponent
+              key={key}
+              smallImageDimension={500}
+              firstName={image.creator.firstName}
+              creatorId={image.creator._id}
+              showDeleteButton={false}
+              enableLink
+              {...image}
+              // wants a Date not a string
+              createdAt={new Date(image.createdAt)}
+            />
         ))}
       </div>
     </main>

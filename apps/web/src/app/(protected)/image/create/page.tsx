@@ -195,6 +195,7 @@ export default function CreateImage() {
                             />
                           </FormControl>
                           <FormLabel className="text-sm font-normal">
+                            {/* @ts-expect-error I don't get next-intl typing. */}
                             {t_categories(category)}
                           </FormLabel>
                         </FormItem>

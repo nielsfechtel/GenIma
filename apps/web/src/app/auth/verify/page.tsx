@@ -25,28 +25,7 @@ export default function Verify() {
     }).then(() => {
       executeToken(token)
         .then((result) => {
-          message = result.message
-          switch (result.actionType) {
-            case 'DELETE_ACCOUNT': {
-              gotoLocation = 'landingpage'
-              break
-            }
-            case 'RESET_PASSWORD': {
-              gotoLocation = 'dashboard'
-              break
-            }
-            case 'CHANGE_EMAIL': {
-              gotoLocation = 'login'
-              break
-            }
-            case 'VERIFY_EMAIL': {
-              gotoLocation = 'login'
-              break
-            }
-            default: {
-              gotoLocation = 'landingpage'
-            }
-          }
+          message = result?.message
         })
         .catch((result) => {
           console.error("Something wen't wrong, please try again", result)

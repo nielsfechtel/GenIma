@@ -51,11 +51,11 @@ export default function SignupForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await handleSignup(values)
-    if (result.success) {
+    if (result?.success) {
       toast.success('Success! Please verify your email!')
       router.push('/login')
     } else {
-      toast.error(result.message)
+      toast.error(result?.message)
     }
   }
 

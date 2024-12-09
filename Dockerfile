@@ -10,21 +10,21 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run -r build
-RUN pnpm deploy --filter=genima_api --prod /prod/api
-RUN pnpm deploy --filter=genima_web --prod /prod/web
+RUN pnpm deploy --filter=api --prod /prod/api
+RUN pnpm deploy --filter=web --prod /prod/web
 
 
 
-FROM base AS genima_api
-COPY --from=build /prod/genima_api /prod/api
-WORKDIR /prod/genima_api
+FROM base AS api
+COPY --from=build /prod/api /prod/api
+WORKDIR /prod/api
 EXPOSE 4000
 CMD [ "pnpm", "start" ]
 
 
 
-FROM base AS genima_web
-COPY --from=build /prod/genima_web /prod/web
-WORKDIR /prod/genima_web
+FROM base AS web
+COPY --from=build /prod/web /prod/web
+WORKDIR /prod/web
 EXPOSE 3000
 CMD [ "pnpm", "start" ]

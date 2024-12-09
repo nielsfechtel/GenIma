@@ -133,3 +133,5 @@ export default async function AdminPanel() {
     </div>
   )
 }
+
+export const dynamic = 'force-dynamic'

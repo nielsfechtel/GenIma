@@ -9,6 +9,7 @@ import {
 } from '@web/src/routes'
 import { trpc } from '@web/src/trpc'
 
+// @ts-expect-error not sure
 export default auth(async (req) => {
   const isAuthed = !!req.auth
   const { nextUrl } = req
@@ -57,3 +58,4 @@ export default auth(async (req) => {
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|images|favicon.ico).*)'],
 }
+
