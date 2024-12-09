@@ -1,4 +1,7 @@
 {
+  "name": "GenIma Devcontainer",
+  "description": "Basic devcontainer for this project. Installs stow because it's intended to be used with https:github.com/nielsfechtel/dotfiles and Devpod.",
+
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
     "ghcr.io/kreemer/features/stow:1": {},
@@ -7,5 +10,14 @@
     "ghcr.io/devcontainers-extra/features/starship-homebrew:1": {},
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-  }
+  },
+  "postCreateCommand": "pnpm install",
+
+  // we need to do this, because as noted in Ken Muse' blog-article about this git-option,
+  // any dotfiles being added happens after postCreate but before postStart.
+  // Setting the option at postCreate could result in it being overwritten by the dotfiles.
+  // article: https://www.kenmuse.com/blog/avoiding-dubious-ownership-in-dev-containers/
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+
+  "forwardPorts": [ 3000 ],
 }
