@@ -1,5 +1,14 @@
 # Graduation project for CLA
 
+# TODO
+- [ ] "Containerize your application" - so like Dockerfile, Docker Compose, kubernetes-manifests, maybe make it a helm-repo? One for client and server?! Like they WOULD run separately no? Yes? 
+- [ ] "Use a CI/CD tool to build images" - like how where when and how would I show it 
+- [ ] "Bonus: Scan for vulnerabilities" - add a few ..actions? with proper email-notifiers
+    - [ ] also this for automatic secret detection (make it account-wide somehow in general with proper notifs)
+- [ ] Use GitOps to pull image to homelab
+- [ ] Monitor using Prometheus and Grafana
+- [ ] Add this to resume
+
 ## Overview
 
 This project utilizes NextJS for the Frontend and webserver, as well as NestJS with tRPC for the API.
