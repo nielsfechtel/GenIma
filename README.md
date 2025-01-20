@@ -18,6 +18,14 @@ Give it a try!
 
 _(Also try accessing the 404-page a few times!)_
 
+## Building the application
+Following [pnpm's example on multiple Docker images in a monorepo](https://pnpm.io/docker#example-2-build-multiple-docker-images-in-a-monorepo), the Dockerfile is built with the targets 'api' and 'web' in mind. 
+Then call:
+```bash
+docker build . --target web --tag genima-web:latest
+docker build . --target api --tag genima-api:latest
+```
+
 ## Environment variables
 Format these like:
 `.env.<environment>`, e.g. `.env.local`, `.env.test` or `.env.prod`.
