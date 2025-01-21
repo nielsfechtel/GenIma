@@ -15,5 +15,8 @@
   // article: https://www.kenmuse.com/blog/avoiding-dubious-ownership-in-dev-containers/
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
 
-  "forwardPorts": [3000, 4000]
+  // as the application is now running in docker containers, I want these ports to be available on the local machine,
+  // and not taken up by this devcontainer.
+  // (because, as we're running Docker out of Docker, the containers run on the local machine)
+  // "forwardPorts": [3000, 4000]
 }
