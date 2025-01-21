@@ -1,0 +1,9 @@
+# needs to be here because pnpm deploy follows the
+# deploy-behavior of npm pack/npm-packlist, which
+# is not copying during the deploy gigignored folders.
+# which includes .next, the build-folder. Yep.
+# Adding a local (even empty) .npmignore means that file
+# is used as ignore instead. 
+#
+# See https://github.com/pnpm/pnpm/issues/7286
+# https://github.com/pnpm/pnpm/issues/5082
