@@ -1,6 +1,7 @@
 FROM node:23-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
+ENV PNPM_FLAGS="--shamefully-hoist"
 RUN corepack enable
 
 
@@ -19,7 +20,7 @@ FROM base AS api
 COPY --from=build /prod/api /prod/api
 WORKDIR /prod/api
 EXPOSE 4000
-CMD [ "pnpm", "start" ]
+CMD [ "pnpm", "start:prod" ]
 
 
 
