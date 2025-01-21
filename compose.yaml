@@ -1,48 +1,13 @@
-# Approach: don't use Compose to BUILD, only to run
-# Build manually/via script
-# otherwise you'd need to specify build: -> context -> folder w/ Dockerfile
-# You can specify both, it'd build if the image doesn't exist
-
-# For the start-command, we don't specify any, so it will use the one specified in the Dockerfile as ENTRYPOINT
-
 services:
-  next-service:
+  web:
     build:
       context: .
-      dockerfile: ./apps/web/Dockerfile
+      target: web
     ports:
-      - "3001:3001"
-    networks:
-      - frontend
-      - backend
-    depends_on:
-      - database
-    env_file:
-      - "./apps/web/.env.prod"
-  nest-service:
+      - "3000:3000"
+  api:
     build:
-      # Why both? -> Clearer/more specific
-      # Actually in this case we need both, as they are also different - because
       context: .
-      dockerfile: ./apps/api/Dockerfile
-    env_file:
-      - "./apps/api/config/.env.prod"
-    networks:
-      - backend
-    depends_on:
-      - database
-  database:
-    image: "mongo"
-    networks:
-      - backend
-    volumes:
-      - mongodb-data:/data/db/
-
-networks:
-  frontend:
-  backend:
-
-volumes:
-  mongodb-data:
-    driver: local
-    name: mongo-data
+      target: api
+    ports:
+      - "4000:4000"
