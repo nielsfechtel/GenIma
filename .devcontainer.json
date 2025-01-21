@@ -15,5 +15,5 @@
   // article: https://www.kenmuse.com/blog/avoiding-dubious-ownership-in-dev-containers/
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
 
-  "forwardPorts": [3000]
+  "forwardPorts": [3000, 4000]
 }
