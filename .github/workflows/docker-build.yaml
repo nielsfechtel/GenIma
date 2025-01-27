@@ -35,12 +35,11 @@ jobs:
           - target: web
             image: ${{ github.repository }}-web
           - target: api
-            image: ${{ github.repository }}-web
+            image: ${{ github.repository }}-api
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
       packages: write
-      attestations: write
       id-token: write
     steps:
       - name: Checkout repository
