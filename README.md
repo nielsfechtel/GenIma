@@ -23,10 +23,12 @@ docker build . --target api --tag genima-api:latest
 ```
 
 ## Environment variables
-Format these like:
-`.env.<environment>`, e.g. `.env.local`, `.env.test` or `.env.prod`. 
+Do not add quotes around the values.
+Kubernetes appears to surround these values with quotes again, resulting in values like process.env.TEST === '"someapikey"'.
+Feels like a bug? See [this issue](https://github.com/kubernetes-sigs/kustomize/issues/4525#issuecomment-2036991080).
 
 ### apps/web
+> Name: `.env.local`
 #### API
 - API_SERVER_URL: the URL of backend
 #### Authentication
@@ -35,7 +37,7 @@ Format these like:
 - AUTH_SECRET: a secret used by Next-Auth. Can be generated with `npx auth secret`.
 
 ### apps/api
-> This file has to be in `apps/api/config`!
+> Name: `./config/.env.prod`
 #### Authentication
 - JWT_KEY: a random long string used for encrypting the JWTs
 #### OpenAI
@@ -49,4 +51,4 @@ Format these like:
 - HELLO_EMAIL_ADDRESS: the address used for hello@..., e.g. for verify-email-mails
 - WEB_BASE_URL: the base-url used for the link in the e.g. verify-email-mails
 #### Database
-- DB_CONNECTION_URL: a Mongo DB-connection-string, including user and password
+- DB_CONNECTION_URL: a Mongo DB-connection-string
