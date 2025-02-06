@@ -3,8 +3,8 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_FLAGS="--shamefully-hoist"
 # See https://github.com/pnpm/pnpm/issues/9029
+RUN corepack enable pnpm
 RUN pnpm i -g corepack@latest
-RUN corepack enable
 
 
 
