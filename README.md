@@ -1,12 +1,5 @@
 # GenIma
-
-# TODO
-- [ ] Use GitOps to pull image to homelab
-- [ ] Monitor using Prometheus and Grafana
-- [ ] Add this to resume
-
 ## Overview
-
 This project utilizes NextJS for the Frontend and webserver, as well as NestJS with tRPC for the API.
 
 Using a text supplied by the user along with some categories, ChatGPT (4o-mini) and Dall-e-3 are used to turn your input into an image.
