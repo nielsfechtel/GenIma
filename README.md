@@ -33,6 +33,7 @@ Format these like:
 - AUTH_GOOGLE_ID: Google OAuth Client ID
 - AUTH_GOOGLE_SECRET: Google OAuth Secret
 - AUTH_SECRET: a secret used by Next-Auth. Can be generated with `npx auth secret`.
+- NEXTAUTH_URL: base-url for use in NextAuth's callback-URL, etc. 
 
 ### apps/api
 > This file has to be in `apps/api/config`!
