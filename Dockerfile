@@ -2,6 +2,8 @@ FROM node:23-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_FLAGS="--shamefully-hoist"
+# See https://github.com/pnpm/pnpm/issues/9029
+RUN pnpm i -g corepack@latest
 RUN corepack enable
 
 
