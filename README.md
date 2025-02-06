@@ -1,12 +1,5 @@
 # GenIma
-
-# TODO
-- [ ] Use GitOps to pull image to homelab
-- [ ] Monitor using Prometheus and Grafana
-- [ ] Add this to resume
-
 ## Overview
-
 This project utilizes NextJS for the Frontend and webserver, as well as NestJS with tRPC for the API.
 
 Using a text supplied by the user along with some categories, ChatGPT (4o-mini) and Dall-e-3 are used to turn your input into an image.
@@ -35,6 +28,7 @@ Feels like a bug? See [this issue](https://github.com/kubernetes-sigs/kustomize/
 - AUTH_GOOGLE_ID: Google OAuth Client ID
 - AUTH_GOOGLE_SECRET: Google OAuth Secret
 - AUTH_SECRET: a secret used by Next-Auth. Can be generated with `npx auth secret`.
+- NEXTAUTH_URL: base-url for use in NextAuth's callback-URL, etc. 
 
 ### apps/api
 > Name: `./config/.env.prod`
