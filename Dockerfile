@@ -2,9 +2,7 @@ FROM node:23-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_FLAGS="--shamefully-hoist"
-# See https://github.com/pnpm/pnpm/issues/9029
-RUN corepack enable pnpm
-RUN pnpm i -g corepack@latest
+RUN corepack enable
 
 
 
@@ -13,8 +11,10 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run -r build
-RUN pnpm deploy --filter=api --prod /prod/api
-RUN pnpm deploy --filter=web --prod /prod/web
+# See https://github.com/pnpm/pnpm/issues/9029
+# and https://github.com/pnpm/pnpm/releases/tag/v10.2.1
+RUN pnpm deploy --legacy --filter=api --prod /prod/api
+RUN pnpm deploy --legacy --filter=web --prod /prod/web
 
 
 
