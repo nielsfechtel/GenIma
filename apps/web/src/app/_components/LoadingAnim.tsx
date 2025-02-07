@@ -16,22 +16,27 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
   )
 
   const [currentMessage, setCurrentMessage] = useState('')
+  const messageDisplayDuration = 5000
 
   useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null
+
     if (showMessages) {
       // @ts-expect-error Again, Next-intl typing errors
-      const message = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
-      // @ts-expect-error Again, Next-intl typing errors
-      const message_interval = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
-      setCurrentMessage(message)
+      const initialMessage = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+      setCurrentMessage(initialMessage)
 
-      const intervalId = setInterval(() => {
-        setCurrentMessage(message_interval)
-      }, 5500)
-
-      return () => clearInterval(intervalId)
+      intervalId = setInterval(() => {
+        // @ts-expect-error Again, Next-intl typing errors
+        const newMessage = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+        setCurrentMessage(newMessage)
+      }, messageDisplayDuration)
     }
-  }, [showMessages, messageKeys, t])
+
+    return () => {
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [showMessages])
 
   const [progress, setProgress] = useState(0)
 
@@ -43,7 +48,7 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
         }
         return prevProgress + 1
       })
-    }, 55) // 55ms * 100 steps = 5500ms (5.5 seconds)
+    }, messageDisplayDuration / 100)
 
     return () => clearInterval(interval)
   }, [])
