@@ -17,7 +17,7 @@ docker build . --target api --tag genima-api:latest
 
 ## Environment variables
 Do not add quotes around the values.
-Kubernetes appears to surround these values with quotes again, resulting in values like process.env.TEST === '"someapikey"'.
+Kubernetes appears to surround these values with quotes again, resulting in values like process.env.TEST === '"someapikey"' (that's a "word" qouted again with 'single quotes').
 Feels like a bug? See [this issue](https://github.com/kubernetes-sigs/kustomize/issues/4525#issuecomment-2036991080).
 
 ### apps/web
