@@ -22,13 +22,17 @@ export default function LoadingAnim({ showMessages = false }: LoadingProps) {
     let intervalId: NodeJS.Timeout | null = null
 
     if (showMessages) {
-      // @ts-expect-error Again, Next-intl typing errors
-      const initialMessage = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+      const initialMessage = t(
+        // @ts-expect-error Again, Next-intl typing errors
+        messageKeys[Math.floor(Math.random() * messageKeys.length)]
+      )
       setCurrentMessage(initialMessage)
 
       intervalId = setInterval(() => {
-        // @ts-expect-error Again, Next-intl typing errors
-        const newMessage = t(messageKeys[Math.floor(Math.random() * messageKeys.length)])
+        const newMessage = t(
+          // @ts-expect-error Again, Next-intl typing errors
+          messageKeys[Math.floor(Math.random() * messageKeys.length)]
+        )
         setCurrentMessage(newMessage)
       }, messageDisplayDuration)
     }
